@@ -88,9 +88,9 @@
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
-            <int>2048</int>
+            <int>1024</int>
             <key>height</key>
-            <int>2048</int>
+            <int>1024</int>
         </QSize>
         <key>fixedTextureSize</key>
         <QSize>
@@ -201,6 +201,8 @@
                 <false/>
             </struct>
             <key type="filename">baoshi2.png</key>
+            <key type="filename">baoshi_2.png</key>
+            <key type="filename">baoshi_4.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -210,6 +212,20 @@
                 <rect>15,15,30,30</rect>
                 <key>scale9Paddings</key>
                 <rect>15,15,30,30</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">baoshi_1.png</key>
+            <key type="filename">baoshi_3.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>11,11,21,21</rect>
+                <key>scale9Paddings</key>
+                <rect>11,11,21,21</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -414,6 +430,10 @@
             <filename>ground.png</filename>
             <filename>baoshi.png</filename>
             <filename>baoshi2.png</filename>
+            <filename>baoshi_4.png</filename>
+            <filename>baoshi_3.png</filename>
+            <filename>baoshi_2.png</filename>
+            <filename>baoshi_1.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
