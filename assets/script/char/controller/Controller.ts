@@ -18,7 +18,7 @@ export class Controller extends RecycleAble implements IController
     constructor()
     {
         super();
-        this.name='Controller';
+  //      this.name='Controller';
     }
     /**
      * 初始化数据; 创建显示对象;

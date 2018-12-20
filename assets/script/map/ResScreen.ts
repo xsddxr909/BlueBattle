@@ -49,7 +49,7 @@ export class ResScreen extends RecycleAble
     
     enterScreen(data: PosData): any {
         let idx:number=-1;
-        switch(data.name){
+        switch(data.poolname){
             case CharData.name:
              idx =this.charList.indexOf(data);
              if(idx<0){
@@ -66,7 +66,7 @@ export class ResScreen extends RecycleAble
     }
     leaveScreen(data: PosData): any {
         let idx:number=-1;
-        switch(data.name){
+        switch(data.poolname){
             case CharData.name:
              idx =this.charList.indexOf(data);
              if(idx>=0){
@@ -124,7 +124,7 @@ export class ResScreen extends RecycleAble
      */
     public inHere(pos:PosData):boolean{
         let idx:number=-1;
-        switch(pos.name){
+        switch(pos.poolname){
             case CharData.name:
              idx =this.charList.indexOf(pos);
             break;

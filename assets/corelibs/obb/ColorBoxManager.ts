@@ -24,8 +24,7 @@ export class ColorBoxManager
         return ColorBoxManager.m_pInstance;
     }
     public static debug:boolean=true;
-    public boxList:ListDataPool<ColorBox>=null;
-    private onList:Array<ColorBox>=null;    
+    public boxList:ListDataPool<ColorBox>=null; 
 
     private  inited:boolean=false;
  
@@ -33,7 +32,6 @@ export class ColorBoxManager
     {
         if(this.inited)return;
         this.boxList=new ListDataPool<ColorBox>(()=>new ColorBox());
-        this.onList=this.boxList.getOnList();
         this.inited=true;  
     }
     public showColorBox(target:IObbBox, color:cc.Color=cc.Color.GREEN,noRot:boolean=false,opacity:number=100):ColorBox{
@@ -44,8 +42,8 @@ export class ColorBoxManager
        return box;
     }
     public  update(dt:number){
-        for (let i = 0, len:number=this.onList.length; i < len; i++) {
-            this.onList[i].Update(dt);
+        for (let i = 0, len:number=this.boxList.getOnList().length; i < len; i++) {
+            this.boxList.getOnList()[i].Update(dt);
         }
     }
  

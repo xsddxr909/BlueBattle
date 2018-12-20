@@ -115,7 +115,7 @@ export  class EventDispatcher implements IRelease
     
 }
 export class EventRecycleAble extends EventDispatcher implements IRecycleAble{
-    name:string;
+    poolname:string;
     id:number;
     pool: Pool<EventRecycleAble>;
     //是否被回收中 true为在Pool中;

@@ -16,7 +16,7 @@ export class Action extends RecycleAble  implements IUpdate
     //技能类型; 1 攻击 2技能 0其他.. 3 roll 滚
     public actionType:number=0;
     //动作标签;
-    public  actionLabel:string;
+   // public  actionLabel:string;
 
     public lenght:number =0;
     public totalFrame:number =0;

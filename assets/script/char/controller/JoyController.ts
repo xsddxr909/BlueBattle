@@ -3,7 +3,6 @@ import { GameEventID } from "../../common/GameEventID";
 import { Character } from "../Character";
 import { ENUMS } from "../../common/Enum";
 import { Controller } from "./Controller";
-import { MovePart } from "../part/MovePart";
 import { MyMath } from "../../../corelibs/util/MyMath";
 import { SkillPart } from "../part/SkillPart";
 import { Run } from "../action/Run";

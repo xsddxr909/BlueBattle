@@ -1,0 +1,150 @@
+{
+    "version": "0.3.0",
+    "scope": "tree",
+    "id": "8b37dfd5-2205-4f77-ba6f-721b983e801d",
+    "title": "A behavior tree",
+    "description": "",
+    "root": "877d0820-bd1a-49f8-82f3-8d59ac8bda33",
+    "properties": {},
+    "nodes": {
+      "877d0820-bd1a-49f8-82f3-8d59ac8bda33": {
+        "id": "877d0820-bd1a-49f8-82f3-8d59ac8bda33",
+        "name": "Select",
+        "title": "选择",
+        "description": "多个选择节点中选择一个",
+        "properties": {},
+        "display": {
+          "x": -84,
+          "y": -96
+        },
+        "children": [
+          "8e400ae5-f652-4fdd-937e-6cffc1392d42",
+          "9a4c0bed-66c9-4589-a51f-180cc0f1f1bf",
+          "44951e2d-76f7-4f1e-837b-29e63676fb31"
+        ]
+      },
+      "8e400ae5-f652-4fdd-937e-6cffc1392d42": {
+        "id": "8e400ae5-f652-4fdd-937e-6cffc1392d42",
+        "name": "Sequence",
+        "title": "顺序1",
+        "description": "顺序节点,从上到下 顺序执行",
+        "properties": {},
+        "display": {
+          "x": 36,
+          "y": -204
+        },
+        "children": []
+      },
+      "44951e2d-76f7-4f1e-837b-29e63676fb31": {
+        "id": "44951e2d-76f7-4f1e-837b-29e63676fb31",
+        "name": "Paralle",
+        "title": "并行",
+        "description": "并行，多个同时进行",
+        "properties": {},
+        "display": {
+          "x": 48,
+          "y": 72
+        },
+        "children": [
+          "9f551cd8-c76d-4bb6-bd58-d80da0233096"
+        ]
+      },
+      "9a4c0bed-66c9-4589-a51f-180cc0f1f1bf": {
+        "id": "9a4c0bed-66c9-4589-a51f-180cc0f1f1bf",
+        "name": "Random",
+        "title": "随机",
+        "description": "",
+        "properties": {},
+        "display": {
+          "x": 36,
+          "y": -108
+        },
+        "children": [
+          "6ea3bb67-eb96-4f1f-855a-81c0f873f351"
+        ]
+      },
+      "6ea3bb67-eb96-4f1f-855a-81c0f873f351": {
+        "id": "6ea3bb67-eb96-4f1f-855a-81c0f873f351",
+        "name": "IfElse",
+        "title": "IfElse",
+        "description": "条件判断，3节点（条件，成功，失败）",
+        "properties": {},
+        "display": {
+          "x": 144,
+          "y": -84
+        },
+        "children": [
+          "6d7ff421-6756-4ade-b7e4-194e1758c621",
+          "fa307f92-48aa-4c98-8bff-70dccec7fadb",
+          "e8abf022-781a-43d9-9b00-9c3ff8602e3c"
+        ]
+      },
+      "9f551cd8-c76d-4bb6-bd58-d80da0233096": {
+        "id": "9f551cd8-c76d-4bb6-bd58-d80da0233096",
+        "name": "Sequence",
+        "title": "顺序",
+        "description": "顺序节点,从上到下 顺序执行",
+        "properties": {},
+        "display": {
+          "x": 156,
+          "y": 48
+        },
+        "children": []
+      },
+      "6d7ff421-6756-4ade-b7e4-194e1758c621": {
+        "id": "6d7ff421-6756-4ade-b7e4-194e1758c621",
+        "name": "Wait",
+        "title": "Wait <milliseconds>ms",
+        "description": "",
+        "properties": {
+          "milliseconds": 0
+        },
+        "display": {
+          "x": 300,
+          "y": -180
+        }
+      },
+      "fa307f92-48aa-4c98-8bff-70dccec7fadb": {
+        "id": "fa307f92-48aa-4c98-8bff-70dccec7fadb",
+        "name": "UseSkill",
+        "title": "UseSkill",
+        "description": "",
+        "properties": {
+          "wqwsdf": 112
+        },
+        "display": {
+          "x": 324,
+          "y": -96
+        }
+      },
+      "e8abf022-781a-43d9-9b00-9c3ff8602e3c": {
+        "id": "e8abf022-781a-43d9-9b00-9c3ff8602e3c",
+        "name": "Failer",
+        "title": "Failer",
+        "description": "",
+        "properties": {},
+        "display": {
+          "x": 324,
+          "y": -36
+        }
+      }
+    },
+    "display": {
+      "camera_x": 557,
+      "camera_y": 341.5,
+      "camera_z": 1,
+      "x": -192,
+      "y": -72
+    },
+    "custom_nodes": [
+      {
+        "version": "0.3.0",
+        "scope": "node",
+        "name": "UseSkill",
+        "category": "action",
+        "title": null,
+        "description": null,
+        "properties": {}
+      }
+    ]
+  }

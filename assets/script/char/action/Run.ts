@@ -13,7 +13,7 @@ export class Run extends Action
     {
         super();
         this.defultPriority=ENUMS.CancelPriority.Stand_Move;
-        this.actionLabel="Run";
+      //  this.actionLabel="Run";
     }
    
     public init(skillpart:SkillPart){

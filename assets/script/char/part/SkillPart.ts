@@ -51,7 +51,7 @@ export class SkillPart extends RecycleAble
       return this.skillList;
     }
     public doActionSkillByLabel(actionLabel: any,frame:number=0,chkCencelLV:boolean=true): void {
-        if(this.currentAction!=null&&this.currentAction.name==actionLabel.name){
+        if(this.currentAction!=null&&this.currentAction.poolname==actionLabel.name){
            return;
         }
         let tempAction:Action=Core.ObjectPoolMgr.get(actionLabel);
@@ -69,7 +69,7 @@ export class SkillPart extends RecycleAble
         this.currentAction.init(this);
         this.currentAction.Begin(frame);
         this.char.charData.currentActionType=this.currentAction.actionType;
-        this.char.charData.currentActionLabel=this.currentAction.name;
+        this.char.charData.currentActionLabel=this.currentAction.poolname;
     }
     public chkCancelLvActionSkill(actionLabel: any,linkAction?:Action):boolean{
         if(this.currentAction==null){

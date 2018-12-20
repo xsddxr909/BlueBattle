@@ -60,6 +60,34 @@ export default class Random
             return  this.m_arrIntNumbers[this.m_iCurrentIndex++];
         }
     }
+    /**
+     * 获取一个 start 到 max最大值 (包含最大值)之内的随机数;
+     */
+    public GetRandomMax(max:number,start:number=0):number{
+        //  (int)Mathf.Floor(getRandom(charId) * (end - start + 1) + start);
+        let num:number = Math.floor( this.GetRandom()*(max-start+1) + start );
+        return num;
+    }
+
+    public GetRandomList(count:number):Array<number>
+    {
+        let resultList:Array<number> = new Array<number>();
+        let tempList:Array<number>= new Array<number>();
+        for (let i:number = 0; i < count; ++i)
+        {
+            tempList.push(i);
+        }
+        while(tempList.length > 0)
+        {
+            let index:number = this.GetRandomMax(tempList.length); 
+            //  random.Next(0, (tempList.Count - 1));
+            resultList.push(tempList[index]);
+            tempList.splice(index,1);
+        }
+
+        return resultList;
+    }
+
 
     public GetLength(): number
     {

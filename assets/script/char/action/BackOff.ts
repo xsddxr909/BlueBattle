@@ -14,7 +14,7 @@ export class BackOff extends Action
     {
         super();
         this.defultPriority=ENUMS.CancelPriority.NormalAction;
-        this.actionLabel="BackOff";
+    //    this.actionLabel="BackOff";
         this.actionType=1;
     }
    

@@ -1,6 +1,7 @@
 export interface IRecycleAble {
     id:number;
-    name:string;
+    //池的名字 这个最好不要改.会影响池；
+    poolname:string;
     pool:IPool;
     isRecycled:boolean;
     //在获取时;
@@ -34,6 +35,7 @@ export class Pool< T extends IRecycleAble> implements IPool{
             item = this._createItem();
         }
         item.pool=this;
+        item.poolname=this.name;
         item.isRecycled = false;
         item.onGet();
         return item;
@@ -67,6 +69,7 @@ export class Pool< T extends IRecycleAble> implements IPool{
 
 export class RecycleAbleComponent extends cc.Component implements IRecycleAble{
     id:number;
+    poolname:string;
     pool: Pool<IRecycleAble>;
     isRecycled: boolean=false;
     
@@ -91,7 +94,7 @@ export class RecycleAbleComponent extends cc.Component implements IRecycleAble{
     }
 }
 export class RecycleAble  implements IRecycleAble{
-    name:string;
+    poolname:string;
     id:number;
     pool: IPool;
     //是否被回收中 true为在Pool中;
@@ -260,7 +263,7 @@ export class MultiplePool implements IPool{
     //回收一个对象;
     recycle(item:RecycleAble ) {
         item.isRecycled = true;
-        this.map.get(item.name).push(item);
+        this.map.get(item.poolname).push(item);
     }
     getArrayLenth(classname:string):number{
         if(!this.map.has(classname)){
@@ -278,7 +281,7 @@ export class MultiplePool implements IPool{
         if(!item) {
             item = new classFactory();
             item.pool=this;
-            item.name=classFactory.name;
+            item.poolname=classFactory.name;
             item.isRecycled = false;
             item.id=this.CreateID;
         }

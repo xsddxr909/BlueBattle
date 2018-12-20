@@ -18,7 +18,7 @@ export class Dead extends Action
     {
         super();
         this.defultPriority=ENUMS.CancelPriority.CantDoAnyAction;
-        this.actionLabel="Dead";
+    //    this.actionLabel="Dead";
         this.actionType=1;
     }
    
