@@ -1,8 +1,5 @@
-import { RecycleAble, ListDataPool } from "../util/Pool";
-import Core from "../Core";
-import { ResStruct } from "../util/ResourcesMgr";
-import { ResType } from "../CoreDefine";
-import { NodeBase, NodeCombiner } from "./NodeTree";
+import { ListDataPool } from "../util/Pool";
+import { NodeCombiner } from "./NodeBehaTree";
 
 /**
  * 行为树;  加载json 解析 生成行为树; 
@@ -34,12 +31,12 @@ export class BehaviorTreeManager
         this.nodeList=new ListDataPool<NodeCombiner>(()=>new NodeCombiner());
         this.inited=true;  
     }
-    public creatNodeTree(url:string){
+    public creatNodeTree(){
            //下载一个ai json;
 
            //解析;
     }
-    public  update(dt:number){
+    public  update(){
         for (let i = 0, len:number=this.nodeList.getOnList().length; i < len; i++) {
      //       this.nodeList.getOnList()[i].Update();
         }

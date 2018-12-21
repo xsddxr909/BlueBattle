@@ -1,9 +1,9 @@
-import { NodeType, NodeBase } from "./NodeTree";
+import { NodeType, NodeBase } from "./NodeBehaTree";
 
  /// <summary>
 /// 条件节点(叶节点)
 /// </summary>
-export  class ConditionNode extends NodeBase
+export  class ConditionBeha extends NodeBase
 {
     constructor()
     {

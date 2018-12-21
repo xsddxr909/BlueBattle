@@ -1,5 +1,3 @@
-import { MovePart } from "../part/MovePart";
-import { SkillPart } from "../part/SkillPart";
 import { Action } from "./Action";
 import { ENUMS } from "../../common/Enum";
 

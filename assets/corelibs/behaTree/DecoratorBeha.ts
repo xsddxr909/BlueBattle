@@ -1,4 +1,4 @@
-import { NodeCombiner, NodeType, ResultType } from "./NodeTree";
+import { NodeCombiner, NodeType, ResultType } from "./NodeBehaTree";
 
 /// <summary>************************************************************************************************************************************/
 /// 修饰节点(组合节点) 过滤器

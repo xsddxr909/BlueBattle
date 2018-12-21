@@ -1,6 +1,5 @@
 import IRelease from "../../corelibs/interface/IRelease";
 import { Character } from "../char/Character";
-import FrameSync from "./FrameSync";
 import Core from "../../corelibs/Core";
 import CameraCtrl from "./CameraCtrl";
 import MapManager from "../map/MapManager";
@@ -8,6 +7,7 @@ import { UIEnum } from "../UI/UIenum";
 import { CharManager } from "../char/manager/CharManager";
 import { CharData } from "../data/CharData";
 import { ENUMS } from "../common/Enum";
+import FrameSync from "../../corelibs/FrameSync";
 
 
 
