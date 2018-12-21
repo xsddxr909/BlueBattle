@@ -1,4 +1,5 @@
 import { NodeCombiner, NodeType, ResultType } from "./NodeBehaTree";
+import Core from "../Core";
 
 /// <summary>************************************************************************************************************************************/
 /// 修饰节点(组合节点) 过滤器
@@ -133,6 +134,53 @@ export class TimeDec extends NodeCombiner
         super.onRecycle();
     }  
 }
+//帧同步时间节点；时间节点用于在指定的时间内，持续调用其子节点 子节点只有一个;
+export class TimeSynDec extends NodeCombiner
+{
+    private overTime:number=0;
+    private startTime:number=0;
+    constructor()
+    {
+      super();
+       this.nodeType=NodeType.Decorator;
+    }
+   
+    public Execute():ResultType
+    {
+        if(Core.FrameSync==null){
+            this.lastResultType=ResultType.Fail;
+            return ResultType.Fail;
+        } 
+        if(this.startTime==0){
+            this.startTime=Core.FrameSync.getNowTime();
+        }
+        this.nodeChildList[0].Execute();
+        if(Core.FrameSync.getNowTime()-this.startTime>=this.overTime){
+            this.lastResultType=ResultType.Success;
+            return ResultType.Success;
+        }else{
+            this.lastResultType=ResultType.Running;
+            return ResultType.Running;
+        }
+    }
+    public reset(){
+        this.startTime=0;
+        super.reset();
+    }
+    public SetOverTime(overTime:number):void
+    {
+        this.overTime = overTime;
+    }
+    /**
+     *释放 时候;
+    **/ 
+    onRecycle(): void {
+        this.startTime=0;
+        this.overTime=0;
+        super.onRecycle();
+    }  
+}
+
 
 //未完成；
 export class LoopUntilDec extends NodeCombiner
