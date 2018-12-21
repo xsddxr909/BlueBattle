@@ -54,7 +54,7 @@ export class ResMap extends RecycleAble
      * 更新是否需要创建; 资源 减少创建压力;
      **/
     UpdateTask(dt:number){
-        let nowTime:number=cc.sys.now();
+        let nowTime:number= Core.FrameSync.getNowTime();
         for (let i = 0; i < 2; i++) {
             const resSc:ResScreen = this.getResScreenById(this.reflushIdx);
         //    console.log("resSc",resSc,this.reflushIdx,this.totalScCount)

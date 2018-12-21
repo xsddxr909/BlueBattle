@@ -15,6 +15,7 @@ import HttpHandler from "./net/HttpHandler";
 import {Platform} from "./platform/Platform";
 import { MultiplePool } from "./util/Pool";
 import { ColorBoxManager } from "./obb/ColorBoxManager";
+import FrameSync from "./FrameSync";
 
 
 export default class Core
@@ -58,6 +59,8 @@ export default class Core
     public static FrameRate:number=30;
     //秒为单位;
     public static deltaTime:number;
+
+    private static mFrameSyn:FrameSync;
 
     public constructor()
     {
@@ -207,6 +210,14 @@ export default class Core
     public static get NetMgr(): NetMgr
     {
         return Core.m_pNetMgr;
+    }
+    public static get FrameSync(): FrameSync
+    {
+        return Core.mFrameSyn;
+    }
+    public static set FrameSync(value:FrameSync)
+    {
+        Core.mFrameSyn=value;
     }
     public static get ServerHandler(): ServerHandler
     {

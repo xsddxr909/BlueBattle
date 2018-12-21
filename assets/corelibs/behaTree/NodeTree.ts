@@ -105,30 +105,6 @@ export  class NodeCombiner extends NodeBase
         super.Release();
     }
 }
- /// <summary>
-/// 条件节点(叶节点)
-/// </summary>
-export  class ConditionNode extends NodeBase
-{
-    constructor()
-    {
-      super();
-       this.nodeType=NodeType.Condition;
-       this.isLeaf=true;
-    }
-}
- /// <summary>
-///  行为节点(叶节点)
-/// </summary>
-export  class ActionNode  extends NodeBase
-{
-    constructor()
-    {
-      super();
-       this.nodeType=NodeType.Action;
-       this.isLeaf=true;
-    }
-}
 
 /// <summary>
 /// 选择节点(组合节点)
@@ -326,50 +302,6 @@ export class RandomNode extends NodeCombiner
     }  
 }
 
-/// <summary>
-/// 修饰节点(组合节点) 过滤器
-/// </summary>
-export class DecoratorNode extends NodeCombiner
-{
-    /// <summary>
-    /// 希望的结果
-    /// </summary>
-    private untilResultType:ResultType = ResultType.Fail;
-    constructor()
-    {
-      super();
-       this.nodeType=NodeType.Decorator;
-    }
-    /// <summary>
-    /// 修饰节点只有一个子节点，执行子节点直到 执行结果 = untilResultType,将 结果返回给父节点
-    /// 如果执行结果 != untilResultType 则返回 Running
-    /// </summary>
-    /// <returns></returns>
-    public Execute():ResultType
-    {
-        let resultType:ResultType = this.nodeChildList[0].Execute();
-        if (resultType != this.untilResultType)
-        {
-            return ResultType.Running;
-        }
-        this.lastResultType=resultType;
-        return resultType;
-    }
-    public reset(){
-        super.reset();
-    }
-    public SetResultType(resultType:ResultType):void
-    {
-        this.untilResultType = resultType;
-    }
-    /**
-     *释放 时候;
-    **/ 
-    onRecycle(): void {
-        this.untilResultType = ResultType.Fail;
-        super.onRecycle();
-    }  
-}
 
  /// <summary>
 /// 并行节点(组合节点) 目前并行节点做了些修改 返回 成功 的下帧 不会再运行；直到全部 成功 或者 一个 失败
@@ -504,6 +436,7 @@ export class IfElseNode extends NodeCombiner
 /// </summary>
 export class SwitchNode extends NodeCombiner
 {
+    private caseIndex:number=-1;
     constructor()
     {
        super();
@@ -512,12 +445,40 @@ export class SwitchNode extends NodeCombiner
 
     public  Execute():ResultType
     {
-         
+        let index:number = 0;
+        if (this.caseIndex != -1)
+        {
+            index = this.caseIndex;
+        }
+        this.caseIndex = -1;
 
-        this.lastResultType=ResultType.Running;
-        return ResultType.Running;
+        let resultType:ResultType=ResultType.Defult;
+        for (let i:number = index; i < this.nodeChildList.length; ++i)
+        {
+            const node:NodeBase = this.nodeChildList[i] ;
+            resultType=node.Execute();
+            if (resultType == ResultType.Fail)
+            {
+                continue;
+            }
+
+            if (resultType == ResultType.Success)
+            {
+                //成功了直接返回;
+                break;
+            }
+            if (resultType == ResultType.Running)
+            {
+                //证明选择成功了;
+                this.caseIndex=i;
+                break;
+            }
+        }
+        this.lastResultType=resultType;
+        return resultType;
     }
     public reset(){
+        this.caseIndex=-1;
         super.reset();
     }
 }
@@ -606,7 +567,7 @@ export enum NodeType
     /// </summary>
     Action = 6,
 
-    /// 条件3条执行节点;
+    /// 条件3条执行节点; 子节点 必须是3个 Condition + true Action + false Action;
     IfElse =7,
     
     /// 多条件选择行节点; 
@@ -614,8 +575,6 @@ export enum NodeType
 
     /// 多条件选择行节点; 里面有两个节点 Condition + Action
     Case = 9,
-
-   
 }
 /// <summary>
 /// 节点执行结果

@@ -1,4 +1,5 @@
-import { RecycleAble } from "../../corelibs/util/Pool";
+import { RecycleAble } from "./util/Pool";
+import Core from "./Core";
 export default class FrameSync extends RecycleAble {
     /**
      * 是否单机;
@@ -48,6 +49,14 @@ export default class FrameSync extends RecycleAble {
             this.ResetStartTime();
   //      }
     }
+    //游戏开始时间;
+    public  getStartTime(){
+         return  this.clientStartFrameTime;
+    }
+    //游戏当前时间；
+    public  getNowTime(){
+        return  this.clientStartFrameTime+this._currRenderFrameId * this.delta1000;
+   }
     public  ResetStartTime():void
     {
         // if (!this.isPlayAlone)
@@ -66,6 +75,7 @@ export default class FrameSync extends RecycleAble {
         this._currRenderFrameId=0;
         this._clientDeltaTime=1/this._clientFrameDelta;
         this.delta1000= this._clientDeltaTime*1000 >>0;
+        Core.FrameSync=this;
     }
 
     private _didRecFrame = false;
@@ -258,6 +268,7 @@ export default class FrameSync extends RecycleAble {
      *释放 时候;
      **/ 
     onRecycle(): void {
+      Core.FrameSync=null;
       this._updateFun=null;
       super.onRecycle();
     }  
