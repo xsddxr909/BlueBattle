@@ -59,9 +59,9 @@ export class LoopDec extends NodeCombiner
             this.lastResultType=ResultType.Fail;
             return ResultType.Fail;
         }
-        let resultType:ResultType = this.nodeChildList[0].Execute();
-        if (this.maxLoop==-1||resultType ==ResultType.Running)
+        if (this.maxLoop==-1)
         {
+            this.nodeChildList[0].Execute();
             this.lastResultType=ResultType.Running;
             return ResultType.Running;
         }else {
@@ -70,7 +70,7 @@ export class LoopDec extends NodeCombiner
                 this.lastResultType=ResultType.Success;
                 return ResultType.Success;
             }  
-
+            this.nodeChildList[0].Execute();
             this.lastResultType=ResultType.Running;
             return ResultType.Running;
         }
@@ -88,6 +88,7 @@ export class LoopDec extends NodeCombiner
     **/ 
     onRecycle(): void {
         this.maxLoop=-1;
+        this.nowCount=0;
         super.onRecycle();
     }  
 }
@@ -108,11 +109,15 @@ export class TimeDec extends NodeCombiner
         if(this.startTime==0){
             this.startTime=cc.sys.now();
         }
-        this.nodeChildList[0].Execute();
-        if(cc.sys.now()-this.startTime>=this.overTime){
+        let dic:number=cc.sys.now()-this.startTime;
+        if(dic>=this.overTime){
+            // if(dic=this.overTime){
+            //     this.nodeChildList[0].Execute();
+            // }
             this.lastResultType=ResultType.Success;
             return ResultType.Success;
         }else{
+            this.nodeChildList[0].Execute();
             this.lastResultType=ResultType.Running;
             return ResultType.Running;
         }
@@ -148,17 +153,18 @@ export class TimeSynDec extends NodeCombiner
     public Execute():ResultType
     {
         if(Core.FrameSync==null){
+            console.log("FrameSync 未初始化");
             this.lastResultType=ResultType.Fail;
             return ResultType.Fail;
         } 
         if(this.startTime==0){
             this.startTime=Core.FrameSync.getNowTime();
         }
-        this.nodeChildList[0].Execute();
         if(Core.FrameSync.getNowTime()-this.startTime>=this.overTime){
             this.lastResultType=ResultType.Success;
             return ResultType.Success;
         }else{
+            this.nodeChildList[0].Execute();
             this.lastResultType=ResultType.Running;
             return ResultType.Running;
         }
@@ -180,6 +186,132 @@ export class TimeSynDec extends NodeCombiner
         super.onRecycle();
     }  
 }
+
+//帧同步 帧间隔节点；用于在指定的帧范围内，持续调用其子节点， 子节点只有一个;
+export class InFramesSynDec extends NodeCombiner
+{
+    private overFrame:number=0;
+    private startFrame:number=0;
+    constructor()
+    {
+      super();
+       this.nodeType=NodeType.Decorator;
+    }
+   
+    public Execute():ResultType
+    {
+        if(Core.FrameSync==null){
+            console.log("FrameSync 未初始化");
+            this.lastResultType=ResultType.Fail;
+            return ResultType.Fail;
+        } 
+        if(this.startFrame==0){
+            this.startFrame=Core.FrameSync.currRenderFrameId;
+        }
+        if(Core.FrameSync.currRenderFrameId-this.startFrame>=this.overFrame){
+            this.lastResultType=ResultType.Success;
+            return ResultType.Success;
+        }else{
+            this.nodeChildList[0].Execute();
+            this.lastResultType=ResultType.Running;
+            return ResultType.Running;
+        }
+    }
+    public reset(){
+        this.startFrame=0;
+        super.reset();
+    }
+    public SetOverFrame(overFrame:number):void
+    {
+        this.overFrame = overFrame;
+    }
+    /**
+     *释放 时候;
+    **/ 
+    onRecycle(): void {
+        this.startFrame=0;
+        this.overFrame=0;
+        super.onRecycle();
+    }  
+}
+
+
+ /// <summary>
+///  总是成功节点 进行中也返回成功；
+/// </summary>
+export  class AlwaysSuccessDec  extends NodeCombiner
+{
+    public  Execute():ResultType
+    {
+        this.nodeChildList[0].Execute();
+        this.lastResultType=ResultType.Success;
+        return ResultType.Success;
+    }
+    public reset(){
+        super.reset();
+    }
+}
+
+
+ /// <summary>
+///  总是失败节点 进行中也返回失败；
+/// </summary>
+export  class AlwaysFailDec  extends NodeCombiner
+{
+    public  Execute():ResultType
+    {
+        this.nodeChildList[0].Execute();
+        this.lastResultType=ResultType.Fail;
+        return ResultType.Fail;
+    }
+    public reset(){
+        super.reset();
+    }
+}
+
+ /// <summary>
+///  计数节点；
+/// </summary>
+export  class CountLimitDec  extends NodeCombiner
+{
+    private maxCount:number=-1;
+    private nowCount:number=0;
+    public  Execute():ResultType
+    {
+        if (this.maxCount==-1)
+        {
+            this.lastResultType=this.nodeChildList[0].Execute();
+            return this.lastResultType;
+        }else {
+            if(this.nowCount>=this.maxCount){
+                this.lastResultType=ResultType.Success;
+                return ResultType.Success;
+            }else
+            {
+                this.nowCount++;
+                this.lastResultType=this.nodeChildList[0].Execute();
+                return this.lastResultType;
+            }  
+        }
+    }
+    public SetMaxCount(maxCount:number):void
+    {
+        this.maxCount = maxCount;
+    }
+    public reset(){
+        this.nowCount=0;
+        super.reset();
+    }
+    /**
+     *释放 时候;
+    **/ 
+    onRecycle(): void {
+        this.maxCount=-1;
+        this.nowCount=0;
+        super.onRecycle();
+    }  
+}
+
 
 
 //未完成；
