@@ -1,4 +1,4 @@
-import { NodeType, NodeBase, ResultType } from "./NodeBehaTree";
+import { NodeType, NodeBase, ResultType, BehaData } from "./NodeBehaTree";
 import Core from "../Core";
 
  /// <summary>
@@ -52,6 +52,9 @@ export  class WaitTimesAct  extends ActionBeha
         this.startTime=0;
         super.reset();
     }
+    public initProperties(behaData:BehaData):void{
+        this.SetOverTime(behaData.properties['maxTime']);
+    }
     public SetOverTime(overTime:number):void
     {
         this.overTime = overTime;
@@ -95,6 +98,9 @@ export  class WaitFrameAct  extends ActionBeha
     public reset(){
         this.startFrame=0;
         super.reset();
+    }
+    public initProperties(behaData:BehaData):void{
+        this.SetOverFrame(behaData.properties['frameCount']);
     }
     public SetOverFrame(overFrame:number):void
     {

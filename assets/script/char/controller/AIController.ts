@@ -8,6 +8,8 @@ import { MyMath } from "../../../corelibs/util/MyMath";
 import { SkillPart } from "../part/SkillPart";
 import { Run } from "../action/Run";
 import { Stand } from "../action/Stand";
+import { BehaTree } from "../../../corelibs/behaTree/BehaTree";
+import { BehaviorTreeManager } from "../../../corelibs/behaTree/BehaviorTreeManager";
 
 /**
  * 遥感控制器
@@ -16,6 +18,7 @@ import { Stand } from "../action/Stand";
 export class AIController extends Controller 
 { 
     private skill:SkillPart;
+    private behaTree:BehaTree;
     constructor()
     {
         super();
@@ -26,6 +29,8 @@ export class AIController extends Controller
     public init(char:Character){
        super.init(char);
        this.skill=char.getSkillPart();
+       this.behaTree=BehaviorTreeManager.Get().creatNodeTree(char.charData.aiUrl);
+   //    this.behaTree.Paused();
     }
     OnMessage(cmd:ENUMS.ControllerCmd, param?: any): void {
        
@@ -40,16 +45,7 @@ export class AIController extends Controller
     GetName?(): string {
       return 'AIController'+this.id;
     }
-   
 
-    onBeginSpeedUp(){
-
-
-    }
-    onEndSpeedUp(){
-
-
-    }
     /**
      *获取 时候;
      */
@@ -61,7 +57,8 @@ export class AIController extends Controller
      *释放 时候;
      **/ 
     onRecycle(): void {
-
+        this.behaTree.recycleSelf();
+       this.behaTree=null;
        this.skill=null;
       super.onRecycle();
     }  
@@ -69,7 +66,8 @@ export class AIController extends Controller
      *回收; 
      **/ 
     Release(): void {
-
+        this.behaTree.recycleSelf();
+        this.behaTree=null;
         this.skill=null;
         super.Release();
     }

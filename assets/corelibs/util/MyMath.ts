@@ -95,5 +95,38 @@ export class MyMath
         //      Debug.Log("selectIdx" + selectIdx);
         return list[0];
     }
-
+    /// <summary>
+    ///  选择权重....权重为10000时默认优先执行...
+    /// </summary>
+    /// <param name="list"></param>
+    /// <returns></returns>
+    public static getRulesWeightIdx(list:Array<number>):number
+    {
+        if(list.length<=0){
+            return null;
+        }
+        let totalW :number = 0;
+        for (let j:number = 0; j < list.length; j++)
+        {
+            if (list[j] == 10000)
+            {
+                return j;
+            }
+            totalW += list[j];
+        }
+        //当前最大刻度....
+        let ran:number = (Core.Random.GetRandom()* totalW)>>0;
+        let startNum:number = 0;
+        for (let i1:number = 0; i1 < list.length; i1++)
+        {
+            let addNum:number = list[i1];
+            if (ran >= startNum && ran < startNum + addNum)
+            {
+                return i1;
+            }
+            startNum += addNum;
+        }
+        //      Debug.Log("selectIdx" + selectIdx);
+        return 0;
+    }
 }

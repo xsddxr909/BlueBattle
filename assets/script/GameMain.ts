@@ -13,6 +13,9 @@ import { ConfigXls } from "./data/ConfigXls";
 import { CharManager } from "./char/manager/CharManager";
 import MapManager from "./map/MapManager";
 import UIBackToLogin from "./UI/UIBackToLogin";
+import { BehaviorTreeManager } from "../corelibs/behaTree/BehaviorTreeManager";
+import { UseSkillAct } from "./char/beha/GameActionBeha";
+import { TargetDicCondition } from "./char/beha/GameConditionBeha";
 
 /**
  * 初始场景
@@ -39,7 +42,7 @@ export default class GameMain extends cc.Component
         ConfigData.init();
         
         this.getLog();
-        this.RegisterUI();
+        this.Register();
         // this.linkManager = new LinkManager();
         // Core.SdkHandleMgr.Init();
         // Core.Platform.m_stPlatfrom.Login();
@@ -52,9 +55,9 @@ export default class GameMain extends cc.Component
     /**
      * 需要注册的UI;
      */
-    RegisterUI():void
+    Register():void
     {
-        //UI注册
+        //UI注册;
         Core.UIMgr.UnRegister(UIEnum.LoadingWin);
         Core.UIMgr.Register(UIEnum.LoadingWin,"prefabs/UI/LoadingWin",LoadingWin);
         Core.UIMgr.Register(UIEnum.UILogin,"prefabs/Scene/LoginScene",UILogin);
@@ -62,11 +65,14 @@ export default class GameMain extends cc.Component
         Core.UIMgr.Register(UIEnum.UISkillBtn,"prefabs/UI/SkillBtn",UISkillBtn);
         Core.UIMgr.Register(UIEnum.UIBackToLogin,"prefabs/UI/backBtn",UIBackToLogin);
         
-        
-
-        //Scene注册
+        //Scene注册;
         Core.SceneMgr.Register(SceneEnum.LoginScene,new LoginScene());
         Core.SceneMgr.Register(SceneEnum.GameScene,new GameScene());
+
+        //行为树注册;
+        BehaviorTreeManager.Get().Register("TargetDic",TargetDicCondition);
+        BehaviorTreeManager.Get().Register("UseSkill",UseSkillAct);
+        
     }
     /**
      * 加载动画

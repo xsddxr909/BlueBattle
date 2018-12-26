@@ -1,11 +1,25 @@
 import { RecycleAble } from "../util/Pool";
 import Core from "../Core";
+import { MyMath } from "../util/MyMath";
+import { BehaTree } from "./BehaTree";
+
+//json 解析出来的 类;
+export class BehaData{
+    public id:string;
+    public name:string;
+    public title:string;
+    public description:string;
+    public properties:any;
+    public children:Array<string>;
+}
 
 /**
  * 不能实例基础类;
  */
 export class NodeBase extends RecycleAble {  
     public md5Id:string;
+    public childStr:string[];
+    public behaTree:BehaTree;
     /// <summary>
     /// 节点类型
     /// </summary>
@@ -32,6 +46,11 @@ export class NodeBase extends RecycleAble {
         this.lastResultType= ResultType.Fail;
         return this.lastResultType;
     }
+
+    public initProperties(behaData:BehaData):void{
+
+    }
+
     /**
      * 重置.不包括树结构重置;
      */
@@ -43,12 +62,17 @@ export class NodeBase extends RecycleAble {
     **/ 
     onRecycle(): void {
         this.lastResultType= ResultType.Defult;
+        this.md5Id="";
+        this.childStr=[];
+        this.behaTree=null;
         super.onRecycle();
     }  
     /**
     *回收; 
     **/ 
     Release(): void {
+        this.childStr=null;
+        this.behaTree=null;
         super.Release();
     }
     toString():string{
@@ -83,10 +107,7 @@ export  class NodeCombiner extends NodeBase
         });
         super.reset();
     }
-    /**
-     *释放 时候;
-    **/ 
-    onRecycle(): void {
+    public recycleChild(){
         let listTemp:Array<NodeBase>= this.nodeChildList;
         this.nodeChildList=[];
         listTemp.forEach(element => {
@@ -95,12 +116,19 @@ export  class NodeCombiner extends NodeBase
            }
        });
        listTemp=null;
+    }
+    /**
+     *释放 时候;
+    **/ 
+    onRecycle(): void {
+       this.recycleChild();
        super.onRecycle();
     }  
     /**
     *回收; 
     **/ 
     Release(): void {
+        this.recycleChild();
         this.nodeChildList=null;
         super.Release();
     }
@@ -485,7 +513,7 @@ export class SwitchNode extends NodeCombiner
  /// <summary>
 /// case节点 ; switch…case  中的case作用; 只有两个节点 一个condition (没有running状态) 一个action 
 /// </summary>
-export class CaseNode extends NodeCombiner
+export class CasesNode extends NodeCombiner
 {
     private m_activeChildIndex:number=0;
     constructor()
@@ -525,6 +553,141 @@ export class CaseNode extends NodeCombiner
         super.reset();
     }
 }
+
+
+/// <summary>
+/// 权重随机选择节点(组合节点) 权重只能整型;   权值越大，被选到的机会越大，权值为0，则其分支不会被执行
+/// </summary>
+export class WeightRandomNode extends NodeCombiner
+{
+    private lastRunningNodeIdx:number;
+    private  weightList:Array<number>;
+    constructor()
+    {
+      super();
+       this.nodeType=NodeType.WeightRandom;
+       this.lastRunningNodeIdx=-1;
+       this.weightList=new Array<number>();
+    }
+
+    public Execute():ResultType
+    {
+        let index:number = -1;
+        if (this.lastRunningNodeIdx != -1)
+        {
+            index = this.lastRunningNodeIdx;
+        }
+        this.lastRunningNodeIdx = -1;
+
+        let resultType:ResultType = ResultType.Fail;
+        if (index < 0)
+        {
+            index= MyMath.getRulesWeightIdx(this.weightList);
+        }
+        
+        const node:NodeBase = this.nodeChildList[index];
+        resultType = node.Execute();
+
+        if (resultType == ResultType.Running)
+        {
+            this.lastRunningNodeIdx = node.nodeIndex;
+        }
+        
+        this.lastResultType=resultType;
+        return resultType;
+    }
+    public initProperties(behaData:BehaData):void{
+        this.setWeight(behaData.properties['power']);
+    }
+    public setWeight(str:string){
+        let tempArr: Array<string> =str.split(",");
+        this.weightList=[];
+        for (let index = 0; index < tempArr.length; index++) {
+            this.weightList.push(parseInt(tempArr[index]));            
+        }
+    }
+
+    public reset(){
+        this.lastRunningNodeIdx=-1;
+        super.reset();
+    }
+    /**
+     *释放 时候;
+    **/ 
+    onRecycle(): void {
+          this.lastRunningNodeIdx=-1;
+          this.weightList=[];
+          super.onRecycle();
+    }  
+}
+
+
+/** 或 判断  a || b  */
+export  class OrNode extends NodeCombiner
+{
+    constructor()
+    {
+      super();   
+       this.nodeType=NodeType.Or;
+    }
+    public Execute():ResultType
+    {
+        let resultType:ResultType = ResultType.Fail;
+        for (let i:number = 0; i < this.nodeChildList.length; ++i)
+        {
+            const node:NodeBase = this.nodeChildList[i];
+            resultType = node.Execute();
+            if (resultType == ResultType.Fail)
+            {
+                continue;
+            }
+            if (resultType == ResultType.Success)
+            {
+                break;
+            }
+        }
+        this.lastResultType=resultType;
+        return resultType;
+    }
+    public reset(){
+        super.reset();
+    }
+    public onRecycle(): void {
+        super.onRecycle();
+    }  
+}
+/** 与 判断  a && b  */
+export  class AndNode extends NodeCombiner
+{
+    constructor()
+    {
+      super();   
+      this.nodeType=NodeType.And;
+    }
+    public Execute():ResultType
+    {
+        let resultType:ResultType = ResultType.Fail;
+        for (let i:number = 0; i < this.nodeChildList.length; ++i)
+        {
+            const node:NodeBase = this.nodeChildList[i];
+            resultType = node.Execute();
+            if (resultType == ResultType.Fail||resultType == ResultType.Running)
+            {
+                resultType=ResultType.Fail;
+                break;
+            }
+        }
+        this.lastResultType=resultType;
+        return resultType;
+    }
+    public reset(){
+        super.reset();
+    }
+    public onRecycle(): void {
+        super.onRecycle();
+    }  
+}
+
 
 
  /// <summary>
@@ -575,6 +738,15 @@ export enum NodeType
 
     /// 多条件选择行节点; 里面有两个节点 Condition + Action
     Case = 9,
+    
+    //权重随机选择 节点 权值越大，被选到的机会越大，权值为0，则其分支不会被执行
+    WeightRandom =10,
+
+     // 或 判断  a || b 
+    Or =11,
+
+      // 与 判断  a && b 
+    And =12,
 }
 /// <summary>
 /// 节点执行结果

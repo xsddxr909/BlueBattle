@@ -114,6 +114,8 @@ export class CharData extends PosData implements IObbBox
      public bodyBox:OBB=null;
      private weaponSize=148;
     // public attackRadius=55+148;
+      //行为树数据；
+     public aiUrl: string="behavior/char/charAi.json";
 
      private testBody:ColorBox; 
      

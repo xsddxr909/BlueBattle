@@ -1,8 +1,8 @@
-import { NodeCombiner, NodeType, ResultType } from "./NodeBehaTree";
+import { NodeCombiner, NodeType, ResultType, BehaData } from "./NodeBehaTree";
 import Core from "../Core";
 
 /// <summary>************************************************************************************************************************************/
-/// 修饰节点(组合节点) 过滤器
+/// 修饰节点(组合节点) 过滤器  只能有一个子节点
 /// </summary>
 
 //非 ！ 取反; 子节点只有一个;
@@ -54,11 +54,11 @@ export class LoopDec extends NodeCombiner
     }
     public Execute():ResultType
     {
-        if( this.nodeChildList.length<1){
-            console.log("LoopDec 节点长度错误");
-            this.lastResultType=ResultType.Fail;
-            return ResultType.Fail;
-        }
+        // if( this.nodeChildList.length<1){
+        //     console.log("LoopDec 节点长度错误");
+        //     this.lastResultType=ResultType.Fail;
+        //     return ResultType.Fail;
+        // }
         if (this.maxLoop==-1)
         {
             this.nodeChildList[0].Execute();
@@ -74,6 +74,9 @@ export class LoopDec extends NodeCombiner
             this.lastResultType=ResultType.Running;
             return ResultType.Running;
         }
+    }
+    public initProperties(behaData:BehaData):void{
+        this.SetMaxLoop(behaData.properties['maxLoop']);
     }
     public SetMaxLoop(loopTime:number):void
     {
@@ -122,6 +125,9 @@ export class TimeDec extends NodeCombiner
             return ResultType.Running;
         }
     }
+    public initProperties(behaData:BehaData):void{
+        this.SetOverTime(behaData.properties['maxTime']);
+    }
     public reset(){
         this.startTime=0;
         super.reset();
@@ -152,11 +158,11 @@ export class TimeSynDec extends NodeCombiner
    
     public Execute():ResultType
     {
-        if(Core.FrameSync==null){
-            console.log("FrameSync 未初始化");
-            this.lastResultType=ResultType.Fail;
-            return ResultType.Fail;
-        } 
+        // if(Core.FrameSync==null){
+        //     console.log("FrameSync 未初始化");
+        //     this.lastResultType=ResultType.Fail;
+        //     return ResultType.Fail;
+        // } 
         if(this.startTime==0){
             this.startTime=Core.FrameSync.getNowTime();
         }
@@ -172,6 +178,9 @@ export class TimeSynDec extends NodeCombiner
     public reset(){
         this.startTime=0;
         super.reset();
+    }
+    public initProperties(behaData:BehaData):void{
+        this.SetOverTime(behaData.properties['maxTime']);
     }
     public SetOverTime(overTime:number):void
     {
@@ -200,11 +209,11 @@ export class InFramesSynDec extends NodeCombiner
    
     public Execute():ResultType
     {
-        if(Core.FrameSync==null){
-            console.log("FrameSync 未初始化");
-            this.lastResultType=ResultType.Fail;
-            return ResultType.Fail;
-        } 
+        // if(Core.FrameSync==null){
+        //     console.log("FrameSync 未初始化");
+        //     this.lastResultType=ResultType.Fail;
+        //     return ResultType.Fail;
+        // } 
         if(this.startFrame==0){
             this.startFrame=Core.FrameSync.currRenderFrameId;
         }
@@ -220,6 +229,9 @@ export class InFramesSynDec extends NodeCombiner
     public reset(){
         this.startFrame=0;
         super.reset();
+    }
+    public initProperties(behaData:BehaData):void{
+        this.SetOverFrame(behaData.properties['frameCount']);
     }
     public SetOverFrame(overFrame:number):void
     {
@@ -293,6 +305,9 @@ export  class CountLimitDec  extends NodeCombiner
                 return this.lastResultType;
             }  
         }
+    }
+    public initProperties(behaData:BehaData):void{
+        this.SetMaxCount(behaData.properties['maxCount']);
     }
     public SetMaxCount(maxCount:number):void
     {
