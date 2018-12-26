@@ -70,7 +70,7 @@ export default class GameLogic implements IRelease
         CameraCtrl.Instance.changeTarget(this.char.view.node);
 
         //碰撞测试;
-        this.char.charData.ShowHitBox(true);
+   //     this.char.charData.ShowHitBox(true);
     }
     creatOther(){
         for (let index = 0; index < 50; index++) {
@@ -83,16 +83,8 @@ export default class GameLogic implements IRelease
             let charOther:Character=CharManager.Get().characterPool.get();
             charOther.init(charD);
             //碰撞测试;
-            charOther.charData.ShowHitBox(true);
+    //        charOther.charData.ShowHitBox(true);
         }
-    }
-    /**
-     * 固定时间创建宝石;地图平均分开多个区域 每个区域有最大宝石数，每过一段时间检测是否满足创建条件创建新的宝石
-     */
-    checkCreatBaoshi(){
-      //判断时间 每帧创建100个。
-
-
     }
 
     Update(dt: number)

@@ -270,7 +270,7 @@ export  class AlwaysFailDec  extends NodeCombiner
 }
 
  /// <summary>
-///  计数节点；
+///  计数节点； 不同于循环节点，它在指定的循环次数到达前返回子节点返回的状态，无论成功、失败还是正在执行
 /// </summary>
 export  class CountLimitDec  extends NodeCombiner
 {
@@ -314,54 +314,5 @@ export  class CountLimitDec  extends NodeCombiner
 
 
 
-//未完成；
-export class LoopUntilDec extends NodeCombiner
-{
-    /// 希望的结果
-    private untilResultType:ResultType = ResultType.Fail;
-    private maxLoop:number=-1;
-    private nowCount:number=0;
-    constructor()
-    {
-      super();
-       this.nodeType=NodeType.Decorator;
-    }
-   
-    public Execute():ResultType
-    {
-        if(this.maxLoop!=-1){
-            this.nowCount++;
-        }
-
-        let resultType:ResultType = this.nodeChildList[0].Execute();
-        if (resultType != this.untilResultType)
-        {
-            return ResultType.Running;
-        }
-        this.lastResultType=resultType;
-        return resultType;
-    }
-    public reset(){
-        this.nowCount=0;
-        super.reset();
-    }
-    public SetMaxLoop(loopTime:number):void
-    {
-        this.maxLoop = loopTime;
-    }
-    public SetResultType(resultType:ResultType):void
-    {
-        this.untilResultType = resultType;
-    }
-    /**
-     *释放 时候;
-    **/ 
-    onRecycle(): void {
-        this.untilResultType = ResultType.Fail;
-        this.nowCount=0;
-        this.maxLoop=-1;
-        super.onRecycle();
-    }  
-}
 
 /////修饰器节点*************************************************************************************************************************************************/

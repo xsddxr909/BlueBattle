@@ -140,7 +140,8 @@ export class Character extends ObjBase
     public checkView(){
         if(this.view!=null){
             this.view.body.scale=this.charData.scaleSize;
-            this.view.body.getChildByName("weapon").width=this.charData.WeaponSize;
+            //剑尖有透明区域 需要去掉；
+            this.view.body.getChildByName("weapon").width=this.charData.WeaponSize/0.82;
         }
     }
 

@@ -98,8 +98,8 @@ export default class GameMain extends cc.Component
         Core.Get().Update(dt);
         if(this.logLabel!=null){
             this.logLabel.string="";
-            CharManager.logUpdate(this.logLabel);
-            ConfigData.logUpdate(this.logLabel);
+     //       CharManager.logUpdate(this.logLabel);
+     //       ConfigData.logUpdate(this.logLabel);
         }
     }
 

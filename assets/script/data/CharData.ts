@@ -112,8 +112,8 @@ export class CharData extends PosData implements IObbBox
      public shieldBox:OBB=null;
      public weaponBox:OBB=null;
      public bodyBox:OBB=null;
-     private weaponSize=152;
-     public attackRadius=55+152;
+     private weaponSize=148;
+    // public attackRadius=55+148;
 
      private testBody:ColorBox; 
      
@@ -176,10 +176,12 @@ export class CharData extends PosData implements IObbBox
      */
     public initData(){
         super.initData();
+        this.scale=cc.Vec2.ONE;
+        this.weaponSize=148;
         this.Skills=[];
         this.shieldBox.init(cc.Vec2.ZERO,120,30,0,7,73);
         this.bodyBox.init(cc.Vec2.ZERO,this._radius*2,this._radius*2,0);
-        this.weaponBox.init(cc.Vec2.ZERO,152,38,0,30+152/2,-58);
+        this.weaponBox.init(cc.Vec2.ZERO,148,38,0,60+130/2,-58);
         this.zIndex=1;
         this.Exp=0;
         this.Level=1;
@@ -216,7 +218,7 @@ export class CharData extends PosData implements IObbBox
     public set WeaponSize(width:number){
           this.weaponSize=width;
           this.weaponBox.width=width;
-          this.weaponBox.setOffset(30+width/2,-58);
+          this.weaponBox.setOffset(60+width/2,-58);
     }
 
     public get WeaponSize():number{
