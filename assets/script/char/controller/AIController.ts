@@ -17,7 +17,7 @@ import { BehaviorTreeManager } from "../../../corelibs/behaTree/BehaviorTreeMana
  */
 export class AIController extends Controller 
 { 
-    private skill:SkillPart;
+  //  private skill:SkillPart;
     private behaTree:BehaTree;
     constructor()
     {
@@ -28,8 +28,8 @@ export class AIController extends Controller
      */
     public init(char:Character){
        super.init(char);
-       this.skill=char.getSkillPart();
-       this.behaTree=BehaviorTreeManager.Get().creatNodeTree(char.charData.aiUrl);
+    //   this.skill=char.getSkillPart();
+       this.behaTree=BehaviorTreeManager.Get().creatNodeTree(char.charData.aiUrl,char.charData);
    //    this.behaTree.Paused();
     }
     OnMessage(cmd:ENUMS.ControllerCmd, param?: any): void {
@@ -59,7 +59,7 @@ export class AIController extends Controller
     onRecycle(): void {
         this.behaTree.recycleSelf();
        this.behaTree=null;
-       this.skill=null;
+     //  this.skill=null;
       super.onRecycle();
     }  
     /**
@@ -68,7 +68,7 @@ export class AIController extends Controller
     Release(): void {
         this.behaTree.recycleSelf();
         this.behaTree=null;
-        this.skill=null;
+   //     this.skill=null;
         super.Release();
     }
 }

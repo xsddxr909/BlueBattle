@@ -1,4 +1,4 @@
-import { ListDataPool, RecycleAble } from "../util/Pool";
+import { ListDataPool } from "../util/Pool";
 import { BehaTree } from "./BehaTree";
 import { NodeBase, SelectNode, SequenceNode, RandomNode, ParallelNode, IfElseNode, SwitchNode ,CasesNode, WeightRandomNode, OrNode, AndNode } from "./NodeBehaTree";
 import { NotDec, LoopDec, TimeDec, TimeSynDec, InFramesSynDec, AlwaysSuccessDec, AlwaysFailDec, CountLimitDec } from "./DecoratorBeha";
@@ -24,7 +24,7 @@ export class BehaviorTreeManager
         return BehaviorTreeManager.m_pInstance;
     }
     public static debug:boolean=true;
-    public nodeList:ListDataPool<BehaTree>=null; 
+    private nodeList:ListDataPool<BehaTree>=null; 
    
     public classMapping: Map<string, new () => NodeBase>;
 
@@ -89,10 +89,10 @@ export class BehaviorTreeManager
         }
     }
 
-    public creatNodeTree(url:string):BehaTree{
+    public creatNodeTree(url:string,data:any=null):BehaTree{
            //下载一个ai json;
        let behaTree:BehaTree = this.nodeList.get();
-       behaTree.init(url);
+       behaTree.init(url,data);
        return behaTree;
     }
     public  Update(dt:number){

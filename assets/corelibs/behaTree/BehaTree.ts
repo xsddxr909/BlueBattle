@@ -28,7 +28,7 @@ export class BehaTree extends NodeCombiner {
             this.recycleChild();
             this.url = url;
             //加载jason 并初始化序列;
-            Core.ResourcesMgr.LoadRes(ResStruct.CreateRes(url,ResType.TextAsset),this.onload.bind(this));
+            Core.ResourcesMgr.LoadAny(ResStruct.CreateRes(url,ResType.AnyUrl),this.onload.bind(this));
         }
         else {
             this.reset();
@@ -50,17 +50,23 @@ export class BehaTree extends NodeCombiner {
         // "children": [
        //     "6ea3bb67-eb96-4f1f-855a-81c0f873f351"
         //  ]
-        let rootStr:string = res['root'];
+        console.log("res ："+res);
+        let rootStr:string = res.json['root'];
 
-        const objs = res['nodes'];
-        for (const key of objs) {
-            const t = objs[key];
-            const b:BehaData = <BehaData>t;
+        const objs:[] = res.json['nodes'];
+        for (let id in objs) {
+            const spec = objs[id];
+        //    const t = objs[index];
+            const b:BehaData = <BehaData>spec;
             this.dataList.push(b);
         }
         let nodeList:Array<NodeBase>=new Array<NodeBase>();
         for (let i = 0; i < this.dataList.length; i++) {
             const b:BehaData = this.dataList[i];
+            console.log("get type: "+b.name);
+            if(!BehaviorTreeManager.Get().classMapping.has(b.name)){
+                continue;
+            }
             const  nodes:NodeBase=Core.ObjectPoolMgr.get(BehaviorTreeManager.Get().classMapping.get(b.name));
             nodes.md5Id=b.id;
             nodes.childStr=b.children;
@@ -73,7 +79,7 @@ export class BehaTree extends NodeCombiner {
         }
         for (let i = 0; i < nodeList.length; i++) {
             const nodes:NodeBase = nodeList[i];
-            if(nodes.childStr.length>0){
+            if(nodes.childStr!=null&&nodes.childStr.length>0){
                 for (let j = 0; j < nodes.childStr.length; j++) {
                     for (let q = 0; q < nodeList.length; q++) {
                         if(nodeList[q].md5Id==nodes.childStr[j]){

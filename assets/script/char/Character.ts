@@ -36,7 +36,7 @@ export class Character extends ObjBase
         this.charData.characterId=this.id;
         this.skill.init(this);
         //创建Ctrl;
-        this.ctrl=CtrlManager.Get().CreatController(this.charData.ctrlType);
+        this.ctrl=CtrlManager.Get().getController(this.charData.ctrlType);
         this.ctrl.init(this);
         super.init(this.charData);
         MapManager.Get().getResMap().enterResScreen(this.charData);

@@ -32,6 +32,65 @@ export default class ResourcesMgr
     {
         return this.m_arrRes.get(ResType.Prefab).get(url);
     }
+
+  /**
+     * 加载单个文件
+     * @param res 需要加载的资源
+     * @param fnCallback 回调函数里会带上资源 
+     */
+    public LoadAny(res: ResStruct,fnCallback: Function): void
+    {
+        let that = this;
+        let type = res.m_iResType;
+        let url = res.m_sUrl;
+        let auto = res.m_bAutoRelease;
+
+        if(!that.m_arrRes.get(type))
+        {
+            that.m_arrRes.set(type,new Map<string,any>());
+            that.m_mapLoadInfo.set(type,new Map<string,Array<Function>>());
+        }
+        //如果已经加载过的直接返回资源
+        let mapRes: any = that.m_arrRes.get(type).get(url);
+        if(mapRes)
+        {
+            // cc.log(url,'is loaded');
+            fnCallback(mapRes);
+            return;
+        }
+        let arrCallback: Array<Function> = that.m_mapLoadInfo.get(type).get(url);
+        if(arrCallback)
+        {
+            arrCallback.push(fnCallback);
+        }
+        else                                                                                                                                                              
+        {
+            arrCallback = new Array<Function>();
+            that.m_mapLoadInfo.get(type).set(url,arrCallback);
+            arrCallback.push(fnCallback);
+            console.log("cc.url.raw(url)",cc.url.raw("resources/"+url));
+            cc.loader.load(cc.url.raw("resources/"+url),function(err,res)
+            {
+                if(err)
+                {
+                    cc.log(err);
+                    return;
+                }
+                if(!res)
+                {
+                    cc.log(url + " is Error URL! type:",type);
+                    return;
+                }
+                that.m_arrRes.get(type).set(url,res);
+                that.OnCompleteCallback(url,type,res);
+                if(auto)
+                {
+                    cc.loader.setAutoReleaseRecursively(url,auto);
+                }
+            });
+        }
+    }
+
     /**
      * 加载单个资源
      * @param res 需要加载的资源

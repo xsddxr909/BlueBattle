@@ -38,7 +38,7 @@ export class CtrlManager
         this.inited=true;
         
     }
-    public CreatController(type:ENUMS.CtrlType):Controller{
+    public getController(type:ENUMS.CtrlType):Controller{
             switch(type){
                 case ENUMS.CtrlType.JoyCtrl:
                   return  Core.ObjectPoolMgr.get(JoyController);

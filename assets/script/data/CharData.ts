@@ -21,6 +21,8 @@ export class CharData extends PosData implements IObbBox
    //角色类型;
    public charType:ENUMS.CharType=ENUMS.CharType.Character;
    public ctrlType:ENUMS.CtrlType=ENUMS.CtrlType.JoyCtrl;
+    //行为树数据；
+    public aiUrl: string="behavior/char/charAi.json";
    
    //ai查找间隔 (单位)秒
    public findTime:number=1; 
@@ -114,8 +116,6 @@ export class CharData extends PosData implements IObbBox
      public bodyBox:OBB=null;
      private weaponSize=148;
     // public attackRadius=55+148;
-      //行为树数据；
-     public aiUrl: string="behavior/char/charAi.json";
 
      private testBody:ColorBox; 
      

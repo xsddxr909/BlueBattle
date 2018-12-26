@@ -272,7 +272,6 @@ export class MultiplePool implements IPool{
         return this.map.get(classname).length;
     }
     public get<T extends RecycleAble>(classFactory: new () => T):T  {
-      //  console.log("get type: "+classFactory.name);
         if(!this.map.has(classFactory.name)){
              this.map.set(classFactory.name,new Array<RecycleAble>());
         }
