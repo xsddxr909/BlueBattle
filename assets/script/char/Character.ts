@@ -9,6 +9,7 @@ import Core from "../../corelibs/Core";
 import MapManager from "../map/MapManager";
 import { ConfigXls, t_s_heroLevelup } from "../data/ConfigXls";
 import { ViewPart } from "./part/ViewPart";
+import CameraCtrl from "../logic/CameraCtrl";
 
 /**
  * 角色对象 ;
@@ -142,6 +143,9 @@ export class Character extends ObjBase
             this.view.body.scale=this.charData.scaleSize;
             //剑尖有透明区域 需要去掉；
             this.view.body.getChildByName("weapon").width=this.charData.WeaponSize/0.82;
+            if(this.charData.myPlayer){
+                CameraCtrl.Instance.cameraZoom(148/this.charData.WeaponSize,0.3);
+            }
         }
     }
 

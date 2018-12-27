@@ -27,7 +27,12 @@ export default class CameraCtrl  implements IUpdate
      private _target:cc.Node=null;
      private _targetPos:cc.Vec2=null;
      //剩余缓动时间
-     private _remainingTime:any;
+     private _remainingTime:number;
+      
+     private _ZoomNum:number=1;
+     private _ZoomOffset:number=0;
+     private _ZoomTime:number;
+ 
      private dir:cc.Vec2=null;
      private dic:number =0;
      private _prePos:cc.Vec2=null;
@@ -36,9 +41,10 @@ export default class CameraCtrl  implements IUpdate
      private _camera:cc.Camera=null;
     constructor()
     {
-
-
        
+    }
+    public getCamera():cc.Camera{
+        return this._camera;
     }
     /***
      *初始化；
@@ -56,6 +62,7 @@ export default class CameraCtrl  implements IUpdate
         this.NextPos=this.startposition.clone();
         this._target=null;
         this._remainingTime=0;
+        this._ZoomTime=0;
         //TODO:  这里应该不对  应该改成屏幕宽高。
         this._rectView=cc.rect(0,0,Core.UIRoot.Canvas.width/this._camera.zoomRatio,Core.UIRoot.Canvas.height/this._camera.zoomRatio);
     }
@@ -73,14 +80,14 @@ export default class CameraCtrl  implements IUpdate
             if(this._prePos!=null){
                 this.dir =this._target.position.sub(this.NextPos);
                 this.dic =this.dir.mag();
-                console.log("PreUpdate: dic " ,this.dic,this.dir);
+      //          console.log("PreUpdate: dic " ,this.dic,this.dir);
                 if(this.dic<=1){
                     this.NextPos.x=this._target.position.x;
                     this.NextPos.y=this._target.position.y;
                     this._remainingTime=0;
                     this._prePos=null;
                 }else{
-                    console.log("PreUpdate: dt " ,this._remainingTime,dt);
+        //            console.log("PreUpdate: dt " ,this._remainingTime,dt);
                     this.NextPos.addSelf(this.dir.mul(dt/this._remainingTime));
                 }
             }
@@ -97,10 +104,30 @@ export default class CameraCtrl  implements IUpdate
                 this._targetPos=null;
             }
       }
-      this._rectView.size.width=Core.UIRoot.Canvas.width/this._camera.zoomRatio;
-      this._rectView.size.height=Core.UIRoot.Canvas.height/this._camera.zoomRatio
-      this._rectView.x=this.NextPos.x-this._rectView.size.width/2;
-      this._rectView.y=this.NextPos.y-this._rectView.size.height/2;
+      //摄像机缩放;
+      if(this._ZoomTime>0){
+        if(this._camera!=null){
+      //      console.log("_ZoomTime : ",dt);
+       //     console.log("this._camera.zoomRatio += ", dt*this._ZoomOffset);
+            if(this._ZoomTime<=dt){
+                this._camera.zoomRatio=this._ZoomNum;
+            }else{
+                this._camera.zoomRatio += dt*this._ZoomOffset;
+            }
+        }
+        this._ZoomTime-=dt;
+      }else {
+        this._ZoomTime=0;
+        if(this._camera!=null&&this._camera.zoomRatio!=this._ZoomNum){
+            this._camera.zoomRatio = this._ZoomNum;
+        }
+      }
+
+      
+      this._rectView.width=Core.UIRoot.Canvas.width/this._camera.zoomRatio;
+      this._rectView.height=Core.UIRoot.Canvas.height/this._camera.zoomRatio
+      this._rectView.x=this.NextPos.x-this._rectView.width/2;
+      this._rectView.y=this.NextPos.y-this._rectView.height/2;
     }
     getNextPos():cc.Vec2{
        return this.NextPos;
@@ -159,8 +186,27 @@ export default class CameraCtrl  implements IUpdate
         this._targetPos=null;
         this._remainingTime=0;
     }
+ /**
+     * 摄像机缩放
+     * @param num 目标size; 
+     * @param duration 0立即切换  1 秒;
+     */
+    public cameraZoom(num:number,duration:number = 0){
+        if(this._ZoomNum!=num){
+            this._ZoomOffset=num-this._ZoomNum;
+            this._ZoomNum=num;
+            if(duration!=0){
+                this._ZoomTime=duration;
+                this._ZoomOffset=  (this._ZoomOffset/duration);
+            }
+        }
+        if(duration==0){
+            this._ZoomTime=0;
+        }
+    }
 
     public reSet(){
+        this.cameraZoom(1);
         this.lostTarget();
     }
 }   

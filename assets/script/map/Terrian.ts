@@ -208,13 +208,9 @@ export default class Terrian implements IRelease
     //更新墙壁外的地板颜色
     private _updateGround() {
         let rect = CameraCtrl.Instance.getBoundingBox();
-     //   console.log("更新墙壁外的地板颜色 ms:  "+rect.yMin);
+      //  console.log("更新墙壁外的地板颜色 ms:  "+rect);
         this.groundCtrl.node.position=CameraCtrl.Instance.getNextPos();
-        // //更新四个方向的地板颜色宽度
-         this.groundCtrl.outerLeft.width = Math.max(0, -WallCtrl.unitWidth/2 - rect.xMin);
-         this.groundCtrl.outerRight.width = Math.max(0, rect.xMax -ConfigData.gameMapSize.width- WallCtrl.unitWidth/2);
-         this.groundCtrl.outerDown.height = Math.max(0, - WallCtrl.unitHeight -  rect.yMin) ;
-         this.groundCtrl.outerUp.height = Math.max(0, rect.yMax  -ConfigData.gameMapSize.height - WallCtrl.unitHeight/2 );
+        this.groundCtrl.UpdateRect(rect);
     }
     
 

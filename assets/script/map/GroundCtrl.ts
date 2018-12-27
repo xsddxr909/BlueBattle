@@ -1,4 +1,6 @@
 import CameraCtrl from "../logic/CameraCtrl";
+import WallCtrl from "./WallCtrl";
+import { ConfigData } from "../ConfigData";
 
 const {ccclass, property} = cc._decorator;
 
@@ -31,10 +33,12 @@ export default class GroundCtrl extends cc.Component {
     //墙壁外的颜色
     defultOutColor:cc.Color = cc.color(10,7,31,255);
 
+    private oldWidth:number;
+    private oldHeight:number
     init(){
         let size:cc.Size=CameraCtrl.Instance.getBoundingBox().size;
-        this.ground.width=size.width;
-        this.ground.height=size.height;
+        this.oldWidth=this.ground.width=size.width;
+        this.oldHeight=this.ground.height=size.height;
     }
 
     //地板变黑
@@ -53,6 +57,25 @@ export default class GroundCtrl extends cc.Component {
         this.outerRight.color= this.defultOutColor;
         this.outerUp.color= this.defultOutColor;
         this.outerDown.color= this.defultOutColor;
+    }
+    public UpdateRect(rect:cc.Rect){
+        if(this.oldWidth!=rect.width||this.oldHeight!=rect.height){
+            this.oldHeight= this.ground.height=rect.height;
+            this.oldWidth= this.ground.width=rect.width;
+            this.outerLeft.height=rect.height;
+            this.outerLeft.x=-rect.width/2;
+            this.outerRight.height=rect.height;
+            this.outerRight.x=rect.width/2;
+            this.outerUp.width=rect.width;
+            this.outerUp.y=rect.height/2;
+            this.outerDown.width=rect.width;
+            this.outerDown.y=-rect.height/2;
+        }
+        // //更新四个方向的地板颜色宽度
+         this.outerLeft.width = Math.max(0, -WallCtrl.unitWidth/2 - rect.xMin);
+         this.outerRight.width = Math.max(0, rect.xMax -ConfigData.gameMapSize.width- WallCtrl.unitWidth/2);
+         this.outerDown.height = Math.max(0, - WallCtrl.unitHeight -  rect.yMin) ;
+         this.outerUp.height = Math.max(0, rect.yMax  -ConfigData.gameMapSize.height - WallCtrl.unitHeight/2 );
     }
 
 }

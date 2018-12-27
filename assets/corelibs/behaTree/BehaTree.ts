@@ -63,7 +63,7 @@ export class BehaTree extends NodeCombiner {
         let nodeList:Array<NodeBase>=new Array<NodeBase>();
         for (let i = 0; i < this.dataList.length; i++) {
             const b:BehaData = this.dataList[i];
-            console.log("get type: "+b.name);
+         //   console.log("get type: "+b.name);
             if(!BehaviorTreeManager.Get().classMapping.has(b.name)){
                 continue;
             }
