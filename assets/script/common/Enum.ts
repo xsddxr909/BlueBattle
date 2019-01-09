@@ -52,6 +52,10 @@ export module ENUMS
      {
          Char_Move=1,
          Char_StopMove=2,
+         Start_AI =3,
+         Stop_AI=4,
+         Paused_AI=5,
+         Continue_AI=6,
      }
        //控制类型...
     export enum CtrlType
@@ -74,6 +78,19 @@ export module ENUMS
         SkillAction=4,
      //   Can 
 
+    }
+    export enum AIstate
+    {
+        //空闲
+        Idle = 0,
+        //追击
+        Follow = 1,
+        //警戒 查找目标;
+        Warning = 2,
+        //攻击 
+        Attack = 3,
+        //躲避
+        Dodge = 4,
     }
 
 }

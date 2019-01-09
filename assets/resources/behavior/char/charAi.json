@@ -1,150 +1,395 @@
 {
-    "version": "0.3.0",
-    "scope": "tree",
-    "id": "8b37dfd5-2205-4f77-ba6f-721b983e801d",
-    "title": "A behavior tree",
-    "description": "",
-    "root": "877d0820-bd1a-49f8-82f3-8d59ac8bda33",
-    "properties": {},
-    "nodes": {
-      "877d0820-bd1a-49f8-82f3-8d59ac8bda33": {
-        "id": "877d0820-bd1a-49f8-82f3-8d59ac8bda33",
-        "name": "Select",
-        "title": "选择",
-        "description": "多个选择节点中选择一个",
-        "properties": {},
-        "display": {
-          "x": -84,
-          "y": -96
-        },
-        "children": [
-          "8e400ae5-f652-4fdd-937e-6cffc1392d42",
-          "9a4c0bed-66c9-4589-a51f-180cc0f1f1bf",
-          "44951e2d-76f7-4f1e-837b-29e63676fb31"
-        ]
+  "version": "0.3.0",
+  "scope": "tree",
+  "id": "06079fa6-bf7f-4fd4-96ed-422ea16d6bc6",
+  "title": "A behavior tree",
+  "description": "",
+  "root": "66512932-163d-465e-8a72-dbb0786be07f",
+  "properties": {},
+  "nodes": {
+    "0f54d8d5-b011-44d8-8c33-1e771028afeb": {
+      "id": "0f54d8d5-b011-44d8-8c33-1e771028afeb",
+      "name": "AiState",
+      "title": "Follow",
+      "description": "Idle = 0,\nFollow = 1,\nWarning = 2,\nAttack = 3,\nDodge = 4,",
+      "properties": {
+        "state": 1
       },
-      "8e400ae5-f652-4fdd-937e-6cffc1392d42": {
-        "id": "8e400ae5-f652-4fdd-937e-6cffc1392d42",
-        "name": "Sequence",
-        "title": "顺序1",
-        "description": "顺序节点,从上到下 顺序执行",
-        "properties": {},
-        "display": {
-          "x": 36,
-          "y": -204
-        },
-        "children": []
-      },
-      "44951e2d-76f7-4f1e-837b-29e63676fb31": {
-        "id": "44951e2d-76f7-4f1e-837b-29e63676fb31",
-        "name": "Paralle",
-        "title": "并行",
-        "description": "并行，多个同时进行",
-        "properties": {},
-        "display": {
-          "x": 48,
-          "y": 72
-        },
-        "children": [
-          "9f551cd8-c76d-4bb6-bd58-d80da0233096"
-        ]
-      },
-      "9a4c0bed-66c9-4589-a51f-180cc0f1f1bf": {
-        "id": "9a4c0bed-66c9-4589-a51f-180cc0f1f1bf",
-        "name": "Random",
-        "title": "随机",
-        "description": "",
-        "properties": {},
-        "display": {
-          "x": 36,
-          "y": -108
-        },
-        "children": [
-          "6ea3bb67-eb96-4f1f-855a-81c0f873f351"
-        ]
-      },
-      "6ea3bb67-eb96-4f1f-855a-81c0f873f351": {
-        "id": "6ea3bb67-eb96-4f1f-855a-81c0f873f351",
-        "name": "IfElse",
-        "title": "IfElse",
-        "description": "条件判断，3节点（条件，成功，失败）",
-        "properties": {},
-        "display": {
-          "x": 144,
-          "y": -84
-        },
-        "children": [
-          "6d7ff421-6756-4ade-b7e4-194e1758c621",
-          "fa307f92-48aa-4c98-8bff-70dccec7fadb",
-          "e8abf022-781a-43d9-9b00-9c3ff8602e3c"
-        ]
-      },
-      "9f551cd8-c76d-4bb6-bd58-d80da0233096": {
-        "id": "9f551cd8-c76d-4bb6-bd58-d80da0233096",
-        "name": "Sequence",
-        "title": "顺序",
-        "description": "顺序节点,从上到下 顺序执行",
-        "properties": {},
-        "display": {
-          "x": 156,
-          "y": 48
-        },
-        "children": []
-      },
-      "6d7ff421-6756-4ade-b7e4-194e1758c621": {
-        "id": "6d7ff421-6756-4ade-b7e4-194e1758c621",
-        "name": "Wait",
-        "title": "Wait <milliseconds>ms",
-        "description": "",
-        "properties": {
-          "milliseconds": 0
-        },
-        "display": {
-          "x": 300,
-          "y": -180
-        }
-      },
-      "fa307f92-48aa-4c98-8bff-70dccec7fadb": {
-        "id": "fa307f92-48aa-4c98-8bff-70dccec7fadb",
-        "name": "UseSkill",
-        "title": "UseSkill",
-        "description": "",
-        "properties": {
-          "wqwsdf": 112
-        },
-        "display": {
-          "x": 324,
-          "y": -96
-        }
-      },
-      "e8abf022-781a-43d9-9b00-9c3ff8602e3c": {
-        "id": "e8abf022-781a-43d9-9b00-9c3ff8602e3c",
-        "name": "Failer",
-        "title": "Failer",
-        "description": "",
-        "properties": {},
-        "display": {
-          "x": 324,
-          "y": -36
-        }
+      "display": {
+        "x": 396,
+        "y": 204
       }
     },
-    "display": {
-      "camera_x": 557,
-      "camera_y": 341.5,
-      "camera_z": 1,
-      "x": -192,
-      "y": -72
+    "66512932-163d-465e-8a72-dbb0786be07f": {
+      "id": "66512932-163d-465e-8a72-dbb0786be07f",
+      "name": "Switchs",
+      "title": "Switchs",
+      "description": "子节点必须cases",
+      "properties": {},
+      "display": {
+        "x": -24,
+        "y": 288
+      },
+      "children": [
+        "de9bcade-33e1-4e3e-a7f6-5fdfefacae2d",
+        "fd91a59e-8e35-4037-89b2-babf1d786175",
+        "27a9dbc0-624f-4e44-823d-d97e61823a1b",
+        "a80d6d8c-9c86-4155-8572-5ca03692a345",
+        "062e5ff7-c83a-4bbf-8f39-664816c9d053"
+      ]
     },
-    "custom_nodes": [
-      {
-        "version": "0.3.0",
-        "scope": "node",
-        "name": "UseSkill",
-        "category": "action",
-        "title": null,
-        "description": null,
-        "properties": {}
+    "fd91a59e-8e35-4037-89b2-babf1d786175": {
+      "id": "fd91a59e-8e35-4037-89b2-babf1d786175",
+      "name": "Cases",
+      "title": "Cases",
+      "description": "只有两个节点,判断,执行",
+      "properties": {},
+      "display": {
+        "x": 228,
+        "y": 204
+      },
+      "children": [
+        "0f54d8d5-b011-44d8-8c33-1e771028afeb",
+        "17afd65e-ae8d-4608-8bba-76f9ffcfb9f9"
+      ]
+    },
+    "7bc94228-72bd-483d-ac37-c0155441317d": {
+      "id": "7bc94228-72bd-483d-ac37-c0155441317d",
+      "name": "Null",
+      "title": "Null",
+      "description": "",
+      "properties": {},
+      "display": {
+        "x": 540,
+        "y": 384
       }
-    ]
-  }
+    },
+    "108cbd30-fcdc-41da-888b-1959627169f4": {
+      "id": "108cbd30-fcdc-41da-888b-1959627169f4",
+      "name": "SetState",
+      "title": "State set <state>",
+      "description": "",
+      "properties": {
+        "state": 0
+      },
+      "display": {
+        "x": 528,
+        "y": 444
+      }
+    },
+    "17afd65e-ae8d-4608-8bba-76f9ffcfb9f9": {
+      "id": "17afd65e-ae8d-4608-8bba-76f9ffcfb9f9",
+      "name": "Sequence",
+      "title": "->顺",
+      "description": "顺序节点,从上到下 顺序执行",
+      "properties": {},
+      "display": {
+        "x": 360,
+        "y": 348
+      },
+      "children": [
+        "7bc94228-72bd-483d-ac37-c0155441317d",
+        "108cbd30-fcdc-41da-888b-1959627169f4"
+      ]
+    },
+    "3f81fc3a-3e6c-4bda-8c42-01a961ce7bb6": {
+      "id": "3f81fc3a-3e6c-4bda-8c42-01a961ce7bb6",
+      "name": "AiState",
+      "title": "Idle",
+      "description": "Idle = 0,\nFollow = 1,\nWarning = 2,\nAttack = 3,\nDodge = 4,",
+      "properties": {
+        "state": 0
+      },
+      "display": {
+        "x": 372,
+        "y": -132
+      }
+    },
+    "de9bcade-33e1-4e3e-a7f6-5fdfefacae2d": {
+      "id": "de9bcade-33e1-4e3e-a7f6-5fdfefacae2d",
+      "name": "Cases",
+      "title": "Cases",
+      "description": "只有两个节点,判断,执行",
+      "properties": {},
+      "display": {
+        "x": 204,
+        "y": -84
+      },
+      "children": [
+        "3f81fc3a-3e6c-4bda-8c42-01a961ce7bb6",
+        "77b864fd-ec7b-4a7a-889a-b8bdec2f2301"
+      ]
+    },
+    "050e61e9-50e1-4e09-9861-044c2e03e262": {
+      "id": "050e61e9-50e1-4e09-9861-044c2e03e262",
+      "name": "Null",
+      "title": "Null",
+      "description": "",
+      "properties": {},
+      "display": {
+        "x": 552,
+        "y": -12
+      }
+    },
+    "db14d5b1-e528-4d49-90b4-1744e2607748": {
+      "id": "db14d5b1-e528-4d49-90b4-1744e2607748",
+      "name": "SetState",
+      "title": "State set <state>",
+      "description": "",
+      "properties": {
+        "state": 1
+      },
+      "display": {
+        "x": 552,
+        "y": 48
+      }
+    },
+    "77b864fd-ec7b-4a7a-889a-b8bdec2f2301": {
+      "id": "77b864fd-ec7b-4a7a-889a-b8bdec2f2301",
+      "name": "Sequence",
+      "title": "->顺",
+      "description": "顺序节点,从上到下 顺序执行",
+      "properties": {},
+      "display": {
+        "x": 384,
+        "y": 24
+      },
+      "children": [
+        "050e61e9-50e1-4e09-9861-044c2e03e262",
+        "db14d5b1-e528-4d49-90b4-1744e2607748"
+      ]
+    },
+    "cbacb3b7-5c04-4ffa-8c77-792f966a8afa": {
+      "id": "cbacb3b7-5c04-4ffa-8c77-792f966a8afa",
+      "name": "AiState",
+      "title": "Warning",
+      "description": "Idle = 0,\nFollow = 1,\nWarning = 2,\nAttack = 3,\nDodge = 4,",
+      "properties": {
+        "state": 2
+      },
+      "display": {
+        "x": 408,
+        "y": 576
+      }
+    },
+    "27a9dbc0-624f-4e44-823d-d97e61823a1b": {
+      "id": "27a9dbc0-624f-4e44-823d-d97e61823a1b",
+      "name": "Cases",
+      "title": "Cases",
+      "description": "只有两个节点,判断,执行",
+      "properties": {},
+      "display": {
+        "x": 204,
+        "y": 636
+      },
+      "children": [
+        "cbacb3b7-5c04-4ffa-8c77-792f966a8afa",
+        "cae1c399-4ba3-45b8-8fbc-4b8054270831"
+      ]
+    },
+    "6c3e7c3d-9b6a-4142-8f0a-95e0b5cd794a": {
+      "id": "6c3e7c3d-9b6a-4142-8f0a-95e0b5cd794a",
+      "name": "Null",
+      "title": "Null",
+      "description": "",
+      "properties": {},
+      "display": {
+        "x": 552,
+        "y": 756
+      }
+    },
+    "d7ce6b9f-b02e-4950-9b78-f309a9ea6598": {
+      "id": "d7ce6b9f-b02e-4950-9b78-f309a9ea6598",
+      "name": "SetState",
+      "title": "State set <state>",
+      "description": "",
+      "properties": {
+        "state": 0
+      },
+      "display": {
+        "x": 540,
+        "y": 816
+      }
+    },
+    "cae1c399-4ba3-45b8-8fbc-4b8054270831": {
+      "id": "cae1c399-4ba3-45b8-8fbc-4b8054270831",
+      "name": "Sequence",
+      "title": "->顺",
+      "description": "顺序节点,从上到下 顺序执行",
+      "properties": {},
+      "display": {
+        "x": 372,
+        "y": 720
+      },
+      "children": [
+        "6c3e7c3d-9b6a-4142-8f0a-95e0b5cd794a",
+        "d7ce6b9f-b02e-4950-9b78-f309a9ea6598"
+      ]
+    },
+    "b8e78d0b-c7d9-40a3-8df9-113e83f4f8d4": {
+      "id": "b8e78d0b-c7d9-40a3-8df9-113e83f4f8d4",
+      "name": "AiState",
+      "title": "Attack",
+      "description": "Idle = 0,\nFollow = 1,\nWarning = 2,\nAttack = 3,\nDodge = 4,",
+      "properties": {
+        "state": 3
+      },
+      "display": {
+        "x": 408,
+        "y": 888
+      }
+    },
+    "a80d6d8c-9c86-4155-8572-5ca03692a345": {
+      "id": "a80d6d8c-9c86-4155-8572-5ca03692a345",
+      "name": "Cases",
+      "title": "Cases",
+      "description": "只有两个节点,判断,执行",
+      "properties": {},
+      "display": {
+        "x": 204,
+        "y": 948
+      },
+      "children": [
+        "b8e78d0b-c7d9-40a3-8df9-113e83f4f8d4",
+        "464f969a-56e8-4bde-bb2f-b49c78a3ce4e"
+      ]
+    },
+    "8c8668dc-f06e-4da7-a433-5352e5fbda29": {
+      "id": "8c8668dc-f06e-4da7-a433-5352e5fbda29",
+      "name": "Null",
+      "title": "Null",
+      "description": "",
+      "properties": {},
+      "display": {
+        "x": 552,
+        "y": 1068
+      }
+    },
+    "d9d4014d-7b65-49c9-92eb-edff2c594781": {
+      "id": "d9d4014d-7b65-49c9-92eb-edff2c594781",
+      "name": "SetState",
+      "title": "State set <state>",
+      "description": "",
+      "properties": {
+        "state": 0
+      },
+      "display": {
+        "x": 540,
+        "y": 1128
+      }
+    },
+    "464f969a-56e8-4bde-bb2f-b49c78a3ce4e": {
+      "id": "464f969a-56e8-4bde-bb2f-b49c78a3ce4e",
+      "name": "Sequence",
+      "title": "->顺",
+      "description": "顺序节点,从上到下 顺序执行",
+      "properties": {},
+      "display": {
+        "x": 372,
+        "y": 1032
+      },
+      "children": [
+        "8c8668dc-f06e-4da7-a433-5352e5fbda29",
+        "d9d4014d-7b65-49c9-92eb-edff2c594781"
+      ]
+    },
+    "3478bb00-4970-4d65-8e74-268a9b35bf68": {
+      "id": "3478bb00-4970-4d65-8e74-268a9b35bf68",
+      "name": "AiState",
+      "title": "Dodge",
+      "description": "Idle = 0,\nFollow = 1,\nWarning = 2,\nAttack = 3,\nDodge = 4,",
+      "properties": {
+        "state": 3
+      },
+      "display": {
+        "x": 384,
+        "y": 1212
+      }
+    },
+    "062e5ff7-c83a-4bbf-8f39-664816c9d053": {
+      "id": "062e5ff7-c83a-4bbf-8f39-664816c9d053",
+      "name": "Cases",
+      "title": "Cases",
+      "description": "只有两个节点,判断,执行",
+      "properties": {},
+      "display": {
+        "x": 180,
+        "y": 1272
+      },
+      "children": [
+        "3478bb00-4970-4d65-8e74-268a9b35bf68",
+        "19d6390d-e818-4ef3-8252-5d64397e5385"
+      ]
+    },
+    "6558119f-8617-452b-a652-4c22466338ea": {
+      "id": "6558119f-8617-452b-a652-4c22466338ea",
+      "name": "Null",
+      "title": "Null",
+      "description": "",
+      "properties": {},
+      "display": {
+        "x": 528,
+        "y": 1392
+      }
+    },
+    "94d397c4-4864-4f35-82ec-acef190d1a36": {
+      "id": "94d397c4-4864-4f35-82ec-acef190d1a36",
+      "name": "SetState",
+      "title": "State set <state>",
+      "description": "",
+      "properties": {
+        "state": 0
+      },
+      "display": {
+        "x": 516,
+        "y": 1452
+      }
+    },
+    "19d6390d-e818-4ef3-8252-5d64397e5385": {
+      "id": "19d6390d-e818-4ef3-8252-5d64397e5385",
+      "name": "Sequence",
+      "title": "->顺",
+      "description": "顺序节点,从上到下 顺序执行",
+      "properties": {},
+      "display": {
+        "x": 348,
+        "y": 1356
+      },
+      "children": [
+        "6558119f-8617-452b-a652-4c22466338ea",
+        "94d397c4-4864-4f35-82ec-acef190d1a36"
+      ]
+    }
+  },
+  "display": {
+    "camera_x": 573.5,
+    "camera_y": 148.5,
+    "camera_z": 0.75,
+    "x": -180,
+    "y": 300
+  },
+  "custom_nodes": [
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "AiState",
+      "category": "condition",
+      "title": "AiState=<state>",
+      "description": "Idle = 0,\nFollow = 1,\nWarning = 2,\nAttack = 3,\nDodge = 4,",
+      "properties": {
+        "state": 0
+      }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "SetState",
+      "category": "action",
+      "title": "State set <state>",
+      "description": null,
+      "properties": {
+        "state": 0
+      }
+    }
+  ]
+}

@@ -23,10 +23,34 @@ export class AIController extends Controller
        super.init(char);
     //   this.skill=char.getSkillPart();
        this.behaTree=BehaviorTreeManager.Get().creatNodeTree(char.charData.aiUrl,char.charData);
-   //    this.behaTree.Paused();
+       if(!char.charData.autoStartAi){
+          this.behaTree.Paused();
+       }
     }
     OnMessage(cmd:ENUMS.ControllerCmd, param?: any): void {
-       
+        switch(cmd){
+            case ENUMS.ControllerCmd.Start_AI:
+                if(this.behaTree!=null){
+                    this.behaTree.Stop();
+                    this.behaTree.Continue();
+                }
+            break;
+            case ENUMS.ControllerCmd.Stop_AI:
+                if(this.behaTree!=null){
+                    this.behaTree.Stop();
+                }
+            break;
+            case ENUMS.ControllerCmd.Paused_AI:
+                if(this.behaTree!=null){
+                    this.behaTree.Paused();
+                }
+            break;
+            case ENUMS.ControllerCmd.Continue_AI:
+                if(this.behaTree!=null){
+                    this.behaTree.Continue();
+                }
+            break;
+        }
         super.OnMessage(cmd,param);
     }
 
@@ -44,7 +68,6 @@ export class AIController extends Controller
      */
     onGet(){
         super.onGet();
-
     }
     /**
      *释放 时候;

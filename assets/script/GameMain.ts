@@ -14,8 +14,8 @@ import { CharManager } from "./char/manager/CharManager";
 import MapManager from "./map/MapManager";
 import UIBackToLogin from "./UI/UIBackToLogin";
 import { BehaviorTreeManager } from "../corelibs/behaTree/BehaviorTreeManager";
-import { UseSkillAct } from "./char/beha/GameActionBeha";
-import { TargetDicCondition } from "./char/beha/GameConditionBeha";
+import { UseSkillAct, SetStateAct } from "./char/beha/GameActionBeha";
+import { TargetDicCondition, AiStateCondition } from "./char/beha/GameConditionBeha";
 
 /**
  * 初始场景
@@ -70,8 +70,8 @@ export default class GameMain extends cc.Component
         Core.SceneMgr.Register(SceneEnum.GameScene,new GameScene());
 
         //行为树注册;
-        BehaviorTreeManager.Get().Register("TargetDic",TargetDicCondition);
-        BehaviorTreeManager.Get().Register("UseSkill",UseSkillAct);
+        BehaviorTreeManager.Get().Register("AiState",AiStateCondition);
+        BehaviorTreeManager.Get().Register("SetState",SetStateAct);
         
     }
     /**

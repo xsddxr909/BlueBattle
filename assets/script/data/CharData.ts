@@ -21,13 +21,17 @@ export class CharData extends PosData implements IObbBox
    //角色类型;
    public charType:ENUMS.CharType=ENUMS.CharType.Character;
    public ctrlType:ENUMS.CtrlType=ENUMS.CtrlType.JoyCtrl;
+
     //行为树数据；
     public aiUrl: string="behavior/char/charAi.json";
-   
-   //ai查找间隔 (单位)秒
-   public findTime:number=1; 
-   //ai查找间隔 (单位)秒
-   public touchWaitingTime:number = 0; 
+    public autoStartAi:boolean=false;
+    public aiState:ENUMS.AIstate=ENUMS.AIstate.Idle;
+     //ai查找间隔 (单位)秒
+    public findTime:number=1; 
+     //ai查找间隔 (单位)秒
+    public touchWaitingTime:number = 0; 
+
+
    public  birthPoint:cc.Vec2;
    public  birthDir:number;
    public  isAttacking:Boolean = false;
