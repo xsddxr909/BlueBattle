@@ -397,7 +397,7 @@ export class ParallelNode extends NodeCombiner
     }
 }
  /// <summary>
-/// condition ifelse条件节点(组合节点) 节点必须有3个子节点 0 条件判断  1成功执行 2 失败执行;
+/// condition ifelse条件节点(组合节点) 节点必须有3个子节点 0 条件判断  1成功执行 2 失败执行; 判断完成后会重置
 /// </summary>
 export class IfElseNode extends NodeCombiner
 {
