@@ -1,7 +1,7 @@
 import { ListDataPool } from "../util/Pool";
 import { BehaTree } from "./BehaTree";
 import { NodeBase, SelectNode, SequenceNode, RandomNode, ParallelNode, IfElseNode, SwitchNode ,CasesNode, WeightRandomNode, OrNode, AndNode } from "./NodeBehaTree";
-import { NotDec, LoopDec, TimeDec, TimeSynDec, InFramesSynDec, AlwaysSuccessDec, AlwaysFailDec, CountLimitDec } from "./DecoratorBeha";
+import { NotDec, LoopDec, TimeDec, TimeSynDec, InFramesSynDec, AlwaysSuccessDec, AlwaysFailDec, CountLimitDec, SuccessResetDec } from "./DecoratorBeha";
 import { WaitTimesAct, WaitFrameAct, NullAct } from "./ActionBeha";
 
 /**
@@ -58,6 +58,8 @@ export class BehaviorTreeManager
         this.Register("Succeeder",AlwaysSuccessDec);
         this.Register("Failer",AlwaysFailDec);
         this.Register("CountLimit",CountLimitDec);
+        this.Register("SuccessReset",SuccessResetDec);
+        
 
           //action
         this.Register("Null",NullAct);

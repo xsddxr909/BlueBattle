@@ -10,14 +10,14 @@
     "0f54d8d5-b011-44d8-8c33-1e771028afeb": {
       "id": "0f54d8d5-b011-44d8-8c33-1e771028afeb",
       "name": "AiState",
-      "title": "Follow",
+      "title": "Follow  1",
       "description": "Idle = 0,\nFollow = 1,\nWarning = 2,\nAttack = 3,\nDodge = 4,",
       "properties": {
         "state": 1
       },
       "display": {
-        "x": 396,
-        "y": 204
+        "x": 324,
+        "y": -156
       }
     },
     "66512932-163d-465e-8a72-dbb0786be07f": {
@@ -27,8 +27,8 @@
       "description": "子节点必须cases",
       "properties": {},
       "display": {
-        "x": -24,
-        "y": 288
+        "x": -156,
+        "y": 120
       },
       "children": [
         "de9bcade-33e1-4e3e-a7f6-5fdfefacae2d",
@@ -45,36 +45,25 @@
       "description": "只有两个节点,判断,执行",
       "properties": {},
       "display": {
-        "x": 228,
-        "y": 204
+        "x": 120,
+        "y": 36
       },
       "children": [
         "0f54d8d5-b011-44d8-8c33-1e771028afeb",
-        "17afd65e-ae8d-4608-8bba-76f9ffcfb9f9"
+        "e84dd997-eab4-4c16-88be-a2a2b67e34f8"
       ]
-    },
-    "7bc94228-72bd-483d-ac37-c0155441317d": {
-      "id": "7bc94228-72bd-483d-ac37-c0155441317d",
-      "name": "Null",
-      "title": "Null",
-      "description": "",
-      "properties": {},
-      "display": {
-        "x": 540,
-        "y": 384
-      }
     },
     "108cbd30-fcdc-41da-888b-1959627169f4": {
       "id": "108cbd30-fcdc-41da-888b-1959627169f4",
       "name": "SetState",
-      "title": "State set <state>",
-      "description": "",
+      "title": "State Attack 3",
+      "description": "return Fail",
       "properties": {
-        "state": 0
+        "state": 3
       },
       "display": {
-        "x": 528,
-        "y": 444
+        "x": 816,
+        "y": 420
       }
     },
     "17afd65e-ae8d-4608-8bba-76f9ffcfb9f9": {
@@ -84,25 +73,26 @@
       "description": "顺序节点,从上到下 顺序执行",
       "properties": {},
       "display": {
-        "x": 360,
-        "y": 348
+        "x": 480,
+        "y": 240
       },
       "children": [
-        "7bc94228-72bd-483d-ac37-c0155441317d",
+        "be931fbb-3615-4463-ac2a-978905521886",
+        "82e26d02-f203-405b-80cf-ddb303f24241",
         "108cbd30-fcdc-41da-888b-1959627169f4"
       ]
     },
     "3f81fc3a-3e6c-4bda-8c42-01a961ce7bb6": {
       "id": "3f81fc3a-3e6c-4bda-8c42-01a961ce7bb6",
       "name": "AiState",
-      "title": "Idle",
+      "title": "Idle 0",
       "description": "Idle = 0,\nFollow = 1,\nWarning = 2,\nAttack = 3,\nDodge = 4,",
       "properties": {
         "state": 0
       },
       "display": {
-        "x": 372,
-        "y": -132
+        "x": 240,
+        "y": -396
       }
     },
     "de9bcade-33e1-4e3e-a7f6-5fdfefacae2d": {
@@ -112,64 +102,25 @@
       "description": "只有两个节点,判断,执行",
       "properties": {},
       "display": {
-        "x": 204,
-        "y": -84
+        "x": 60,
+        "y": -288
       },
       "children": [
         "3f81fc3a-3e6c-4bda-8c42-01a961ce7bb6",
-        "77b864fd-ec7b-4a7a-889a-b8bdec2f2301"
-      ]
-    },
-    "050e61e9-50e1-4e09-9861-044c2e03e262": {
-      "id": "050e61e9-50e1-4e09-9861-044c2e03e262",
-      "name": "Null",
-      "title": "Null",
-      "description": "",
-      "properties": {},
-      "display": {
-        "x": 552,
-        "y": -12
-      }
-    },
-    "db14d5b1-e528-4d49-90b4-1744e2607748": {
-      "id": "db14d5b1-e528-4d49-90b4-1744e2607748",
-      "name": "SetState",
-      "title": "State set <state>",
-      "description": "",
-      "properties": {
-        "state": 1
-      },
-      "display": {
-        "x": 552,
-        "y": 48
-      }
-    },
-    "77b864fd-ec7b-4a7a-889a-b8bdec2f2301": {
-      "id": "77b864fd-ec7b-4a7a-889a-b8bdec2f2301",
-      "name": "Sequence",
-      "title": "->顺",
-      "description": "顺序节点,从上到下 顺序执行",
-      "properties": {},
-      "display": {
-        "x": 384,
-        "y": 24
-      },
-      "children": [
-        "050e61e9-50e1-4e09-9861-044c2e03e262",
-        "db14d5b1-e528-4d49-90b4-1744e2607748"
+        "e865ed5f-a29a-4ab6-aef4-474227e00298"
       ]
     },
     "cbacb3b7-5c04-4ffa-8c77-792f966a8afa": {
       "id": "cbacb3b7-5c04-4ffa-8c77-792f966a8afa",
       "name": "AiState",
-      "title": "Warning",
+      "title": "Warning  2",
       "description": "Idle = 0,\nFollow = 1,\nWarning = 2,\nAttack = 3,\nDodge = 4,",
       "properties": {
         "state": 2
       },
       "display": {
         "x": 408,
-        "y": 576
+        "y": 420
       }
     },
     "27a9dbc0-624f-4e44-823d-d97e61823a1b": {
@@ -179,37 +130,13 @@
       "description": "只有两个节点,判断,执行",
       "properties": {},
       "display": {
-        "x": 204,
-        "y": 636
+        "x": 216,
+        "y": 612
       },
       "children": [
         "cbacb3b7-5c04-4ffa-8c77-792f966a8afa",
         "cae1c399-4ba3-45b8-8fbc-4b8054270831"
       ]
-    },
-    "6c3e7c3d-9b6a-4142-8f0a-95e0b5cd794a": {
-      "id": "6c3e7c3d-9b6a-4142-8f0a-95e0b5cd794a",
-      "name": "Null",
-      "title": "Null",
-      "description": "",
-      "properties": {},
-      "display": {
-        "x": 552,
-        "y": 756
-      }
-    },
-    "d7ce6b9f-b02e-4950-9b78-f309a9ea6598": {
-      "id": "d7ce6b9f-b02e-4950-9b78-f309a9ea6598",
-      "name": "SetState",
-      "title": "State set <state>",
-      "description": "",
-      "properties": {
-        "state": 0
-      },
-      "display": {
-        "x": 540,
-        "y": 816
-      }
     },
     "cae1c399-4ba3-45b8-8fbc-4b8054270831": {
       "id": "cae1c399-4ba3-45b8-8fbc-4b8054270831",
@@ -218,25 +145,24 @@
       "description": "顺序节点,从上到下 顺序执行",
       "properties": {},
       "display": {
-        "x": 372,
-        "y": 720
+        "x": 360,
+        "y": 684
       },
       "children": [
-        "6c3e7c3d-9b6a-4142-8f0a-95e0b5cd794a",
-        "d7ce6b9f-b02e-4950-9b78-f309a9ea6598"
+        "08249abc-df8d-4abe-8197-f4cce524612b"
       ]
     },
     "b8e78d0b-c7d9-40a3-8df9-113e83f4f8d4": {
       "id": "b8e78d0b-c7d9-40a3-8df9-113e83f4f8d4",
       "name": "AiState",
-      "title": "Attack",
+      "title": "Attack  3",
       "description": "Idle = 0,\nFollow = 1,\nWarning = 2,\nAttack = 3,\nDodge = 4,",
       "properties": {
         "state": 3
       },
       "display": {
-        "x": 408,
-        "y": 888
+        "x": 300,
+        "y": 900
       }
     },
     "a80d6d8c-9c86-4155-8572-5ca03692a345": {
@@ -246,64 +172,38 @@
       "description": "只有两个节点,判断,执行",
       "properties": {},
       "display": {
-        "x": 204,
-        "y": 948
+        "x": 120,
+        "y": 984
       },
       "children": [
         "b8e78d0b-c7d9-40a3-8df9-113e83f4f8d4",
-        "464f969a-56e8-4bde-bb2f-b49c78a3ce4e"
+        "d9d4014d-7b65-49c9-92eb-edff2c594781"
       ]
-    },
-    "8c8668dc-f06e-4da7-a433-5352e5fbda29": {
-      "id": "8c8668dc-f06e-4da7-a433-5352e5fbda29",
-      "name": "Null",
-      "title": "Null",
-      "description": "",
-      "properties": {},
-      "display": {
-        "x": 552,
-        "y": 1068
-      }
     },
     "d9d4014d-7b65-49c9-92eb-edff2c594781": {
       "id": "d9d4014d-7b65-49c9-92eb-edff2c594781",
       "name": "SetState",
-      "title": "State set <state>",
-      "description": "",
+      "title": "state Warning  2",
+      "description": "return Fail",
       "properties": {
-        "state": 0
+        "state": 2
       },
       "display": {
-        "x": 540,
-        "y": 1128
+        "x": 336,
+        "y": 1044
       }
-    },
-    "464f969a-56e8-4bde-bb2f-b49c78a3ce4e": {
-      "id": "464f969a-56e8-4bde-bb2f-b49c78a3ce4e",
-      "name": "Sequence",
-      "title": "->顺",
-      "description": "顺序节点,从上到下 顺序执行",
-      "properties": {},
-      "display": {
-        "x": 372,
-        "y": 1032
-      },
-      "children": [
-        "8c8668dc-f06e-4da7-a433-5352e5fbda29",
-        "d9d4014d-7b65-49c9-92eb-edff2c594781"
-      ]
     },
     "3478bb00-4970-4d65-8e74-268a9b35bf68": {
       "id": "3478bb00-4970-4d65-8e74-268a9b35bf68",
       "name": "AiState",
-      "title": "Dodge",
+      "title": "Dodge  4",
       "description": "Idle = 0,\nFollow = 1,\nWarning = 2,\nAttack = 3,\nDodge = 4,",
       "properties": {
         "state": 3
       },
       "display": {
-        "x": 384,
-        "y": 1212
+        "x": 300,
+        "y": 1272
       }
     },
     "062e5ff7-c83a-4bbf-8f39-664816c9d053": {
@@ -313,60 +213,623 @@
       "description": "只有两个节点,判断,执行",
       "properties": {},
       "display": {
-        "x": 180,
-        "y": 1272
+        "x": 96,
+        "y": 1332
       },
       "children": [
         "3478bb00-4970-4d65-8e74-268a9b35bf68",
-        "19d6390d-e818-4ef3-8252-5d64397e5385"
+        "94d397c4-4864-4f35-82ec-acef190d1a36"
       ]
     },
-    "6558119f-8617-452b-a652-4c22466338ea": {
-      "id": "6558119f-8617-452b-a652-4c22466338ea",
+    "94d397c4-4864-4f35-82ec-acef190d1a36": {
+      "id": "94d397c4-4864-4f35-82ec-acef190d1a36",
+      "name": "SetState",
+      "title": "state Idle 0",
+      "description": "return Fail",
+      "properties": {
+        "state": 0
+      },
+      "display": {
+        "x": 324,
+        "y": 1380
+      }
+    },
+    "e659a93d-1c1d-4c2e-9139-eaf6c0fd2966": {
+      "id": "e659a93d-1c1d-4c2e-9139-eaf6c0fd2966",
+      "name": "WeightRandom",
+      "title": "行为 <power>",
+      "description": "",
+      "properties": {
+        "power": "15,15,8,3"
+      },
+      "display": {
+        "x": 672,
+        "y": -288
+      },
+      "children": [
+        "979ed31a-2d94-42a9-8492-e3101d88fb9b",
+        "8b30aa00-2db4-4e44-8fcd-878926234702",
+        "42cc729b-b77d-4947-8565-d84f5e2072d2",
+        "a45d877f-8224-40fb-984b-94a92e88000a"
+      ]
+    },
+    "8b30aa00-2db4-4e44-8fcd-878926234702": {
+      "id": "8b30aa00-2db4-4e44-8fcd-878926234702",
+      "name": "SetState",
+      "title": "state Warning  2",
+      "description": "return Fail",
+      "properties": {
+        "state": 2
+      },
+      "display": {
+        "x": 948,
+        "y": -300
+      }
+    },
+    "f13c1986-a174-460a-bc53-caf730407237": {
+      "id": "f13c1986-a174-460a-bc53-caf730407237",
+      "name": "SetState",
+      "title": "state Warning  2",
+      "description": "return Fail",
+      "properties": {
+        "state": 2
+      },
+      "display": {
+        "x": 1056,
+        "y": -684
+      }
+    },
+    "2cc08864-f8fc-4090-815e-68bcd01c3a8a": {
+      "id": "2cc08864-f8fc-4090-815e-68bcd01c3a8a",
+      "name": "WeightRandom",
+      "title": "行为 <power>",
+      "description": "",
+      "properties": {
+        "power": "7,3"
+      },
+      "display": {
+        "x": 876,
+        "y": -648
+      },
+      "children": [
+        "f13c1986-a174-460a-bc53-caf730407237",
+        "f28aff75-9a33-4c58-8bdf-add408c42c23"
+      ]
+    },
+    "f28aff75-9a33-4c58-8bdf-add408c42c23": {
+      "id": "f28aff75-9a33-4c58-8bdf-add408c42c23",
       "name": "Null",
       "title": "Null",
       "description": "",
       "properties": {},
       "display": {
-        "x": 528,
-        "y": 1392
+        "x": 1056,
+        "y": -612
       }
     },
-    "94d397c4-4864-4f35-82ec-acef190d1a36": {
-      "id": "94d397c4-4864-4f35-82ec-acef190d1a36",
-      "name": "SetState",
-      "title": "State set <state>",
+    "a45d877f-8224-40fb-984b-94a92e88000a": {
+      "id": "a45d877f-8224-40fb-984b-94a92e88000a",
+      "name": "Null",
+      "title": "Null",
       "description": "",
+      "properties": {},
+      "display": {
+        "x": 960,
+        "y": -168
+      }
+    },
+    "f06fd8ec-983b-45b4-a989-afeeb844ae32": {
+      "id": "f06fd8ec-983b-45b4-a989-afeeb844ae32",
+      "name": "IfElse",
+      "title": "IfElse",
+      "description": "条件判断，3节点（条件，成功，失败）",
+      "properties": {},
+      "display": {
+        "x": 480,
+        "y": -72
+      },
+      "children": [
+        "90e9605f-bc67-4787-87da-c80885e028f7",
+        "6f25cb45-2e02-4a54-821c-443fc9efa3d8"
+      ]
+    },
+    "24e72f76-6178-4a54-b47b-a9b680d3caec": {
+      "id": "24e72f76-6178-4a54-b47b-a9b680d3caec",
+      "name": "SetState",
+      "title": "state Idle 0",
+      "description": "return Fail",
       "properties": {
         "state": 0
       },
       "display": {
-        "x": 516,
-        "y": 1452
+        "x": 852,
+        "y": -36
       }
     },
-    "19d6390d-e818-4ef3-8252-5d64397e5385": {
-      "id": "19d6390d-e818-4ef3-8252-5d64397e5385",
+    "6f25cb45-2e02-4a54-821c-443fc9efa3d8": {
+      "id": "6f25cb45-2e02-4a54-821c-443fc9efa3d8",
+      "name": "WeightRandom",
+      "title": "行为 <power>",
+      "description": "",
+      "properties": {
+        "power": "5,5"
+      },
+      "display": {
+        "x": 648,
+        "y": -24
+      },
+      "children": [
+        "24e72f76-6178-4a54-b47b-a9b680d3caec",
+        "65590da4-41e8-4f62-808b-e0fdde3560c1"
+      ]
+    },
+    "65590da4-41e8-4f62-808b-e0fdde3560c1": {
+      "id": "65590da4-41e8-4f62-808b-e0fdde3560c1",
+      "name": "SetState",
+      "title": "state Warning  2",
+      "description": "return Fail",
+      "properties": {
+        "state": 2
+      },
+      "display": {
+        "x": 864,
+        "y": 36
+      }
+    },
+    "be931fbb-3615-4463-ac2a-978905521886": {
+      "id": "be931fbb-3615-4463-ac2a-978905521886",
+      "name": "WeightRandom",
+      "title": "行为 <power>",
+      "description": "",
+      "properties": {
+        "power": "2,1"
+      },
+      "display": {
+        "x": 648,
+        "y": 204
+      },
+      "children": [
+        "2382f966-8ee2-4e5f-9259-7806499c8c69",
+        "0ad2b276-ae2f-4e47-85f1-d32714e3bfe4"
+      ]
+    },
+    "82e26d02-f203-405b-80cf-ddb303f24241": {
+      "id": "82e26d02-f203-405b-80cf-ddb303f24241",
+      "name": "FollowTarget",
+      "title": "FollowTarget",
+      "description": "如果目标死亡，消失，无敌，切warnning",
+      "properties": {},
+      "display": {
+        "x": 816,
+        "y": 324
+      }
+    },
+    "0ad2b276-ae2f-4e47-85f1-d32714e3bfe4": {
+      "id": "0ad2b276-ae2f-4e47-85f1-d32714e3bfe4",
+      "name": "Null",
+      "title": "Null",
+      "description": "",
+      "properties": {},
+      "display": {
+        "x": 852,
+        "y": 240
+      }
+    },
+    "2382f966-8ee2-4e5f-9259-7806499c8c69": {
+      "id": "2382f966-8ee2-4e5f-9259-7806499c8c69",
+      "name": "UseSkill",
+      "title": "Skill<skill>",
+      "description": "",
+      "properties": {
+        "skill": "Speed"
+      },
+      "display": {
+        "x": 852,
+        "y": 156
+      }
+    },
+    "03374324-21e6-4a07-b09e-ba41e7c781e5": {
+      "id": "03374324-21e6-4a07-b09e-ba41e7c781e5",
+      "name": "FinTarget",
+      "title": "FinTarget <<dic> T<type>",
+      "description": "type 0 最近\n        1 等级最弱\n        2 等级最强",
+      "properties": {
+        "dic": 40,
+        "type": 0
+      },
+      "display": {
+        "x": 1140,
+        "y": 408
+      }
+    },
+    "713c633a-8384-49cd-abcd-772b57b7f9d9": {
+      "id": "713c633a-8384-49cd-abcd-772b57b7f9d9",
+      "name": "IfElse",
+      "title": "IfElse",
+      "description": "条件判断，3节点（条件，成功，失败）",
+      "properties": {},
+      "display": {
+        "x": 732,
+        "y": 768
+      },
+      "children": [
+        "162153e4-80ff-436d-8004-0a678f8ed5ce",
+        "cb58a604-fb19-41c3-a662-1fa0496ae101",
+        "6aa72578-5863-407a-8c5c-4ea8b12458eb"
+      ]
+    },
+    "bad99834-77af-4608-91e5-7ac77c722822": {
+      "id": "bad99834-77af-4608-91e5-7ac77c722822",
+      "name": "SetState",
+      "title": "state Idle 0",
+      "description": "return Fail",
+      "properties": {
+        "state": 0
+      },
+      "display": {
+        "x": 1056,
+        "y": 864
+      }
+    },
+    "162153e4-80ff-436d-8004-0a678f8ed5ce": {
+      "id": "162153e4-80ff-436d-8004-0a678f8ed5ce",
+      "name": "HasTarget",
+      "title": "HasTarget",
+      "description": "",
+      "properties": {},
+      "display": {
+        "x": 912,
+        "y": 732
+      }
+    },
+    "116ecf94-a665-4e96-8e89-da31e337eafb": {
+      "id": "116ecf94-a665-4e96-8e89-da31e337eafb",
+      "name": "WeightRandom",
+      "title": "行为 <power>",
+      "description": "",
+      "properties": {
+        "power": "20,15,10,10,10,5"
+      },
+      "display": {
+        "x": 888,
+        "y": 660
+      },
+      "children": [
+        "03374324-21e6-4a07-b09e-ba41e7c781e5",
+        "962d4c81-c2c3-4b6a-a2b7-8e89cdd6a1d5",
+        "ba4b21d7-fcc7-4fdd-9cc2-b1142a13296b",
+        "e4522d6e-974e-46a4-8cd3-2741a0eacfb0",
+        "c7ae5e9c-4c90-41bf-ace5-6872c72682b0",
+        "e8b609c6-0287-4041-8198-7d9044a7d917"
+      ]
+    },
+    "6aa72578-5863-407a-8c5c-4ea8b12458eb": {
+      "id": "6aa72578-5863-407a-8c5c-4ea8b12458eb",
+      "name": "WeightRandom",
+      "title": "行为 <power>",
+      "description": "",
+      "properties": {
+        "power": "5,2,3"
+      },
+      "display": {
+        "x": 876,
+        "y": 864
+      },
+      "children": [
+        "bad99834-77af-4608-91e5-7ac77c722822",
+        "5faec421-e74c-4f66-86a1-b255cb022cab",
+        "16b59b64-47a6-421c-9a1e-9c1993da5108"
+      ]
+    },
+    "16b59b64-47a6-421c-9a1e-9c1993da5108": {
+      "id": "16b59b64-47a6-421c-9a1e-9c1993da5108",
+      "name": "Null",
+      "title": "Null 再找一次",
+      "description": "",
+      "properties": {},
+      "display": {
+        "x": 1068,
+        "y": 1008
+      }
+    },
+    "5faec421-e74c-4f66-86a1-b255cb022cab": {
+      "id": "5faec421-e74c-4f66-86a1-b255cb022cab",
+      "name": "WaitFrame",
+      "title": "WaitFrame <frameCount>",
+      "description": "",
+      "properties": {
+        "frameCount": 15
+      },
+      "display": {
+        "x": 1068,
+        "y": 936
+      }
+    },
+    "1a715003-3227-4448-aad9-6e08e4f7bdc7": {
+      "id": "1a715003-3227-4448-aad9-6e08e4f7bdc7",
+      "name": "WaitFrame",
+      "title": "WaitFrame <frameCount>",
+      "description": "",
+      "properties": {
+        "frameCount": 15
+      },
+      "display": {
+        "x": 888,
+        "y": -516
+      }
+    },
+    "979ed31a-2d94-42a9-8492-e3101d88fb9b": {
+      "id": "979ed31a-2d94-42a9-8492-e3101d88fb9b",
+      "name": "Select",
+      "title": "Select",
+      "description": "多个选择节点中选择一个",
+      "properties": {},
+      "display": {
+        "x": 912,
+        "y": -408
+      },
+      "children": [
+        "0454430e-70dc-41bf-83c7-ade0f8f70057",
+        "575eb561-554a-40ed-827e-aedd1ed207a9"
+      ]
+    },
+    "e865ed5f-a29a-4ab6-aef4-474227e00298": {
+      "id": "e865ed5f-a29a-4ab6-aef4-474227e00298",
+      "name": "Paralle",
+      "title": "->并",
+      "description": "并行，多个同时进行",
+      "properties": {},
+      "display": {
+        "x": 324,
+        "y": -300
+      },
+      "children": [
+        "acb3d886-58af-4b49-81b3-a205d5d37aee",
+        "e659a93d-1c1d-4c2e-9139-eaf6c0fd2966"
+      ]
+    },
+    "e84dd997-eab4-4c16-88be-a2a2b67e34f8": {
+      "id": "e84dd997-eab4-4c16-88be-a2a2b67e34f8",
+      "name": "Paralle",
+      "title": "->并",
+      "description": "并行，多个同时进行",
+      "properties": {},
+      "display": {
+        "x": 324,
+        "y": 36
+      },
+      "children": [
+        "f06fd8ec-983b-45b4-a989-afeeb844ae32",
+        "17afd65e-ae8d-4608-8bba-76f9ffcfb9f9"
+      ]
+    },
+    "acb3d886-58af-4b49-81b3-a205d5d37aee": {
+      "id": "acb3d886-58af-4b49-81b3-a205d5d37aee",
+      "name": "IfElse",
+      "title": "IfElse",
+      "description": "条件判断，3节点（条件，成功，失败）",
+      "properties": {},
+      "display": {
+        "x": 528,
+        "y": -480
+      },
+      "children": [
+        "4e09b7de-39c7-4844-84cb-4af6e7a4e339",
+        "2cc08864-f8fc-4090-815e-68bcd01c3a8a",
+        "1a715003-3227-4448-aad9-6e08e4f7bdc7"
+      ]
+    },
+    "4e09b7de-39c7-4844-84cb-4af6e7a4e339": {
+      "id": "4e09b7de-39c7-4844-84cb-4af6e7a4e339",
+      "name": "SomeOneCloseMe",
+      "title": "camp <Camp> CloseMe<=<dic>",
+      "description": "camp 0 友方\ncamp 1 敌方",
+      "properties": {
+        "dic": 20,
+        "Camp": 1
+      },
+      "display": {
+        "x": 840,
+        "y": -768
+      }
+    },
+    "fb2dc09c-165f-4f27-b131-045430b38ce9": {
+      "id": "fb2dc09c-165f-4f27-b131-045430b38ce9",
+      "name": "HasTarget",
+      "title": "HasTarget",
+      "description": "",
+      "properties": {},
+      "display": {
+        "x": 672,
+        "y": 516
+      }
+    },
+    "08249abc-df8d-4abe-8197-f4cce524612b": {
+      "id": "08249abc-df8d-4abe-8197-f4cce524612b",
+      "name": "IfElse",
+      "title": "IfElse",
+      "description": "条件判断，3节点（条件，成功，失败）",
+      "properties": {},
+      "display": {
+        "x": 516,
+        "y": 588
+      },
+      "children": [
+        "fb2dc09c-165f-4f27-b131-045430b38ce9",
+        "fafd18fb-a6b6-42ac-85f3-7855a7060d81",
+        "aa318421-a83a-49c8-a1f4-e10e557c91b6"
+      ]
+    },
+    "fafd18fb-a6b6-42ac-85f3-7855a7060d81": {
+      "id": "fafd18fb-a6b6-42ac-85f3-7855a7060d81",
+      "name": "SetState",
+      "title": "State Follow",
+      "description": "return Fail",
+      "properties": {
+        "state": 1
+      },
+      "display": {
+        "x": 768,
+        "y": 588
+      }
+    },
+    "cb58a604-fb19-41c3-a662-1fa0496ae101": {
+      "id": "cb58a604-fb19-41c3-a662-1fa0496ae101",
+      "name": "SetState",
+      "title": "State Follow",
+      "description": "return Fail",
+      "properties": {
+        "state": 1
+      },
+      "display": {
+        "x": 924,
+        "y": 792
+      }
+    },
+    "aa318421-a83a-49c8-a1f4-e10e557c91b6": {
+      "id": "aa318421-a83a-49c8-a1f4-e10e557c91b6",
       "name": "Sequence",
       "title": "->顺",
       "description": "顺序节点,从上到下 顺序执行",
       "properties": {},
       "display": {
-        "x": 348,
-        "y": 1356
+        "x": 612,
+        "y": 708
       },
       "children": [
-        "6558119f-8617-452b-a652-4c22466338ea",
-        "94d397c4-4864-4f35-82ec-acef190d1a36"
+        "116ecf94-a665-4e96-8e89-da31e337eafb",
+        "713c633a-8384-49cd-abcd-772b57b7f9d9"
       ]
+    },
+    "ba4b21d7-fcc7-4fdd-9cc2-b1142a13296b": {
+      "id": "ba4b21d7-fcc7-4fdd-9cc2-b1142a13296b",
+      "name": "FinTarget",
+      "title": "FinTarget <<dic> T<type>",
+      "description": "type 0 最近\n        1 等级最弱\n        2 等级最强",
+      "properties": {
+        "dic": 40,
+        "type": 1
+      },
+      "display": {
+        "x": 1164,
+        "y": 540
+      }
+    },
+    "e4522d6e-974e-46a4-8cd3-2741a0eacfb0": {
+      "id": "e4522d6e-974e-46a4-8cd3-2741a0eacfb0",
+      "name": "FinTarget",
+      "title": "FinTarget <<dic> T<type>",
+      "description": "type 0 最近\n        1 等级最弱\n        2 等级最强",
+      "properties": {
+        "dic": 40,
+        "type": 2
+      },
+      "display": {
+        "x": 1164,
+        "y": 600
+      }
+    },
+    "c7ae5e9c-4c90-41bf-ace5-6872c72682b0": {
+      "id": "c7ae5e9c-4c90-41bf-ace5-6872c72682b0",
+      "name": "FinHateTarget",
+      "title": "FinHateTarget <dic> Top<top>",
+      "description": "Top 0 默认最近仇家\n        1 最高仇家",
+      "properties": {
+        "dic": 40,
+        "top": 0
+      },
+      "display": {
+        "x": 1188,
+        "y": 660
+      }
+    },
+    "e8b609c6-0287-4041-8198-7d9044a7d917": {
+      "id": "e8b609c6-0287-4041-8198-7d9044a7d917",
+      "name": "FinHateTarget",
+      "title": "FinHateTarget <dic> Top<top>",
+      "description": "Top 0 默认最近仇家\n        1 最高仇家",
+      "properties": {
+        "dic": 150,
+        "top": 1
+      },
+      "display": {
+        "x": 1200,
+        "y": 720
+      }
+    },
+    "962d4c81-c2c3-4b6a-a2b7-8e89cdd6a1d5": {
+      "id": "962d4c81-c2c3-4b6a-a2b7-8e89cdd6a1d5",
+      "name": "FinTargetShieldFarFormMe",
+      "title": "ShieldFarFormMe <dic>",
+      "description": "找范围内 屁股朝向我的人（盾方向在对面的（查找盾距离比中心点距离远>5）?",
+      "properties": {
+        "dic": 40
+      },
+      "display": {
+        "x": 1152,
+        "y": 468
+      }
+    },
+    "42cc729b-b77d-4947-8565-d84f5e2072d2": {
+      "id": "42cc729b-b77d-4947-8565-d84f5e2072d2",
+      "name": "RandomMove",
+      "title": "RandomMove <dic> r~<range>",
+      "description": "",
+      "properties": {
+        "dic": 20,
+        "range": 15
+      },
+      "display": {
+        "x": 984,
+        "y": -228
+      }
+    },
+    "575eb561-554a-40ed-827e-aedd1ed207a9": {
+      "id": "575eb561-554a-40ed-827e-aedd1ed207a9",
+      "name": "MoveToGem",
+      "title": "MoveToGem <type>",
+      "description": "type 0 小宝石\n         1 大宝石",
+      "properties": {
+        "type": 0
+      },
+      "display": {
+        "x": 1128,
+        "y": -408
+      }
+    },
+    "0454430e-70dc-41bf-83c7-ade0f8f70057": {
+      "id": "0454430e-70dc-41bf-83c7-ade0f8f70057",
+      "name": "MoveToGem",
+      "title": "MoveToGem <type>",
+      "description": "type 0 小宝石\n         1 大宝石",
+      "properties": {
+        "type": 1
+      },
+      "display": {
+        "x": 1140,
+        "y": -468
+      }
+    },
+    "90e9605f-bc67-4787-87da-c80885e028f7": {
+      "id": "90e9605f-bc67-4787-87da-c80885e028f7",
+      "name": "WaitFrame",
+      "title": "WaitFrame <frameCount>",
+      "description": "",
+      "properties": {
+        "frameCount": 180
+      },
+      "display": {
+        "x": 672,
+        "y": -120
+      }
     }
   },
   "display": {
-    "camera_x": 573.5,
-    "camera_y": 148.5,
+    "camera_x": 207.5,
+    "camera_y": 268.5,
     "camera_z": 0.75,
-    "x": -180,
-    "y": 300
+    "x": -468,
+    "y": 120
   },
   "custom_nodes": [
     {
@@ -383,12 +846,120 @@
     {
       "version": "0.3.0",
       "scope": "node",
+      "name": "hasSpeedPower",
+      "category": "condition",
+      "title": null,
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "FollowTarget",
+      "category": "action",
+      "title": null,
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "UseSkill",
+      "category": "action",
+      "title": "Skill<skill>",
+      "description": null,
+      "properties": {
+        "skill": "Speed"
+      }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "HasTarget",
+      "category": "condition",
+      "title": null,
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
       "name": "SetState",
       "category": "action",
       "title": "State set <state>",
-      "description": null,
+      "description": "return Fail",
       "properties": {
         "state": 0
+      }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "SomeOneCloseMe",
+      "category": "condition",
+      "title": "camp <Camp> CloseMe<=<dic>",
+      "description": "camp 0 友方\ncamp 1 敌方",
+      "properties": {
+        "dic": 10,
+        "Camp": 1
+      }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "FinTarget",
+      "category": "action",
+      "title": "FinTarget <<dic> T<type>",
+      "description": "type 0 最近\n        1 等级最弱\n        2 等级最强",
+      "properties": {
+        "dic": 15,
+        "type": 0
+      }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "FinHateTarget",
+      "category": "action",
+      "title": "FinHateTarget <dic> Top<top>",
+      "description": "Top 0 默认最近仇家\n        1 最高仇家",
+      "properties": {
+        "dic": 40,
+        "top": 0
+      }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "FinTargetShieldFarFormMe",
+      "category": "action",
+      "title": "ShieldFarFormMe <dic>",
+      "description": null,
+      "properties": {
+        "dic": 40
+      }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "RandomMove",
+      "category": "action",
+      "title": "RandomMove <dic> r~<range>",
+      "description": null,
+      "properties": {
+        "dic": 20,
+        "range": 15
+      }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "MoveToGem",
+      "category": "action",
+      "title": "MoveToGem <type>",
+      "description": "type 0 小宝石\n         1 大宝石",
+      "properties": {
+        "type": 0
       }
     }
   ]

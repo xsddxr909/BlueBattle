@@ -356,11 +356,11 @@ export class ParallelNode extends NodeCombiner
         for (let i:number = 0; i < this.nodeChildList.length; ++i)
         {
             const node:NodeBase = this.nodeChildList[i];
-            if(node.lastResultType!=ResultType.Success){
+           // if(node.lastResultType!=ResultType.Success){
                 resultType = node.Execute();
-            }else{
-                resultType = ResultType.Success;
-            }
+         //   }else{
+            //    resultType = ResultType.Success;
+          //  }
 
             if (resultType == ResultType.Fail)
             {
@@ -416,7 +416,7 @@ export class IfElseNode extends NodeCombiner
     /// <returns></returns>
     public  Execute():ResultType
     {
-        if(this.nodeChildList.length<3){
+        if(this.nodeChildList.length<2){
             this.lastResultType=ResultType.Fail;
             return ResultType.Fail;
         }
@@ -437,7 +437,11 @@ export class IfElseNode extends NodeCombiner
 				// if
                 this.m_activeChildIndex = 1;
             } else if (conditionResult == ResultType.Fail) {
-				// else
+                // else
+                if(this.nodeChildList.length<3){
+                    this.lastResultType=ResultType.Fail;
+                    return ResultType.Fail;
+                }
                 this.m_activeChildIndex = 2;
             }
         }
@@ -447,6 +451,10 @@ export class IfElseNode extends NodeCombiner
         if (this.m_activeChildIndex != 0) {
             node = this.nodeChildList[this.m_activeChildIndex];
             conditionResult = node.Execute();
+            if(conditionResult==ResultType.Success||conditionResult==ResultType.Fail){
+                //判断结束后需要 重新判断。
+                this.m_activeChildIndex=0;
+            }
             this.lastResultType=conditionResult;
             return conditionResult;
         }
@@ -460,7 +468,7 @@ export class IfElseNode extends NodeCombiner
     }
 }
  /// <summary>
-/// 多条件选择节点(组合节点) 节点中 都是 case节点 ; switch…case 作用; 
+/// 多条件选择节点(组合节点) 节点中 都是 case节点 ; switch…case 作用;  返回成功后重置所有子节点。
 /// </summary>
 export class SwitchNode extends NodeCombiner
 {

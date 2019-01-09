@@ -328,6 +328,22 @@ export  class CountLimitDec  extends NodeCombiner
 }
 
 
-
+ /// <summary>
+///  总是返回成功，子节点成功失败 会重置子节点 进行中也返回进行中；
+/// </summary>
+export  class SuccessResetDec  extends NodeCombiner
+{
+    public  Execute():ResultType
+    {
+        this.lastResultType= this.nodeChildList[0].Execute();
+        if(this.lastResultType==ResultType.Success){
+            this.reset();
+        }
+        return this.lastResultType;
+    }
+    public reset(){
+        super.reset();
+    }
+}
 
 /////修饰器节点*************************************************************************************************************************************************/

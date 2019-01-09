@@ -18,8 +18,8 @@ export  class SetStateAct  extends ActionBeha
     {
       let charD:CharData= this.behaTree.getData<CharData>();
       charD.aiState=this.con_State;
-      this.lastResultType=ResultType.Success;
-      return ResultType.Success;
+      this.lastResultType=ResultType.Fail;
+      return ResultType.Fail;
     }
     public reset(){
         super.reset();
