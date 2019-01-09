@@ -1,0 +1,24 @@
+[
+  {
+    "version": "0.3.0",
+    "scope": "node",
+    "name": "AiState",
+    "category": "condition",
+    "title": "AiState=<state>",
+    "description": "Idle = 0,\nFollow = 1,\nWarning = 2,\nAttack = 3,\nDodge = 4,",
+    "properties": {
+      "state": 0
+    }
+  },
+  {
+    "version": "0.3.0",
+    "scope": "node",
+    "name": "SetState",
+    "category": "action",
+    "title": "State set <state>",
+    "description": null,
+    "properties": {
+      "state": 0
+    }
+  }
+]
