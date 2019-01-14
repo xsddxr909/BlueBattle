@@ -32,6 +32,7 @@ export class BehaTree extends NodeCombiner {
         }
         else {
             this.reset();
+            this.initData();
             this.inited = true;
         }
     }
@@ -65,11 +66,13 @@ export class BehaTree extends NodeCombiner {
             const b:BehaData = this.dataList[i];
          //   console.log("get type: "+b.name);
             if(!BehaviorTreeManager.Get().classMapping.has(b.name)){
+                console.log("No >>>= BehaviorTree type: "+b.name);
                 continue;
             }
             const  nodes:NodeBase=Core.ObjectPoolMgr.get(BehaviorTreeManager.Get().classMapping.get(b.name));
             nodes.md5Id=b.id;
             nodes.childStr=b.children;
+            nodes.behaTree=this;
             nodes.initProperties(b);
             if(b.id==rootStr){
                 //添加根节点;
@@ -91,6 +94,7 @@ export class BehaTree extends NodeCombiner {
             }
         }
         nodeList=[];
+        this.initData();
         this.inited = true;
     }
     public Update(dt:number) {
@@ -101,6 +105,9 @@ export class BehaTree extends NodeCombiner {
             return;
         }
         this.Execute();
+    }
+    public isPause():boolean{
+        return this.isPaused;
     }
     public Paused(){
         this.isPaused=true;

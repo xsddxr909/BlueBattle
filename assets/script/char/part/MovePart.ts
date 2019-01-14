@@ -179,6 +179,29 @@ export class MovePart extends RecycleAble implements IUpdate
         this._targetDirection = dir;
       
     }
+    followMyTarget(){
+        if(this.obj!=null&&this.obj.target!=null&&this.obj.target.data!=null){
+            this.startFollowTarget(this.obj.target.data);
+        }
+    }
+    chkFollowTarget():boolean{
+        if(this.targetData.isDead||this.obj==null||this.obj.target==null||this.obj.target.data==null){
+             this.cancelFollowTarget();
+            return false;
+        }
+        if(this.obj.target.data!=this.targetData){
+            this.setFollowTarget(this.obj.target.data);
+        }
+        return true;
+    }
+    startFollowTarget(targetData:PosData){
+        if(targetData!=null&&!targetData.isDead){
+            this.stopMove();
+            this.setFollowTarget(targetData);
+            this.m_bMoving=true;
+         }
+    }
+
     setFollowTarget(targetData:PosData){
         this.targetData=targetData;
         this.hasTarget=true;

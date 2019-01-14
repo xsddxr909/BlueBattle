@@ -3,6 +3,8 @@ import { ENUMS } from "../../common/Enum";
 import { Controller } from "./Controller";
 import { BehaTree } from "../../../corelibs/behaTree/BehaTree";
 import { BehaviorTreeManager } from "../../../corelibs/behaTree/BehaviorTreeManager";
+import { BackOff } from "../action/BackOff";
+import { Dead } from "../action/Dead";
 
 /**
  * 遥感控制器
@@ -12,6 +14,7 @@ export class AIController extends Controller
 { 
   //  private skill:SkillPart;
     private behaTree:BehaTree;
+    private isStartAI:boolean=false;
     constructor()
     {
         super();
@@ -33,20 +36,24 @@ export class AIController extends Controller
                 if(this.behaTree!=null){
                     this.behaTree.Stop();
                     this.behaTree.Continue();
+                    this.isStartAI=true;
                 }
             break;
             case ENUMS.ControllerCmd.Stop_AI:
                 if(this.behaTree!=null){
+                    this.isStartAI=false;
                     this.behaTree.Stop();
                 }
             break;
             case ENUMS.ControllerCmd.Paused_AI:
                 if(this.behaTree!=null){
+                    this.isStartAI=false;
                     this.behaTree.Paused();
                 }
             break;
             case ENUMS.ControllerCmd.Continue_AI:
                 if(this.behaTree!=null){
+                    this.isStartAI=true;
                     this.behaTree.Continue();
                 }
             break;
@@ -54,9 +61,21 @@ export class AIController extends Controller
         super.OnMessage(cmd,param);
     }
 
-
+ 
     //更新;
     Update(dt: number): void {
+        if(this.isStartAI&&this.behaTree!=null){
+            //规避 不能执行AI思考状态; 因为没有受击状态 所以临时这里写。
+            if(this.behaTree.isPause()){
+                if(this.char.charData.currentActionLabel!=BackOff.name&&this.char.charData.currentActionLabel!=Dead.name){
+                    this.behaTree.Continue();
+                }
+            }else{
+               if(this.char.charData.currentActionLabel==BackOff.name||this.char.charData.currentActionLabel==Dead.name){
+                   this.behaTree.Paused();
+               }
+            }
+        }
         super.Update(dt);
     }
     GetName?(): string {
@@ -75,6 +94,7 @@ export class AIController extends Controller
     onRecycle(): void {
         this.behaTree.recycleSelf();
        this.behaTree=null;
+       this.isStartAI=false;
      //  this.skill=null;
       super.onRecycle();
     }  
@@ -84,6 +104,7 @@ export class AIController extends Controller
     Release(): void {
         this.behaTree.recycleSelf();
         this.behaTree=null;
+        this.isStartAI=false;
    //     this.skill=null;
         super.Release();
     }

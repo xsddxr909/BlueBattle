@@ -1,6 +1,27 @@
 import { NodeBase, NodeType, ResultType, BehaData } from "../../../corelibs/behaTree/NodeBehaTree";
 import { ConditionBeha } from "../../../corelibs/behaTree/ConditionBeha";
 import { CharData } from "../../data/CharData";
+import { CharManager } from "../manager/CharManager";
+import { Character } from "../Character";
+
+
+export  class CharConditionBeha  extends ConditionBeha
+{
+  protected char:Character;
+  public initData(){
+    this.char=null;
+    let charD:CharData= this.behaTree.getData<CharData>();
+    this.char=CharManager.Get().characterPool.getDataById(charD.characterId);
+    super.initData();
+  }
+   /**
+     *释放 时候;
+    **/ 
+   onRecycle(): void {
+    this.char=null;
+    super.onRecycle();
+   }  
+}
 
 
  /// <summary>
@@ -38,12 +59,43 @@ export  class AiStateCondition extends ConditionBeha
     }  
 }
 
+ /// <summary>
+/// 判断目标距离;
+/// </summary>
+export  class HasTargetCondition extends CharConditionBeha
+{
+    constructor()
+    {
+      super();
+    }
+    public Execute():ResultType
+    {
+        if(this.char.hasTarget()){
+            this.lastResultType=ResultType.Success;
+            return ResultType.Success;
+        }
+      this.lastResultType=ResultType.Fail;
+      return ResultType.Fail;
+    }
+    public reset(){
+        super.reset();
+    }
+    public initProperties(behaData:BehaData):void{
+//        this.SetOverFrame(behaData.properties['frameCount']);
+    }
+    /**
+     *释放 时候;
+    **/ 
+    onRecycle(): void {
+        super.onRecycle();
+    }  
+}
 
 
  /// <summary>
 /// 判断目标距离;
 /// </summary>
-export  class TargetDicCondition extends ConditionBeha
+export  class TargetDicCondition extends CharConditionBeha
 {
     constructor()
     {

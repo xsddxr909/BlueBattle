@@ -46,9 +46,12 @@ export class NodeBase extends RecycleAble {
         this.lastResultType= ResultType.Fail;
         return this.lastResultType;
     }
-
+    
     public initProperties(behaData:BehaData):void{
-
+        
+    }
+    public initData(){
+        
     }
 
     /**
@@ -98,6 +101,15 @@ export  class NodeCombiner extends NodeBase
     {
         nodeRoot.nodeIndex = this.nodeChildList.length;
         this.nodeChildList.push(nodeRoot);
+    }
+    //初始化data 后初始化数据;
+    public initData(){
+        this.nodeChildList.forEach(element => {
+            if(element!=null){
+                element.initData();
+            }
+        });
+        super.initData();
     }
     public reset(){
         this.nodeChildList.forEach(element => {

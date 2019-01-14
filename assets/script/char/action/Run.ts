@@ -2,6 +2,7 @@ import { MovePart } from "../part/MovePart";
 import { SkillPart } from "../part/SkillPart";
 import { Action } from "./Action";
 import { ENUMS } from "../../common/Enum";
+import { Stand } from "./Stand";
 
 /**
  * 移动动作;
@@ -23,12 +24,19 @@ export class Run extends Action
     //更新;
     Update(dt: number): void {
         super.Update(dt);
-        if(!this.move.IsMove()){
-            //  console.log("ControllerCmd: startMove  " +dir);
-              this.move.startMove(this.skillPart.targetDir);
-          }else{
-          //   console.log("ControllerCmd: setTargetDir  " +dir);
-              this.move.setTargetDir(this.skillPart.targetDir);
+        if(this.move.IsFollowTarget()){
+            if(!this.move.chkFollowTarget()){
+                this.skillPart.doActionSkillByLabel(Stand,0,false);
+                return;
+            }
+        }else{
+            if(!this.move.IsMove()){
+                //  console.log("ControllerCmd: startMove  " +dir);
+                  this.move.startMove(this.skillPart.targetDir);
+              }else{
+              //   console.log("ControllerCmd: setTargetDir  " +dir);
+                  this.move.setTargetDir(this.skillPart.targetDir);
+            }
         }
     }
   

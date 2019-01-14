@@ -1,10 +1,11 @@
 import { RecycleAble } from "../../../corelibs/util/Pool";
-import { CharData } from "../../data/CharData";
 import { IController } from "../../../corelibs/interface/IUpdate";
-import Core from "../../../corelibs/Core";
-import { GameEventID } from "../../common/GameEventID";
 import { Character } from "../Character";
 import { ENUMS } from "../../common/Enum";
+import { Stand } from "../action/Stand";
+import { Run } from "../action/Run";
+import { PosData } from "../../data/PosData";
+import { ObjBase } from "../ObjBase";
 
 /**
  * 控制器
@@ -28,14 +29,46 @@ export class Controller extends RecycleAble implements IController
     }
     
     OnMessage(cmd:ENUMS.ControllerCmd, param?: any): void {
-        // switch(cmd){
-        //     case ENUMS.ControllerCmd.Char_Move:
-
-        //     break;
-        //     case ENUMS.ControllerCmd.Char_StopMove:
-            
-        //     break;
-        // }
+        switch(cmd){
+            case ENUMS.ControllerCmd.Char_Move:
+                if(param!=null){
+                    let dir= param as cc.Vec2;
+                    this.char.getSkillPart().targetDir=dir;
+                    if(this.char.charData.currentActionLabel!=Run.name){
+                   //     console.log("ControllerCmd: MoveAction  ");
+                         this.char.getSkillPart().doActionSkillByLabel(Run);
+                    }
+                }
+            break;
+            case ENUMS.ControllerCmd.Char_StopMove:
+             //  console.log("ControllerCmd: Char_StopMove  ");
+             if(this.char.charData.currentActionLabel!=Stand.name){
+         //       console.log("ControllerCmd: StandAction  ");
+                this.char.getSkillPart().doActionSkillByLabel(Stand);
+             }
+            break;
+            case ENUMS.ControllerCmd.Char_FollowTarget:
+            if(param!=null){
+                let obj:ObjBase= param as ObjBase;
+                this.char.target=obj;
+                if(this.char.charData.currentActionLabel!=Run.name){
+               //     console.log("ControllerCmd: MoveAction  ");
+                     this.char.getSkillPart().doActionSkillByLabel(Run);
+                }
+                this.char.getMovePart().followMyTarget();
+            }
+            break;
+            case ENUMS.ControllerCmd.Char_MoveToPos:
+            if(param!=null){
+                let pos:cc.Vec2= param as cc.Vec2;
+                if(this.char.charData.currentActionLabel!=Run.name){
+               //     console.log("ControllerCmd: MoveAction  ");
+                     this.char.getSkillPart().doActionSkillByLabel(Run);
+                }
+                this.char.getMovePart().startMoveTo(pos);
+            }
+            break;
+        }
     }
 
 

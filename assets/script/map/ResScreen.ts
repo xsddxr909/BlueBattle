@@ -54,12 +54,14 @@ export class ResScreen extends RecycleAble
              idx =this.charList.indexOf(data);
              if(idx<0){
                 this.charList.push(data);
+                data.screenId=this.screenId;
              }
             break;
             case GemData.name:
              idx =this.gemList.indexOf(data);
              if(idx<0){
                 this.gemList.push(data);
+                data.screenId=this.screenId;
              }
             break;
         }
@@ -71,12 +73,14 @@ export class ResScreen extends RecycleAble
              idx =this.charList.indexOf(data);
              if(idx>=0){
                 this.charList.splice(idx,1);
+                data.screenId=-1;
              }
             break;
             case GemData.name:
              idx =this.gemList.indexOf(data);
              if(idx>=0){
                 this.gemList.splice(idx,1);
+                data.screenId=-1;
              }
             break;
         }

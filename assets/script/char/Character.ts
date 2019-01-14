@@ -21,7 +21,7 @@ export class Character extends ObjBase
     //charData;
     public charData:CharData;
     //控制器;
-    protected ctrl:Controller;
+    public ctrl:Controller;
     protected skill:SkillPart;
 
     constructor()
@@ -74,6 +74,7 @@ export class Character extends ObjBase
         }
         //更新碰撞数据;
         this.charData.updateObb();
+        this.updateScreen();
       //  CharManager.Get().CharQuadTree.update(this.charData);
     }
     GetName?(): string {
@@ -155,8 +156,15 @@ export class Character extends ObjBase
     backOneMove(dis?:number){
         this.move.backOneMove(dis);
         this.charData.updateObb();
+        this.updateScreen();
     }
-
+    /**
+     * 更新所在 场景分块;
+     */
+    updateScreen(){
+        MapManager.Get().getResMap().updateObjInScreen(this.charData);
+    }
+    
     /**
      *获取 时候;
      */

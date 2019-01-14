@@ -14,8 +14,8 @@ import { CharManager } from "./char/manager/CharManager";
 import MapManager from "./map/MapManager";
 import UIBackToLogin from "./UI/UIBackToLogin";
 import { BehaviorTreeManager } from "../corelibs/behaTree/BehaviorTreeManager";
-import { UseSkillAct, SetStateAct } from "./char/beha/GameActionBeha";
-import { TargetDicCondition, AiStateCondition } from "./char/beha/GameConditionBeha";
+import { UseSkillAct, SetStateAct, FollowTargetAct } from "./char/beha/GameActionBeha";
+import {  AiStateCondition, HasTargetCondition } from "./char/beha/GameConditionBeha";
 
 /**
  * 初始场景
@@ -70,9 +70,14 @@ export default class GameMain extends cc.Component
         Core.SceneMgr.Register(SceneEnum.GameScene,new GameScene());
 
         //行为树注册;
+
+        //condition
         BehaviorTreeManager.Get().Register("AiState",AiStateCondition);
+        BehaviorTreeManager.Get().Register("HasTarget",HasTargetCondition);
+        //act
         BehaviorTreeManager.Get().Register("SetState",SetStateAct);
-        
+        BehaviorTreeManager.Get().Register("FollowTarget",FollowTargetAct);
+        BehaviorTreeManager.Get().Register("UseSkill",UseSkillAct);
     }
     /**
      * 加载动画

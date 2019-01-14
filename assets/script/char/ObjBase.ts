@@ -60,6 +60,14 @@ export class ObjBase extends EventRecycleAble implements IUpdate
          this.target=target;
     }
 
+    hasTarget():boolean{
+       if(this.target==null||this.target.data==null||this.target.data.isDead){
+           this.target=null;
+           return false;
+       }
+       return true;
+    }
+
     /**
      * 计算目标距离;
      * @param target 目标;

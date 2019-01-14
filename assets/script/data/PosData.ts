@@ -53,6 +53,7 @@ export class PosData extends RecycleAble implements IQuadRect
     public zIndex:number=0;
     public inCamera:boolean=false;
     public isDead:boolean=false;
+    public screenId:number=-1;
 
     get x():number{
         return this.position.x;
@@ -90,6 +91,7 @@ export class PosData extends RecycleAble implements IQuadRect
     onRecycle(): void {
      // this.resetForwardDirection();
       this.position=cc.Vec2.ZERO;
+      this.screenId=-1;
       super.onRecycle();
     }  
     /**
@@ -104,6 +106,7 @@ export class PosData extends RecycleAble implements IQuadRect
     public initData(){
         this.position=cc.Vec2.ZERO;
         this.isDead=false;
+        this.screenId=-1;
     }
 }
 

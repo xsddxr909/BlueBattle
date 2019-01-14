@@ -56,6 +56,8 @@ export module ENUMS
          Stop_AI=4,
          Paused_AI=5,
          Continue_AI=6,
+         Char_FollowTarget=7,
+         Char_MoveToPos=8,
      }
        //控制类型...
     export enum CtrlType

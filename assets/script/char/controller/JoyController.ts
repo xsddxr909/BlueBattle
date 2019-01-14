@@ -29,23 +29,12 @@ export class JoyController extends Controller
     }
     OnMessage(cmd:ENUMS.ControllerCmd, param?: any): void {
         switch(cmd){
-            case ENUMS.ControllerCmd.Char_Move:
-                if(param!=null){
-                    let dir= param as cc.Vec2;
-                    this.skill.targetDir=dir;
-                    if(this.char.charData.currentActionLabel!=Run.name){
-                   //     console.log("ControllerCmd: MoveAction  ");
-                         this.char.getSkillPart().doActionSkillByLabel(Run);
-                    }
-                }
-            break;
-            case ENUMS.ControllerCmd.Char_StopMove:
-             //  console.log("ControllerCmd: Char_StopMove  ");
-             if(this.char.charData.currentActionLabel!=Stand.name){
-         //       console.log("ControllerCmd: StandAction  ");
-                this.char.getSkillPart().doActionSkillByLabel(Stand);
-             }
-            break;
+            // case ENUMS.ControllerCmd.Char_Move:
+            
+            // break;
+            // case ENUMS.ControllerCmd.Char_StopMove:
+           
+            // break;
         }
         super.OnMessage(cmd,param);
     }

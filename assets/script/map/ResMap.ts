@@ -67,6 +67,21 @@ export class ResMap extends RecycleAble
 
     }
     /**
+     * 更新 场景元素所在场景分块;
+     */
+    public updateObjInScreen(data:PosData){
+        if(data.screenId==-1){
+            return;
+        }
+        let curScreen:ResScreen=this.getResScreen(data);
+        let oldScreen:ResScreen=this.getResScreenById(data.screenId);
+        if(curScreen!=null&&curScreen!=oldScreen){
+            oldScreen.leaveScreen(data);
+            curScreen.enterScreen(data);
+        }
+    }
+
+    /**
 	 * 根据对象当前坐标计算 获取该单位所在的场景
 	 *
 	 * @param spire
@@ -121,6 +136,9 @@ export class ResMap extends RecycleAble
 	public  enterResScreen(data:PosData) {
         if(this.isDead)return;
 		if (data != null) {
+            if(data.screenId!=-1){
+                this.leaveResScreen(data);
+            }
 			let resScreen:ResScreen = this.getResScreen(data);
 			if (resScreen != null) {
                 resScreen.enterScreen(data);
@@ -137,8 +155,8 @@ export class ResMap extends RecycleAble
 	 */
 	public  leaveResScreen(data:PosData) {
         if(this.isDead)return;
-		if (data != null) {
-			let resScreen:ResScreen=this.getResScreen(data);
+		if (data != null&&data.screenId!=-1) {
+			let resScreen:ResScreen=this.getResScreenById(data.screenId);
 			if (resScreen != null) {
 				resScreen.leaveScreen(data);
 			}
