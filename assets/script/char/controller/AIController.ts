@@ -78,12 +78,25 @@ export class AIController extends Controller
                this.behaTree.Update(dt);
             }
         }
+        if(this.behaTree.debug&&this.char.data.inCamera){
+            this.char.view.body.getChildByName("label").getComponent(cc.Label).string=this.behaTree.strStep;
+        }
         super.Update(dt);
     }
     GetName?(): string {
       return 'AIController'+this.id;
     }
-
+    public isDebug():boolean{
+        if(this.behaTree){
+            return  this.behaTree.debug
+        }
+        return false;
+    }
+    public setDebug(b:boolean){
+        if(this.behaTree){
+            this.behaTree.debug=b;
+        }
+    }
     /**
      *获取 时候;
      */

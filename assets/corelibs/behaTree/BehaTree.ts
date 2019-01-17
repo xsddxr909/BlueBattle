@@ -110,6 +110,14 @@ export class BehaTree extends NodeCombiner {
             return;
         }
         this.Execute();
+        //我想要知道目前走到哪一步。
+        if(this.debug){
+             this.strStep = this.lastNodeStep.toString();
+        }
+        if (this.lastResultType == ResultType.Success||this.lastResultType == ResultType.Fail)
+        {
+            this.reset();
+        }
     }
     public isPause():boolean{
         return this.isPaused;
@@ -133,15 +141,6 @@ export class BehaTree extends NodeCombiner {
             return ResultType.Fail;
         }
         let resultType:ResultType = this.nodeChildList[0].Execute();
-        //TODO:
-        //我想要知道目前走到哪一步。
-        if(this.debug){
-          this.strStep = this.lastNodeStep.toString();
-        }
-        if (resultType ==ResultType.Success||resultType == ResultType.Fail)
-        {
-            this.reset();
-        }
         this.lastResultType=resultType;
         return resultType;
     }

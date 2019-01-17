@@ -10,6 +10,7 @@ import MapManager from "../map/MapManager";
 import { ConfigXls, t_s_heroLevelup } from "../data/ConfigXls";
 import { ViewPart } from "./part/ViewPart";
 import CameraCtrl from "../logic/CameraCtrl";
+import { AIController } from "./controller/AIController";
 
 /**
  * 角色对象 ;
