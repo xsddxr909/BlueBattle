@@ -68,6 +68,7 @@ export class JoyController extends Controller
     }
     onJoystickStopMove(){
         this._lastAngle=99999;
+        //派发事件 帧同步;
         this.OnMessage(ENUMS.ControllerCmd.Char_StopMove);
     }
 

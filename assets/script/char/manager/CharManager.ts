@@ -37,7 +37,7 @@ export class CharManager
    // public objectPool:MultiplePool;
 
     public  charDataPool:DataPool<CharData>;
-    public  characterPool:ListDataPool<Character>;
+    private  characterPool:ListDataPool<Character>;
     public CharQuadTree:QuadTree<CharData>;
     private hitArrayList:CharData[]=null;
     
@@ -100,6 +100,15 @@ export class CharManager
         this.inited=true;  
     }
 
+    public getAllCharList():Array<Character>{
+          return this.characterPool.getOnList();
+    }
+    public getCharById(characterId:number):Character{
+        return this.characterPool.getDataById(characterId);
+    }
+    public getNewChar():Character{
+        return this.characterPool.get();
+    }
     /**
      * 用到随机数 只能在帧同步里用;
      * @param resScreen 
@@ -155,6 +164,9 @@ export class CharManager
             this.removeObj(gem);
         }
     }
+    /**
+     * 每帧更新；
+     */
     public  update(dt:number){
         if(this.isHitTest){
            this.CharQuadTree.clear();
@@ -360,7 +372,6 @@ export class CharManager
         //   if(CharManager.Get().hitArrayList!=null){
         //       label.string+="hitArrayList:count "+CharManager.Get().hitArrayList.length;
         //   }
-          label.string+=Core.ObjectPoolMgr.toString();
         }
     }
 }

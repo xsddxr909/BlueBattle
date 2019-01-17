@@ -14,8 +14,8 @@ import { CharManager } from "./char/manager/CharManager";
 import MapManager from "./map/MapManager";
 import UIBackToLogin from "./UI/UIBackToLogin";
 import { BehaviorTreeManager } from "../corelibs/behaTree/BehaviorTreeManager";
-import { UseSkillAct, SetStateAct, FollowTargetAct } from "./char/beha/GameActionBeha";
-import {  AiStateCondition, HasTargetCondition } from "./char/beha/GameConditionBeha";
+import { UseSkillAct, SetStateAct, FollowTargetAct, FinTargetAct, FinHateTargetAct, FinTargetBackFormMeAct, MoveToGemAct, RandomMoveAct } from "./char/beha/GameActionBeha";
+import {  AiStateCondition, HasTargetCondition, SomeOneCloseMeCondition, ChkActionCondition } from "./char/beha/GameConditionBeha";
 
 /**
  * 初始场景
@@ -74,10 +74,18 @@ export default class GameMain extends cc.Component
         //condition
         BehaviorTreeManager.Get().Register("AiState",AiStateCondition);
         BehaviorTreeManager.Get().Register("HasTarget",HasTargetCondition);
+        BehaviorTreeManager.Get().Register("SomeOneCloseMe",SomeOneCloseMeCondition);
+        BehaviorTreeManager.Get().Register("chkAction",ChkActionCondition);
+        
         //act
         BehaviorTreeManager.Get().Register("SetState",SetStateAct);
         BehaviorTreeManager.Get().Register("FollowTarget",FollowTargetAct);
         BehaviorTreeManager.Get().Register("UseSkill",UseSkillAct);
+        BehaviorTreeManager.Get().Register("FinTarget",FinTargetAct);
+        BehaviorTreeManager.Get().Register("FinHateTarget",FinHateTargetAct);
+        BehaviorTreeManager.Get().Register("FinTargetBackFormMe",FinTargetBackFormMeAct);
+        BehaviorTreeManager.Get().Register("MoveToGem",MoveToGemAct);
+        BehaviorTreeManager.Get().Register("RandomMove",RandomMoveAct);
     }
     /**
      * 加载动画
@@ -107,10 +115,11 @@ export default class GameMain extends cc.Component
     update(dt: number): void
     {
         Core.Get().Update(dt);
-        if(this.logLabel!=null){
+        if(ConfigData.debug&&this.logLabel!=null){
             this.logLabel.string="";
-     //       CharManager.logUpdate(this.logLabel);
-     //       ConfigData.logUpdate(this.logLabel);
+            CharManager.logUpdate(this.logLabel);
+            this.logLabel.string+=Core.ObjectPoolMgr.toString();
+    //      ConfigData.logUpdate(this.logLabel);
         }
     }
 

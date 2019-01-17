@@ -13,6 +13,10 @@ export class GemData extends PosData
     public state:number=0;
     public deadExp:number=0;
     private _itemType:number=1;
+
+    //临时变量；
+    public vvalue:number;
+    
     public get itemType(){
       return this._itemType;
     }

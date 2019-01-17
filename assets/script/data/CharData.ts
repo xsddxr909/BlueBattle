@@ -24,7 +24,7 @@ export class CharData extends PosData implements IObbBox
 
     //行为树数据；
     public aiUrl: string="behavior/char/charAi.json";
-    public autoStartAi:boolean=false;
+    public autoStartAi:boolean=true;
     public aiState:ENUMS.AIstate=ENUMS.AIstate.Idle;
      //ai查找间隔 (单位)秒
     public findTime:number=1; 
@@ -35,7 +35,7 @@ export class CharData extends PosData implements IObbBox
    public  birthPoint:cc.Vec2;
    public  birthDir:number;
    public  isAttacking:Boolean = false;
-   //阵营
+   //阵营 camp=-1 各自为队;
    public  camp:number=-1;
    //是否无敌....
    public  bearEnabled:Boolean;
@@ -122,6 +122,9 @@ export class CharData extends PosData implements IObbBox
     // public attackRadius=55+148;
 
      private testBody:ColorBox; 
+
+     //临时变量；
+     public vvalue:number;
      
      constructor()
      {

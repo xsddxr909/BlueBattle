@@ -288,7 +288,7 @@ export enum UIShowMode
     HideOther = 3,
 }
 
-//缓存时间; TODO
+//TODO:缓存时间;
 export enum UISaveTime
 {
    //隐藏后 下次检测立刻销毁

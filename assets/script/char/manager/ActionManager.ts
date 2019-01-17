@@ -1,6 +1,3 @@
-import { CharData } from "../../data/CharData";
-import { Character } from "../Character";
-import { DataPool, ListDataPool, MultiplePool } from "../../../corelibs/util/Pool";
 /**
  * 动作管理器
  */
@@ -33,7 +30,7 @@ export class ActionManager
         this.inited=true;  
     }
   
-    public  update(dt:number){
+    public  update(){
           
     }
     /**
@@ -53,7 +50,7 @@ export class ActionManager
     /**
      * 需要打印查看内存数据 
      */
-    public static logUpdate(label:cc.Label){
+    public static logUpdate(){
         if(ActionManager.debug){
      //     label.string+=CharManager.Get().actionPool.toString();
         }

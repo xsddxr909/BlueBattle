@@ -162,7 +162,7 @@ export class MovePart extends RecycleAble implements IUpdate
         return this.m_bMoving;
     }
     //是否跟随目标;
-    IsFollowTarget(){
+    IsFollowTarget():boolean{
         return this.targetData!=null?true:false;
     }
     getNextMoveSpeedDic():cc.Vec2

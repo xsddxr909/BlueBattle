@@ -8,6 +8,7 @@ import { CharManager } from "../char/manager/CharManager";
 import { CharData } from "../data/CharData";
 import { ENUMS } from "../common/Enum";
 import FrameSync from "../../corelibs/FrameSync";
+import { BehaviorTreeManager } from "../../corelibs/behaTree/BehaviorTreeManager";
 
 
 
@@ -65,7 +66,7 @@ export default class GameLogic implements IRelease
         charD.radius=55;
         charD.ctrlType=ENUMS.CtrlType.JoyCtrl;
         charD.position=CharManager.Get().getBrothPoint(charD.radius);
-        this.char=CharManager.Get().characterPool.get();
+        this.char=CharManager.Get().getNewChar();
         this.char.init(charD);
         CameraCtrl.Instance.changeTarget(this.char.view.node);
 
@@ -80,7 +81,7 @@ export default class GameLogic implements IRelease
             charD.angle=360*Core.Random.GetRandom();
             charD.ctrlType=ENUMS.CtrlType.AiCtrl;
             charD.position=CharManager.Get().getBrothPoint(charD.radius);
-            let charOther:Character=CharManager.Get().characterPool.get();
+            let charOther:Character=CharManager.Get().getNewChar();
             charOther.init(charD);
             //碰撞测试;
     //        charOther.charData.ShowHitBox(true);

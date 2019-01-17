@@ -1,8 +1,8 @@
-import { ListDataPool } from "../util/Pool";
 import { BehaTree } from "./BehaTree";
 import { NodeBase, SelectNode, SequenceNode, RandomNode, ParallelNode, IfElseNode, SwitchNode ,CasesNode, WeightRandomNode, OrNode, AndNode } from "./NodeBehaTree";
 import { NotDec, LoopDec, TimeDec, TimeSynDec, InFramesSynDec, AlwaysSuccessDec, AlwaysFailDec, CountLimitDec, SuccessResetDec } from "./DecoratorBeha";
 import { WaitTimesAct, WaitFrameAct, NullAct } from "./ActionBeha";
+import Core from "../Core";
 
 /**
  * 行为树;  加载json 解析 生成行为树; 
@@ -24,7 +24,7 @@ export class BehaviorTreeManager
         return BehaviorTreeManager.m_pInstance;
     }
     public static debug:boolean=true;
-    private nodeList:ListDataPool<BehaTree>=null; 
+ //   private nodeList:ListDataPool<BehaTree>=null; 
    
     public classMapping: Map<string, new () => NodeBase>;
 
@@ -33,7 +33,7 @@ export class BehaviorTreeManager
     public  init():void
     {
         if(this.inited)return;
-        this.nodeList=new ListDataPool<BehaTree>(()=>new BehaTree());
+     //   this.nodeList=new ListDataPool<BehaTree>(()=>new BehaTree());
         this.classMapping=new  Map<string, new () => NodeBase>();
         this.inited=true;      
 
@@ -93,15 +93,17 @@ export class BehaviorTreeManager
 
     public creatNodeTree(url:string,data:any=null):BehaTree{
            //下载一个ai json;
-       let behaTree:BehaTree = this.nodeList.get();
+       let behaTree:BehaTree = Core.ObjectPoolMgr.get(BehaTree);
+       //this.nodeList.get();
        behaTree.init(url,data);
        return behaTree;
     }
-    public  Update(dt:number){
-        for (let i = 0, len:number=this.nodeList.getOnList().length; i < len; i++) {
-            this.nodeList.getOnList()[i].Update(dt);
-        }
-    }
+    //可以不统一走update 不同的树可以自己走update
+    // public  Update(dt:number){
+    //     for (let i = 0, len:number=this.nodeList.getOnList().length; i < len; i++) {
+    //         this.nodeList.getOnList()[i].Update(dt);
+    //     }
+    // }
  
     /**
      * 需要打印查看内存数据 

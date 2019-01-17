@@ -8,11 +8,15 @@ import { BehaviorTreeManager } from "./BehaviorTreeManager";
 /// </summary>
 export class BehaTree extends NodeCombiner {
     //jason Url 行为树地址;
+    public debug:boolean=false;
     private url: string;
     private inited: boolean = false;
     private dataList:Array<BehaData>;
     //黑板 数据对象;
     private data:any=null;
+    public lastNodeStep:NodeBase;
+    //节点信息；
+    public strStep:string;
 
     private isPaused:boolean=false;
     constructor() {
@@ -23,6 +27,7 @@ export class BehaTree extends NodeCombiner {
         this.inited = false;
         this.isPaused=false;
         this.data=data;
+        this.lastNodeStep=null;
         if (this.url != url) {
             this.dataList=[];
             this.recycleChild();
@@ -128,6 +133,11 @@ export class BehaTree extends NodeCombiner {
             return ResultType.Fail;
         }
         let resultType:ResultType = this.nodeChildList[0].Execute();
+        //TODO:
+        //我想要知道目前走到哪一步。
+        if(this.debug){
+          this.strStep = this.lastNodeStep.toString();
+        }
         if (resultType ==ResultType.Success||resultType == ResultType.Fail)
         {
             this.reset();
@@ -143,6 +153,7 @@ export class BehaTree extends NodeCombiner {
      *释放 时候;
      **/
     onRecycle(): void {
+        this.lastNodeStep=null;
         this.inited = false;
         this.data=null;
         this.isPaused=false;

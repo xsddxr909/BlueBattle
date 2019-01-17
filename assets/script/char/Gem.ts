@@ -48,7 +48,7 @@ export class Gem extends ObjBase
      * @param char 
      */
     onAddTarget(char:Character){
-       //TODO: 给角色加经验；
+       //给角色加经验；
         char.checkUpgrade(this.gemData.deadExp);
         CharManager.Get().removeObj(this);
     }

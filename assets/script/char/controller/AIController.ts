@@ -69,11 +69,13 @@ export class AIController extends Controller
             if(this.behaTree.isPause()){
                 if(this.char.charData.currentActionLabel!=BackOff.name&&this.char.charData.currentActionLabel!=Dead.name){
                     this.behaTree.Continue();
+                    this.behaTree.Update(dt);
                 }
             }else{
                if(this.char.charData.currentActionLabel==BackOff.name||this.char.charData.currentActionLabel==Dead.name){
                    this.behaTree.Paused();
                }
+               this.behaTree.Update(dt);
             }
         }
         super.Update(dt);

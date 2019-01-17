@@ -32,8 +32,8 @@
           "description": "子节点必须cases",
           "properties": {},
           "display": {
-            "x": -156,
-            "y": 120
+            "x": -252,
+            "y": 108
           },
           "children": [
             "de9bcade-33e1-4e3e-a7f6-5fdfefacae2d",
@@ -304,9 +304,11 @@
         "f28aff75-9a33-4c58-8bdf-add408c42c23": {
           "id": "f28aff75-9a33-4c58-8bdf-add408c42c23",
           "name": "Null",
-          "title": "Null",
+          "title": "null <info>",
           "description": "",
-          "properties": {},
+          "properties": {
+            "info": "靠近不做事"
+          },
           "display": {
             "x": 1056,
             "y": -612
@@ -315,9 +317,11 @@
         "a45d877f-8224-40fb-984b-94a92e88000a": {
           "id": "a45d877f-8224-40fb-984b-94a92e88000a",
           "name": "Null",
-          "title": "Null",
+          "title": "null <info>",
           "description": "",
-          "properties": {},
+          "properties": {
+            "info": "idle不做事"
+          },
           "display": {
             "x": 960,
             "y": -168
@@ -395,7 +399,7 @@
           },
           "children": [
             "2382f966-8ee2-4e5f-9259-7806499c8c69",
-            "0ad2b276-ae2f-4e47-85f1-d32714e3bfe4"
+            "21bb362d-fd80-4d84-8396-54a0568b5f9a"
           ]
         },
         "82e26d02-f203-405b-80cf-ddb303f24241": {
@@ -407,17 +411,6 @@
           "display": {
             "x": 816,
             "y": 324
-          }
-        },
-        "0ad2b276-ae2f-4e47-85f1-d32714e3bfe4": {
-          "id": "0ad2b276-ae2f-4e47-85f1-d32714e3bfe4",
-          "name": "Null",
-          "title": "Null",
-          "description": "",
-          "properties": {},
-          "display": {
-            "x": 852,
-            "y": 240
           }
         },
         "2382f966-8ee2-4e5f-9259-7806499c8c69": {
@@ -439,12 +432,12 @@
           "title": "FinTarget <<dic> T<type>",
           "description": "type 0 最近\n        1 等级最弱\n        2 等级最强",
           "properties": {
-            "dic": 40,
+            "dic": 800,
             "type": 0
           },
           "display": {
-            "x": 1140,
-            "y": 408
+            "x": 1152,
+            "y": 420
           }
         },
         "713c633a-8384-49cd-abcd-772b57b7f9d9": {
@@ -454,11 +447,11 @@
           "description": "条件判断，3节点（条件，成功，失败）",
           "properties": {},
           "display": {
-            "x": 732,
+            "x": 672,
             "y": 768
           },
           "children": [
-            "162153e4-80ff-436d-8004-0a678f8ed5ce",
+            "116ecf94-a665-4e96-8e89-da31e337eafb",
             "cb58a604-fb19-41c3-a662-1fa0496ae101",
             "6aa72578-5863-407a-8c5c-4ea8b12458eb"
           ]
@@ -476,17 +469,6 @@
             "y": 864
           }
         },
-        "162153e4-80ff-436d-8004-0a678f8ed5ce": {
-          "id": "162153e4-80ff-436d-8004-0a678f8ed5ce",
-          "name": "HasTarget",
-          "title": "HasTarget",
-          "description": "",
-          "properties": {},
-          "display": {
-            "x": 912,
-            "y": 732
-          }
-        },
         "116ecf94-a665-4e96-8e89-da31e337eafb": {
           "id": "116ecf94-a665-4e96-8e89-da31e337eafb",
           "name": "WeightRandom",
@@ -496,8 +478,8 @@
             "power": "20,15,10,10,10,5"
           },
           "display": {
-            "x": 888,
-            "y": 660
+            "x": 912,
+            "y": 708
           },
           "children": [
             "03374324-21e6-4a07-b09e-ba41e7c781e5",
@@ -529,9 +511,11 @@
         "16b59b64-47a6-421c-9a1e-9c1993da5108": {
           "id": "16b59b64-47a6-421c-9a1e-9c1993da5108",
           "name": "Null",
-          "title": "Null 再找一次",
+          "title": "null <info>",
           "description": "",
-          "properties": {},
+          "properties": {
+            "info": "再找一次"
+          },
           "display": {
             "x": 1068,
             "y": 1008
@@ -574,8 +558,8 @@
             "y": -408
           },
           "children": [
-            "0454430e-70dc-41bf-83c7-ade0f8f70057",
-            "575eb561-554a-40ed-827e-aedd1ed207a9"
+            "575eb561-554a-40ed-827e-aedd1ed207a9",
+            "0454430e-70dc-41bf-83c7-ade0f8f70057"
           ]
         },
         "e865ed5f-a29a-4ab6-aef4-474227e00298": {
@@ -630,7 +614,7 @@
           "title": "camp <Camp> CloseMe<=<dic>",
           "description": "camp 0 友方\ncamp 1 敌方",
           "properties": {
-            "dic": 20,
+            "dic": 250,
             "Camp": 1
           },
           "display": {
@@ -662,7 +646,7 @@
           "children": [
             "fb2dc09c-165f-4f27-b131-045430b38ce9",
             "fafd18fb-a6b6-42ac-85f3-7855a7060d81",
-            "aa318421-a83a-49c8-a1f4-e10e557c91b6"
+            "713c633a-8384-49cd-abcd-772b57b7f9d9"
           ]
         },
         "fafd18fb-a6b6-42ac-85f3-7855a7060d81": {
@@ -691,32 +675,17 @@
             "y": 792
           }
         },
-        "aa318421-a83a-49c8-a1f4-e10e557c91b6": {
-          "id": "aa318421-a83a-49c8-a1f4-e10e557c91b6",
-          "name": "Sequence",
-          "title": "->顺",
-          "description": "顺序节点,从上到下 顺序执行",
-          "properties": {},
-          "display": {
-            "x": 612,
-            "y": 708
-          },
-          "children": [
-            "116ecf94-a665-4e96-8e89-da31e337eafb",
-            "713c633a-8384-49cd-abcd-772b57b7f9d9"
-          ]
-        },
         "ba4b21d7-fcc7-4fdd-9cc2-b1142a13296b": {
           "id": "ba4b21d7-fcc7-4fdd-9cc2-b1142a13296b",
           "name": "FinTarget",
           "title": "FinTarget <<dic> T<type>",
           "description": "type 0 最近\n        1 等级最弱\n        2 等级最强",
           "properties": {
-            "dic": 40,
+            "dic": 800,
             "type": 1
           },
           "display": {
-            "x": 1164,
+            "x": 1176,
             "y": 540
           }
         },
@@ -726,11 +695,11 @@
           "title": "FinTarget <<dic> T<type>",
           "description": "type 0 最近\n        1 等级最弱\n        2 等级最强",
           "properties": {
-            "dic": 40,
+            "dic": 1000,
             "type": 2
           },
           "display": {
-            "x": 1164,
+            "x": 1200,
             "y": 600
           }
         },
@@ -740,11 +709,11 @@
           "title": "FinHateTarget <dic> Top<top>",
           "description": "Top 0 默认最近仇家\n        1 最高仇家",
           "properties": {
-            "dic": 40,
+            "dic": 1200,
             "top": 0
           },
           "display": {
-            "x": 1188,
+            "x": 1224,
             "y": 660
           }
         },
@@ -754,35 +723,35 @@
           "title": "FinHateTarget <dic> Top<top>",
           "description": "Top 0 默认最近仇家\n        1 最高仇家",
           "properties": {
-            "dic": 150,
+            "dic": 1500,
             "top": 1
           },
           "display": {
-            "x": 1200,
+            "x": 1224,
             "y": 720
           }
         },
         "962d4c81-c2c3-4b6a-a2b7-8e89cdd6a1d5": {
           "id": "962d4c81-c2c3-4b6a-a2b7-8e89cdd6a1d5",
-          "name": "FinTargetShieldFarFormMe",
-          "title": "ShieldFarFormMe <dic>",
+          "name": "FinTargetBackFormMe",
+          "title": "BackFormMe <dic>",
           "description": "找范围内 屁股朝向我的人（盾方向在对面的（查找盾距离比中心点距离远>5）?",
           "properties": {
-            "dic": 40
+            "dic": 400
           },
           "display": {
-            "x": 1152,
-            "y": 468
+            "x": 1188,
+            "y": 480
           }
         },
         "42cc729b-b77d-4947-8565-d84f5e2072d2": {
           "id": "42cc729b-b77d-4947-8565-d84f5e2072d2",
           "name": "RandomMove",
-          "title": "RandomMove <dic> r~<range>",
+          "title": "RandomMove <minDic> r~<range>",
           "description": "",
           "properties": {
-            "dic": 20,
-            "range": 15
+            "minDic": 20,
+            "range": 60
           },
           "display": {
             "x": 984,
@@ -792,27 +761,29 @@
         "575eb561-554a-40ed-827e-aedd1ed207a9": {
           "id": "575eb561-554a-40ed-827e-aedd1ed207a9",
           "name": "MoveToGem",
-          "title": "MoveToGem <type>",
-          "description": "type 0 小宝石\n         1 大宝石",
+          "title": "MoveToGem <type> Dic <dic>",
+          "description": "type 1 小宝石\n         2 大宝石",
           "properties": {
-            "type": 0
+            "type": 2,
+            "dic": 500
           },
           "display": {
             "x": 1128,
-            "y": -408
+            "y": -456
           }
         },
         "0454430e-70dc-41bf-83c7-ade0f8f70057": {
           "id": "0454430e-70dc-41bf-83c7-ade0f8f70057",
           "name": "MoveToGem",
-          "title": "MoveToGem <type>",
-          "description": "type 0 小宝石\n         1 大宝石",
+          "title": "MoveToGem <type> Dic <dic>",
+          "description": "type 1 小宝石\n         2 大宝石",
           "properties": {
-            "type": 1
+            "type": 1,
+            "dic": 500
           },
           "display": {
-            "x": 1140,
-            "y": -468
+            "x": 1128,
+            "y": -396
           }
         },
         "90e9605f-bc67-4787-87da-c80885e028f7": {
@@ -827,14 +798,27 @@
             "x": 672,
             "y": -120
           }
+        },
+        "21bb362d-fd80-4d84-8396-54a0568b5f9a": {
+          "id": "21bb362d-fd80-4d84-8396-54a0568b5f9a",
+          "name": "Null",
+          "title": "null <info>",
+          "description": "",
+          "properties": {
+            "info": "不用技能"
+          },
+          "display": {
+            "x": 852,
+            "y": 240
+          }
         }
       },
       "display": {
-        "camera_x": 207.5,
-        "camera_y": 268.5,
+        "camera_x": 359.5,
+        "camera_y": -36.5,
         "camera_z": 0.75,
-        "x": -468,
-        "y": 120
+        "x": -444,
+        "y": 108
       }
     }
   ],
@@ -853,31 +837,11 @@
     {
       "version": "0.3.0",
       "scope": "node",
-      "name": "hasSpeedPower",
-      "category": "condition",
-      "title": null,
-      "description": null,
-      "properties": {}
-    },
-    {
-      "version": "0.3.0",
-      "scope": "node",
       "name": "FollowTarget",
       "category": "action",
       "title": null,
       "description": null,
       "properties": {}
-    },
-    {
-      "version": "0.3.0",
-      "scope": "node",
-      "name": "UseSkill",
-      "category": "action",
-      "title": "Skill<skill>",
-      "description": null,
-      "properties": {
-        "skill": "Speed"
-      }
     },
     {
       "version": "0.3.0",
@@ -938,24 +902,34 @@
     {
       "version": "0.3.0",
       "scope": "node",
-      "name": "FinTargetShieldFarFormMe",
+      "name": "UseSkill",
       "category": "action",
-      "title": "ShieldFarFormMe <dic>",
+      "title": "Skill<skill>",
       "description": null,
       "properties": {
-        "dic": 40
+        "skill": "Speed"
       }
     },
     {
       "version": "0.3.0",
       "scope": "node",
-      "name": "RandomMove",
-      "category": "action",
-      "title": "RandomMove <dic> r~<range>",
+      "name": "chkAction",
+      "category": "condition",
+      "title": "chkAct <action>",
       "description": null,
       "properties": {
-        "dic": 20,
-        "range": 15
+        "action": "BackOff"
+      }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "FinTargetBackFormMe",
+      "category": "action",
+      "title": "BackFormMe <dic>",
+      "description": null,
+      "properties": {
+        "dic": 400
       }
     },
     {
@@ -963,10 +937,23 @@
       "scope": "node",
       "name": "MoveToGem",
       "category": "action",
-      "title": "MoveToGem <type>",
-      "description": "type 0 小宝石\n         1 大宝石",
+      "title": "MoveToGem <type> Dic <dic>",
+      "description": "type 1 小宝石\n         2 大宝石",
       "properties": {
-        "type": 0
+        "type": 1,
+        "dic": 500
+      }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "RandomMove",
+      "category": "action",
+      "title": "RandomMove <minDic> r~<range>",
+      "description": null,
+      "properties": {
+        "minDic": 20,
+        "range": 80
       }
     }
   ]

@@ -29,7 +29,12 @@ export class Run extends Action
                 this.skillPart.doActionSkillByLabel(Stand,0,false);
                 return;
             }
-        }else{
+        }else if(this.move.hasTarget){
+            if(!this.move.IsMove()){
+                this.skillPart.doActionSkillByLabel(Stand,0,false);
+            }
+        }
+        else{
             if(!this.move.IsMove()){
                 //  console.log("ControllerCmd: startMove  " +dir);
                   this.move.startMove(this.skillPart.targetDir);

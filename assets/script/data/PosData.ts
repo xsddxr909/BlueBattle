@@ -37,6 +37,7 @@ export class PosData extends RecycleAble implements IQuadRect
     public scale: cc.Vec2=cc.Vec2.ONE;
     public faceToRotation:boolean=true;
     public angle:number=0;
+    //对象正前方;
     public forwardDirection:cc.Vec2=cc.Vec2.ZERO;
     public position:cc.Vec2=cc.Vec2.ZERO;
    //body Url  

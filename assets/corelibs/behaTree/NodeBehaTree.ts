@@ -38,13 +38,19 @@ export class NodeBase extends RecycleAble {
       super();
     }  
     /// <summary>
-    /// 执行节点抽象方法 重写后  this.lastResultType 需要赋值  后续方便追踪;
+    /// 执行节点抽象方法 重写后 开始   this.lastNode(); 结束 this.lastResultType 需要赋值  后续方便追踪;
     /// </summary>
     /// <returns>返回执行结果</returns>
     public Execute():ResultType{
         //重写后  this.lastResultType 需要赋值  后续方便追踪;
-        this.lastResultType= ResultType.Fail;
+        this.lastNode();
+        this.lastResultType = ResultType.Success;
         return this.lastResultType;
+    }
+    public lastNode(){
+        if(this.behaTree){
+            this.behaTree.lastNodeStep=this;
+        }
     }
     
     public initProperties(behaData:BehaData):void{
@@ -79,7 +85,7 @@ export class NodeBase extends RecycleAble {
         super.Release();
     }
     toString():string{
-        let str:string=this.poolname+" lastResultType: "+this.lastResultType;
+        let str:string="treeId:"+this.behaTree.id+" "+this.poolname+" res: "+this.lastResultType;
         return str;
     }
 }

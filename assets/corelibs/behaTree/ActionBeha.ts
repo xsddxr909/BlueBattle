@@ -18,14 +18,30 @@ export  class ActionBeha  extends NodeBase
 /// </summary>
 export  class NullAct  extends ActionBeha
 {
+    private info:string;
     public  Execute():ResultType
     {
+        this.lastNode();
         this.lastResultType=ResultType.Success;
         return ResultType.Success;
+    }
+    public initProperties(behaData:BehaData):void{
+        this.info=behaData.properties['maxTime'];
     }
     public reset(){
         super.reset();
     }
+     /**
+     *释放 时候;
+    **/ 
+    onRecycle(): void {
+        this.info="";
+        super.onRecycle();
+    }
+    toString():string{
+        let str:string="treeId:"+this.behaTree.id+" "+this.poolname+" res: "+this.lastResultType+"info:"+this.info;
+        return str;
+    }  
 }
  /// <summary>
 ///  等待时间节点；
@@ -36,6 +52,7 @@ export  class WaitTimesAct  extends ActionBeha
     private startTime:number=0;
     public  Execute():ResultType
     {
+        this.lastNode();
         if(this.startTime==0){
             this.startTime=cc.sys.now();
         }
@@ -59,6 +76,10 @@ export  class WaitTimesAct  extends ActionBeha
     {
         this.overTime = overTime;
     }
+    toString():string{
+        let str:string="treeId:"+this.behaTree.id+" "+this.poolname+" res: "+this.lastResultType+"overTime:"+this.overTime;
+        return str;
+    }  
     /**
      *释放 时候;
     **/ 
@@ -79,6 +100,7 @@ export  class WaitFrameAct  extends ActionBeha
 
     public Execute():ResultType
     {
+        this.lastNode();
         if(Core.FrameSync==null){
             console.log("FrameSync 未初始化");
             this.lastResultType=ResultType.Fail;
@@ -106,6 +128,10 @@ export  class WaitFrameAct  extends ActionBeha
     {
         this.overFrame = overFrame;
     }
+    toString():string{
+        let str:string="treeId:"+this.behaTree.id+" "+this.poolname+" res: "+this.lastResultType+"overTime:"+this.overFrame;
+        return str;
+    } 
     /**
      *释放 时候;
     **/ 
