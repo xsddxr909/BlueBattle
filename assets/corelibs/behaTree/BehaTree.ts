@@ -9,6 +9,9 @@ import { BehaviorTreeManager } from "./BehaviorTreeManager";
 export class BehaTree extends NodeCombiner {
     //jason Url 行为树地址;
     public debug:boolean=false;
+    //每个步骤打印;
+    public allStep:boolean=true;
+
     private url: string;
     private inited: boolean = false;
     private dataList:Array<BehaData>;
@@ -16,7 +19,7 @@ export class BehaTree extends NodeCombiner {
     private data:any=null;
     public lastNodeStep:NodeBase;
     //节点信息；
-    public strStep:string;
+    public strStep:string="";
 
     private isPaused:boolean=false;
     constructor() {
@@ -56,7 +59,7 @@ export class BehaTree extends NodeCombiner {
         // "children": [
        //     "6ea3bb67-eb96-4f1f-855a-81c0f873f351"
         //  ]
-        console.log("res ："+res);
+      //  console.log("res ："+res);
         let rootStr:string = res.json['root'];
 
         const objs:[] = res.json['nodes'];
@@ -69,7 +72,7 @@ export class BehaTree extends NodeCombiner {
         let nodeList:Array<NodeBase>=new Array<NodeBase>();
         for (let i = 0; i < this.dataList.length; i++) {
             const b:BehaData = this.dataList[i];
-         //   console.log("get type: "+b.name);
+          //  console.log("get type: "+b.name);
             if(!BehaviorTreeManager.Get().classMapping.has(b.name)){
                 console.log("No >>>= BehaviorTree type: "+b.name);
                 continue;
@@ -93,6 +96,7 @@ export class BehaTree extends NodeCombiner {
                         if(nodeList[q].md5Id==nodes.childStr[j]){
                             const nodeComb:NodeCombiner = nodeList[i] as NodeCombiner;
                             nodeComb.AddNode(nodeList[q]);
+             //               console.log(nodeComb.id+" "+ nodeComb.poolname+" child:"+nodeList[q].poolname);
                         }
                     }
                 }
@@ -112,10 +116,14 @@ export class BehaTree extends NodeCombiner {
         this.Execute();
         //我想要知道目前走到哪一步。
         if(this.debug){
-             this.strStep = this.lastNodeStep.toString();
+            this.strStep = this.lastNodeStep.toString();
+            console.log("树执行 id: " + this.id + " res:"+this.lastResultType);
         }
         if (this.lastResultType == ResultType.Success||this.lastResultType == ResultType.Fail)
         {
+            if(this.debug){
+                console.log("树执行>>>>>完毕 id: " + this.id + " res:"+this.lastResultType);
+            }
             this.reset();
         }
     }
@@ -157,6 +165,7 @@ export class BehaTree extends NodeCombiner {
         this.data=null;
         this.isPaused=false;
         this.lastResultType= ResultType.Defult;
+        this.debug=false;
         //这里回收只想回收一层  树结构不回收。 不继承；
   //      super.onRecycle();
     }

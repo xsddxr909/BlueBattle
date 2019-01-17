@@ -185,7 +185,13 @@ export class SelectNode extends NodeCombiner
         for (let i:number = index; i < this.nodeChildList.length; ++i)
         {
             const node:NodeBase = this.nodeChildList[i];
+            if(this.behaTree.debug){
+                console.log("  选择 执行:"+node.poolname);
+            }
             resultType = node.Execute();
+            if(this.behaTree.debug){
+                console.log("Res>>    选择:"+resultType +" "+node.poolname);
+            }
             if (resultType == ResultType.Fail)
             {
                 continue;
@@ -250,7 +256,13 @@ export class SequenceNode extends NodeCombiner
         for (let i:number = index; i < this.nodeChildList.length; ++i)
         {
             const node:NodeBase = this.nodeChildList[i];
+            if(this.behaTree.debug){
+                console.log("  顺序 执行:"+node.poolname);
+            }
             resultType = node.Execute();
+            if(this.behaTree.debug){
+                console.log("Res>>    顺序:"+resultType +" "+node.poolname);
+            }
             if (resultType == ResultType.Fail)
             {
                 break;
@@ -314,7 +326,13 @@ export class RandomNode extends NodeCombiner
         for (let i:number = index; i < this.randomList.length; ++i)
         {
             const node:NodeBase = this.nodeChildList[this.randomList[i]];
+            if(this.behaTree.debug){
+                console.log("  随机 执行:"+node.poolname);
+            }
             resultType = node.Execute();
+            if(this.behaTree.debug){
+                console.log("Res>>    随机:"+resultType +" "+node.poolname);
+            }
             if (resultType == ResultType.Fail)
             {
                 continue;
@@ -375,11 +393,16 @@ export class ParallelNode extends NodeCombiner
         {
             const node:NodeBase = this.nodeChildList[i];
            // if(node.lastResultType!=ResultType.Success){
+            if(this.behaTree.debug){
+                console.log("  并行 执行:"+node.poolname);
+            }
                 resultType = node.Execute();
          //   }else{
             //    resultType = ResultType.Success;
           //  }
-
+            if(this.behaTree.debug){
+                console.log("Res>>  并行:"+node.poolname+" res:"+resultType);
+            }
             if (resultType == ResultType.Fail)
             {
                 break;
@@ -448,8 +471,14 @@ export class IfElseNode extends NodeCombiner
                 node = this.nodeChildList[0];
 
 			if (conditionResult == ResultType.Defult) {
-				// condition has not been checked
-				conditionResult = node.Execute();
+                // condition has not been checked
+                if(this.behaTree.debug){
+                    console.log("  ifelse 执行:"+node.poolname+" idx:"+this.m_activeChildIndex);
+                }
+                conditionResult = node.Execute();
+                if(this.behaTree.debug){
+                    console.log("Res>>  ifelse:"+node.poolname+" res:"+conditionResult+" idx:"+this.m_activeChildIndex);
+                }
 			}
             if (conditionResult == ResultType.Success) {
 				// if
@@ -463,12 +492,12 @@ export class IfElseNode extends NodeCombiner
                 this.m_activeChildIndex = 2;
             }
         }
-		else {
-			return this.lastResultType;
-		}
         if (this.m_activeChildIndex != 0) {
             node = this.nodeChildList[this.m_activeChildIndex];
             conditionResult = node.Execute();
+            if(this.behaTree.debug){
+                console.log("Res>> == ifelse:"+conditionResult +" "+node.poolname);
+            }
             if(conditionResult==ResultType.Success||conditionResult==ResultType.Fail){
                 //判断结束后需要 重新判断。
                 this.m_activeChildIndex=0;
@@ -511,9 +540,17 @@ export class SwitchNode extends NodeCombiner
         {
             const node:NodeBase = this.nodeChildList[i] ;
             resultType=node.Execute();
+            // if(this.behaTree.debug){
+            //     console.log("  switch res:"+resultType +" "+node.poolname);
+            // }
             if (resultType == ResultType.Fail)
             {
-                continue;
+                if((node as CasesNode).actIdx()!=0){
+                    //已经完成判断。直接返回结果。
+                   break;
+                }else{
+                    continue;
+                }
             }
 
             if (resultType == ResultType.Success)
@@ -574,6 +611,10 @@ export class CasesNode extends NodeCombiner
         this.lastResultType=conditionResult;
         return conditionResult;
     }
+    public actIdx():number{
+        //执行 action；
+        return  this.m_activeChildIndex;
+    }
     public reset(){
         this.m_activeChildIndex=0;
         super.reset();
@@ -612,8 +653,13 @@ export class WeightRandomNode extends NodeCombiner
         }
         
         const node:NodeBase = this.nodeChildList[index];
+        if(this.behaTree.debug){
+            console.log("  权重选择 "+ node.poolname);
+        }
         resultType = node.Execute();
-
+        if(this.behaTree.debug){
+            console.log("Res>>    权重选择:"+resultType +" "+node.poolname);
+        }
         if (resultType == ResultType.Running)
         {
             this.lastRunningNodeIdx = node.nodeIndex;

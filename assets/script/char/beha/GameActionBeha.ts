@@ -30,7 +30,7 @@ export  class CharActionBeha  extends ActionBeha
  /// <summary>
 ///  改变状态
 /// </summary>
-export  class SetStateAct  extends ActionBeha
+export  class SetStateAct  extends CharActionBeha
 {
      private con_State:number=0;
      constructor()
@@ -40,8 +40,10 @@ export  class SetStateAct  extends ActionBeha
     public Execute():ResultType
     {
       this.lastNode();
-      let charD:CharData= this.behaTree.getData<CharData>();
-      charD.aiState=this.con_State;
+      if(this.behaTree.debug){
+         console.log("SetState: before: "+this.toStrState(this.char.charData.aiState)+" now: "+this.toStrState(this.con_State));
+      }
+      this.char.charData.aiState=this.con_State;
       this.lastResultType=ResultType.Fail;
       return ResultType.Fail;
     }
@@ -62,11 +64,11 @@ export  class SetStateAct  extends ActionBeha
         super.onRecycle();
     }  
     toString():string{
-      let str:string="treeId:"+this.behaTree.id+" "+this.poolname+" res: "+this.lastResultType+"state:"+this.toStrState();
+      let str:string="treeId:"+this.behaTree.id+" "+this.poolname+" res: "+this.lastResultType+"state:"+this.toStrState(this.con_State);
       return str;
     } 
-    private toStrState():string{
-      switch (this.con_State) {
+    private toStrState(state:number):string{
+      switch (state) {
            case 0:
              return "Idle";
            case 1:

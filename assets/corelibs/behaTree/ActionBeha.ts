@@ -26,7 +26,7 @@ export  class NullAct  extends ActionBeha
         return ResultType.Success;
     }
     public initProperties(behaData:BehaData):void{
-        this.info=behaData.properties['maxTime'];
+        this.info=behaData.properties['info'];
     }
     public reset(){
         super.reset();
@@ -77,7 +77,7 @@ export  class WaitTimesAct  extends ActionBeha
         this.overTime = overTime;
     }
     toString():string{
-        let str:string="treeId:"+this.behaTree.id+" "+this.poolname+" res: "+this.lastResultType+"overTime:"+this.overTime;
+        let str:string="treeId:"+this.behaTree.id+" "+this.poolname+" res: "+this.lastResultType+" overTime:"+this.overTime;
         return str;
     }  
     /**
@@ -96,7 +96,7 @@ export  class WaitTimesAct  extends ActionBeha
 export  class WaitFrameAct  extends ActionBeha
 {
     private overFrame:number=0;
-    private startFrame:number=0;
+    private startFrame:number=-1;
 
     public Execute():ResultType
     {
@@ -106,8 +106,11 @@ export  class WaitFrameAct  extends ActionBeha
             this.lastResultType=ResultType.Fail;
             return ResultType.Fail;
         } 
-        if(this.startFrame==0){
+        if(this.startFrame==-1){
             this.startFrame=Core.FrameSync.currRenderFrameId;
+        }
+        if(this.behaTree.debug&&this.behaTree.allStep){
+            console.log("FrameSync "+Core.FrameSync.currRenderFrameId);
         }
         if(Core.FrameSync.currRenderFrameId-this.startFrame>=this.overFrame){
             this.lastResultType=ResultType.Success;
@@ -118,25 +121,21 @@ export  class WaitFrameAct  extends ActionBeha
         }
     }
     public reset(){
-        this.startFrame=0;
+        this.startFrame=-1;
         super.reset();
     }
     public initProperties(behaData:BehaData):void{
-        this.SetOverFrame(behaData.properties['frameCount']);
-    }
-    public SetOverFrame(overFrame:number):void
-    {
-        this.overFrame = overFrame;
+        this.overFrame=behaData.properties['frameCount'];
     }
     toString():string{
-        let str:string="treeId:"+this.behaTree.id+" "+this.poolname+" res: "+this.lastResultType+"overTime:"+this.overFrame;
+        let str:string="treeId:"+this.behaTree.id+" "+this.poolname+" res: "+this.lastResultType+" overFrame:"+this.overFrame;
         return str;
     } 
     /**
      *释放 时候;
     **/ 
     onRecycle(): void {
-        this.startFrame=0;
+        this.startFrame=-1;
         this.overFrame=0;
         super.onRecycle();
     }  

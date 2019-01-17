@@ -107,6 +107,7 @@ export class PosData extends RecycleAble implements IQuadRect
     public initData(){
         this.position=cc.Vec2.ZERO;
         this.isDead=false;
+        this.inCamera=false;
         this.screenId=-1;
     }
 }

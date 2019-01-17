@@ -9,6 +9,7 @@ import { CharData } from "../data/CharData";
 import { ENUMS } from "../common/Enum";
 import FrameSync from "../../corelibs/FrameSync";
 import { BehaviorTreeManager } from "../../corelibs/behaTree/BehaviorTreeManager";
+import { AIController } from "../char/controller/AIController";
 
 
 
@@ -64,10 +65,11 @@ export default class GameLogic implements IRelease
         charD.myPlayer=true;
         charD.angle=90;
         charD.radius=55;
-        charD.ctrlType=ENUMS.CtrlType.JoyCtrl;
+        charD.ctrlType=ENUMS.CtrlType.AiCtrl;
         charD.position=CharManager.Get().getBrothPoint(charD.radius);
         this.char=CharManager.Get().getNewChar();
         this.char.init(charD);
+        (this.char.ctrl as AIController).setDebug(true);
         CameraCtrl.Instance.changeTarget(this.char.view.node);
 
         //碰撞测试;

@@ -28,6 +28,9 @@ export class AIController extends Controller
        this.behaTree=BehaviorTreeManager.Get().creatNodeTree(char.charData.aiUrl,char.charData);
        if(!char.charData.autoStartAi){
           this.behaTree.Paused();
+          this.isStartAI=false;
+       }else{
+         this.isStartAI=true;
        }
     }
     OnMessage(cmd:ENUMS.ControllerCmd, param?: any): void {
@@ -78,25 +81,38 @@ export class AIController extends Controller
                this.behaTree.Update(dt);
             }
         }
+        if(this.behaTree.debug){
+            console.log(this.toStrState()+ " LastStep"+this.behaTree.strStep);
+        }
         if(this.behaTree.debug&&this.char.data.inCamera){
-            this.char.view.body.getChildByName("label").getComponent(cc.Label).string=this.behaTree.strStep;
+            this.char.view.body.getChildByName("label").getComponent(cc.Label).string=this.toStrState()+" "+this.behaTree.strStep;
         }
         super.Update(dt);
     }
     GetName?(): string {
       return 'AIController'+this.id;
     }
-    public isDebug():boolean{
-        if(this.behaTree){
-            return  this.behaTree.debug
-        }
-        return false;
-    }
     public setDebug(b:boolean){
         if(this.behaTree){
             this.behaTree.debug=b;
         }
     }
+    private toStrState():string{
+        switch (this.char.charData.aiState) {
+             case 0:
+               return "Idle";
+             case 1:
+               return "Follow";
+             case 2:
+               return "Warning";
+             case 3:
+               return "Attack";
+             case 4:
+               return "Dodge";
+        }
+        return "null";
+      }
+
     /**
      *获取 时候;
      */
