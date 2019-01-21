@@ -3,6 +3,7 @@ import { SkillPart } from "../part/SkillPart";
 import { Action } from "./Action";
 import { ENUMS } from "../../common/Enum";
 import { Stand } from "./Stand";
+import { GameEventID } from "../../common/GameEventID";
 
 /**
  * 移动动作;
@@ -19,7 +20,7 @@ export class Run extends Action
    
     public init(skillpart:SkillPart){
         this.skillPart = skillpart;
-        this.move=this.skillPart.char.getMovePart();
+        this.move = this.skillPart.char.getMovePart();
     }
     //更新;
     Update(dt: number): void {
@@ -29,19 +30,6 @@ export class Run extends Action
                 this.skillPart.doActionSkillByLabel(Stand,0,false);
                 return;
             }
-        }else if(this.move.hasTarget){
-            if(!this.move.IsMove()){
-                this.skillPart.doActionSkillByLabel(Stand,0,false);
-            }
-        }
-        else{
-            if(!this.move.IsMove()){
-                //  console.log("ControllerCmd: startMove  " +dir);
-                  this.move.startMove(this.skillPart.targetDir);
-              }else{
-              //   console.log("ControllerCmd: setTargetDir  " +dir);
-                  this.move.setTargetDir(this.skillPart.targetDir);
-            }
         }
     }
   
@@ -50,13 +38,37 @@ export class Run extends Action
     }
   
      //目前游戏动画;
-     public GotoFrame(frame:number=0):void{
+     public GotoFrame(frame:number=0,param:any=null):void{
          this.currentFrame = frame;
+         if(param!=null){
+             let part: ENUMS.ControllerCmd=param;
+             switch(part){
+                 case ENUMS.ControllerCmd.Char_FollowTarget:
+                    this.move.followMyTarget();
+                 break;
+                 case  ENUMS.ControllerCmd.Char_MoveToPos:
+                     this.move.startMoveTo(this.skillPart.targetPos);
+                     this.skillPart.char.BindEvent(GameEventID.CharEvent.MOVE_END,this.onMoveToPosEnd,this);
+                 break;
+             }
+         }else{
+            if(!this.move.IsMove()){
+                //  console.log("ControllerCmd: startMove  " +dir);
+                  this.move.startMove(this.skillPart.targetDir);
+              }else{
+              //   console.log("ControllerCmd: setTargetDir  " +dir);
+                  this.move.setTargetDir(this.skillPart.targetDir);
+            }
+         }
+     }
+     private onMoveToPosEnd(data?: any){
+        this.skillPart.doActionSkillByLabel(Stand,0,false);
      }
      /**
       * 切换动作 处理逻辑;
       */
      public executeSwichAction():void{
+           this.skillPart.char.UnbindEvent(GameEventID.CharEvent.MOVE_END,this.onMoveToPosEnd,this);
            this.move.stopMove();
      }
     /**

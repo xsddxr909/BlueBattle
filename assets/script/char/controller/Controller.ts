@@ -32,7 +32,7 @@ export class Controller extends RecycleAble implements IController
         switch(cmd){
             case ENUMS.ControllerCmd.Char_Move:
                 if(param!=null){
-                    let dir= param as cc.Vec2;
+                    let dir= param ;
                     this.char.getSkillPart().targetDir=dir;
                     if(this.char.charData.currentActionLabel!=Run.name){
                    //     console.log("ControllerCmd: MoveAction  ");
@@ -49,23 +49,23 @@ export class Controller extends RecycleAble implements IController
             break;
             case ENUMS.ControllerCmd.Char_FollowTarget:
             if(param!=null){
-                let obj:ObjBase= param as ObjBase;
+                let obj:ObjBase= param;
                 this.char.target=obj;
-                if(this.char.charData.currentActionLabel!=Run.name){
+               // if(this.char.charData.currentActionLabel!=Run.name){
                //     console.log("ControllerCmd: MoveAction  ");
-                     this.char.getSkillPart().doActionSkillByLabel(Run);
-                }
-                this.char.getMovePart().followMyTarget();
+                     this.char.getSkillPart().doActionSkillByLabel(Run,0,true,ENUMS.ControllerCmd.Char_FollowTarget);
+             //   }
             }
             break;
             case ENUMS.ControllerCmd.Char_MoveToPos:
             if(param!=null){
-                let pos:cc.Vec2= param as cc.Vec2;
-                if(this.char.charData.currentActionLabel!=Run.name){
-               //     console.log("ControllerCmd: MoveAction  ");
-                     this.char.getSkillPart().doActionSkillByLabel(Run);
-                }
-                this.char.getMovePart().startMoveTo(pos);
+                let pos:cc.Vec2= param;
+                //已帧同步验证通过;
+              //  if(this.char.charData.currentActionLabel!=Run.name){
+                 //     console.log("ControllerCmd: Char_MoveToPos  ",pos);
+                     this.char.getSkillPart().targetPos=pos;
+                     this.char.getSkillPart().doActionSkillByLabel(Run,0,true,ENUMS.ControllerCmd.Char_MoveToPos);
+              //  }
             }
             break;
         }

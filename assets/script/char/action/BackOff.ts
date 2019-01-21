@@ -36,7 +36,7 @@ export class BackOff extends Action
     }
   
      //目前游戏动画;
-     public GotoFrame(frame:number=0):void{
+     public GotoFrame(frame:number=0,param:any=null):void{
          this.currentFrame = frame;
          this.move.stopMove();
          this.move.speed=-this.skillPart.hitdata.power;
@@ -67,6 +67,7 @@ export class BackOff extends Action
      *释放 时候;
      **/ 
     onRecycle(): void {
+      this.skillPart.char.data.faceToRotation=true;
       this.move=null;
       super.onRecycle();
     }  

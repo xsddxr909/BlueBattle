@@ -185,11 +185,11 @@ export class SelectNode extends NodeCombiner
         for (let i:number = index; i < this.nodeChildList.length; ++i)
         {
             const node:NodeBase = this.nodeChildList[i];
-            if(this.behaTree.debug){
+            if(this.behaTree.debug&&this.behaTree.allStep){
                 console.log("  选择 执行:"+node.poolname);
             }
             resultType = node.Execute();
-            if(this.behaTree.debug){
+            if(this.behaTree.debug&&this.behaTree.allStep){
                 console.log("Res>>    选择:"+resultType +" "+node.poolname);
             }
             if (resultType == ResultType.Fail)
@@ -256,11 +256,11 @@ export class SequenceNode extends NodeCombiner
         for (let i:number = index; i < this.nodeChildList.length; ++i)
         {
             const node:NodeBase = this.nodeChildList[i];
-            if(this.behaTree.debug){
+            if(this.behaTree.debug&&this.behaTree.allStep){
                 console.log("  顺序 执行:"+node.poolname);
             }
             resultType = node.Execute();
-            if(this.behaTree.debug){
+            if(this.behaTree.debug&&this.behaTree.allStep){
                 console.log("Res>>    顺序:"+resultType +" "+node.poolname);
             }
             if (resultType == ResultType.Fail)
@@ -326,11 +326,11 @@ export class RandomNode extends NodeCombiner
         for (let i:number = index; i < this.randomList.length; ++i)
         {
             const node:NodeBase = this.nodeChildList[this.randomList[i]];
-            if(this.behaTree.debug){
+            if(this.behaTree.debug&&this.behaTree.allStep){
                 console.log("  随机 执行:"+node.poolname);
             }
             resultType = node.Execute();
-            if(this.behaTree.debug){
+            if(this.behaTree.debug&&this.behaTree.allStep){
                 console.log("Res>>    随机:"+resultType +" "+node.poolname);
             }
             if (resultType == ResultType.Fail)
@@ -393,14 +393,14 @@ export class ParallelNode extends NodeCombiner
         {
             const node:NodeBase = this.nodeChildList[i];
            // if(node.lastResultType!=ResultType.Success){
-            if(this.behaTree.debug){
+            if(this.behaTree.debug&&this.behaTree.allStep){
                 console.log("  并行 执行:"+node.poolname);
             }
                 resultType = node.Execute();
          //   }else{
             //    resultType = ResultType.Success;
           //  }
-            if(this.behaTree.debug){
+            if(this.behaTree.debug&&this.behaTree.allStep){
                 console.log("Res>>  并行:"+node.poolname+" res:"+resultType);
             }
             if (resultType == ResultType.Fail)
@@ -472,11 +472,11 @@ export class IfElseNode extends NodeCombiner
 
 			if (conditionResult == ResultType.Defult) {
                 // condition has not been checked
-                if(this.behaTree.debug){
+                if(this.behaTree.debug&&this.behaTree.allStep){
                     console.log("  ifelse 执行:"+node.poolname+" idx:"+this.m_activeChildIndex);
                 }
                 conditionResult = node.Execute();
-                if(this.behaTree.debug){
+                if(this.behaTree.debug&&this.behaTree.allStep){
                     console.log("Res>>  ifelse:"+node.poolname+" res:"+conditionResult+" idx:"+this.m_activeChildIndex);
                 }
 			}
@@ -495,7 +495,7 @@ export class IfElseNode extends NodeCombiner
         if (this.m_activeChildIndex != 0) {
             node = this.nodeChildList[this.m_activeChildIndex];
             conditionResult = node.Execute();
-            if(this.behaTree.debug){
+            if(this.behaTree.debug&&this.behaTree.allStep){
                 console.log("Res>> == ifelse:"+conditionResult +" "+node.poolname);
             }
             if(conditionResult==ResultType.Success||conditionResult==ResultType.Fail){
@@ -653,11 +653,11 @@ export class WeightRandomNode extends NodeCombiner
         }
         
         const node:NodeBase = this.nodeChildList[index];
-        if(this.behaTree.debug){
+        if(this.behaTree.debug&&this.behaTree.allStep){
             console.log("  权重选择 "+ node.poolname);
         }
         resultType = node.Execute();
-        if(this.behaTree.debug){
+        if(this.behaTree.debug&&this.behaTree.allStep){
             console.log("Res>>    权重选择:"+resultType +" "+node.poolname);
         }
         if (resultType == ResultType.Running)

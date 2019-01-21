@@ -62,13 +62,15 @@ export class JoyController extends Controller
   //                 console.log("onJoystickMove: 大于5° " +dir);
             this._lastAngle=angle;
             //派发事件 帧同步;
+            
            this.OnMessage(ENUMS.ControllerCmd.Char_Move,dir);
        }
        
     }
     onJoystickStopMove(){
-        this._lastAngle=99999;
         //派发事件 帧同步;
+
+        this._lastAngle=99999;
         this.OnMessage(ENUMS.ControllerCmd.Char_StopMove);
     }
 

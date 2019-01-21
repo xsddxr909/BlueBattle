@@ -10,6 +10,8 @@ import { ENUMS } from "../common/Enum";
 import FrameSync from "../../corelibs/FrameSync";
 import { BehaviorTreeManager } from "../../corelibs/behaTree/BehaviorTreeManager";
 import { AIController } from "../char/controller/AIController";
+import { ResStruct } from "../../corelibs/util/ResourcesMgr";
+import { ResType } from "../../corelibs/CoreDefine";
 
 
 
@@ -28,12 +30,14 @@ export default class GameLogic implements IRelease
  
     constructor()
     {
+        Core.ResourcesMgr.LoadAny(ResStruct.CreateRes("behavior/char/charAi.json",ResType.AnyUrl),this.onload.bind(this));
+    }
+    private onload(res:any){
         this.Init();
     }
-
     public Init()
     {
-        Core.Random.Init(468);
+        Core.Random.Init(321);  //468
         this.frameSync=Core.ObjectPoolMgr.get(FrameSync);
         this.frameSync.initialize(this.FrameSyncUpdate.bind(this));
         this.frameSync.isPlayAlone=true;
@@ -66,25 +70,30 @@ export default class GameLogic implements IRelease
         charD.angle=90;
         charD.radius=55;
         charD.ctrlType=ENUMS.CtrlType.AiCtrl;
+     //   charD.autoStartAi=true;
+        charD.pvpId=1;
         charD.position=CharManager.Get().getBrothPoint(charD.radius);
         this.char=CharManager.Get().getNewChar();
         this.char.init(charD);
-        (this.char.ctrl as AIController).setDebug(true);
+      //  (this.char.ctrl as AIController).setDebug(true);
         CameraCtrl.Instance.changeTarget(this.char.view.node);
 
         //碰撞测试;
    //     this.char.charData.ShowHitBox(true);
     }
     creatOther(){
-        for (let index = 0; index < 1; index++) {
+        for (let index = 0; index < 10; index++) {
             let charD:CharData=CharManager.Get().charDataPool.get();
             charD.initData();
             charD.radius=55;
             charD.angle=360*Core.Random.GetRandom();
             charD.ctrlType=ENUMS.CtrlType.AiCtrl;
+       //     charD.autoStartAi=false;
+            charD.pvpId=index+2;
             charD.position=CharManager.Get().getBrothPoint(charD.radius);
             let charOther:Character=CharManager.Get().getNewChar();
             charOther.init(charD);
+        //    (charOther.ctrl as AIController).setDebug(true);
             //碰撞测试;
     //        charOther.charData.ShowHitBox(true);
         }
@@ -93,19 +102,22 @@ export default class GameLogic implements IRelease
     Update(dt: number)
     {
         //帧同步计算帧;
-        this.frameSync.update(dt);
-        //摄像机算位置;
-        CameraCtrl.Instance.PreUpdate(dt);
-        //地图更新位置;
-        MapManager.Get().Update(dt);
-        //摄像机移动;
-        CameraCtrl.Instance.Update(dt);
+        if(this.frameSync){
+            this.frameSync.update(dt);
+            //摄像机算位置;
+            CameraCtrl.Instance.PreUpdate(dt);
+            //地图更新位置;
+            MapManager.Get().Update(dt);
+            //摄像机移动;
+            CameraCtrl.Instance.Update(dt);
+        }
     }
     FrameSyncUpdate(dt:number){
         //角色更新; 每次只处理一帧
      //   console.log("do FrameSyncUpdate");
         CharManager.Get().update(dt);
         MapManager.Get().UpdateTask(dt);
+   //     console.log("getSeedIndex: ",Core.Random.getSeedIndex(),"frame:",Core.FrameSync.currRenderFrameId);
     }
     
 

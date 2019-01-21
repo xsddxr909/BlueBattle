@@ -92,6 +92,7 @@ export class PosData extends RecycleAble implements IQuadRect
     onRecycle(): void {
      // this.resetForwardDirection();
       this.position=cc.Vec2.ZERO;
+      this.forwardDirection=cc.Vec2.ZERO;
       this.screenId=-1;
       super.onRecycle();
     }  

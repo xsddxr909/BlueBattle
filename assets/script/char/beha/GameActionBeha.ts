@@ -15,7 +15,9 @@ export  class CharActionBeha  extends ActionBeha
   public initData(){
     this.char=null;
     let charD:CharData= this.behaTree.getData<CharData>();
-    this.char=CharManager.Get().getCharById(charD.characterId);
+    if(charD){
+      this.char=CharManager.Get().getCharById(charD.characterId);
+    }
     super.initData();
   }
    /**
@@ -40,7 +42,7 @@ export  class SetStateAct  extends CharActionBeha
     public Execute():ResultType
     {
       this.lastNode();
-      if(this.behaTree.debug){
+      if(this.behaTree.debug&&this.behaTree.allStep){
          console.log("SetState: before: "+this.toStrState(this.char.charData.aiState)+" now: "+this.toStrState(this.con_State));
       }
       this.char.charData.aiState=this.con_State;
@@ -106,10 +108,16 @@ export  class FollowTargetAct  extends CharActionBeha
         return ResultType.Fail;
       }
       if(!this.char.getMovePart().IsFollowTarget()){
+         if(this.behaTree.debug){
+             console.log("开始跟随: "+this.char.charData.id + " tag:"+this.char.target.id);
+          }
           this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_FollowTarget,this.char.target);
       }
       //判断距离；
-      if(this.char.charData.radius-this.char.getDicByTarget(this.char.target,false)<=3){
+      if(this.char.getDicByTarget(this.char.target,false)-this.char.charData.radius<=3){
+        if(this.behaTree.debug){
+          console.log("跟随结束: "+this.char.charData.id + " tag:"+this.char.target.id);
+        }
         this.char.getMovePart().stopMove();
         this.lastResultType=ResultType.Success;
         return ResultType.Success;
@@ -219,6 +227,9 @@ export  class FinTargetAct  extends CharActionBeha
                 case 2:
                   otherChar.charData.vvalue=otherChar.charData.Level;
                 break;
+              }
+              if(this.behaTree.debug&&this.behaTree.allStep){
+                console.log("找到目标: "+this.char.charData.id + " tag:"+otherChar.charData.id);
               }
             this.dicCharList.push(otherChar);
           }
@@ -365,6 +376,9 @@ export  class FinHateTargetAct  extends CharActionBeha
                   otherChar.charData.vvalue=otherChar.charData.Level;
                 break;
               }
+              if(this.behaTree.debug&&this.behaTree.allStep){
+                console.log("找到 仇恨 目标: "+this.char.charData.id + " tag:"+otherChar.charData.id);
+              }
             this.dicCharList.push(otherChar);
           }
       }
@@ -497,6 +511,9 @@ export  class FinTargetBackFormMeAct  extends CharActionBeha
              dir.normalizeSelf();
              const angle:number= dir.angle(otherChar.charData.forwardDirection)*180/Math.PI;
              if(angle<80){
+                if(this.behaTree.debug&&this.behaTree.allStep){
+                  console.log("找到 背对我的 目标: "+this.char.charData.id + " tag:"+otherChar.charData.id);
+                }
                 this.char.setTarget(otherChar);
                 this.lastResultType=ResultType.Success;
                 return ResultType.Success;
@@ -557,10 +574,14 @@ export  class MoveToGemAct  extends CharActionBeha
                continue;
             }
             const cDic=gemD.getDic(this.char.charData.position,this.char.charData.radius,true);
-            if(cDic<=this.dic){
+            console.log(this.char.charData.id,"找宝石 距离: "+gemD.itemType,"dic",cDic,"pos",gemD.position);
+          //  if(cDic<=this.dic){
                gemD.vvalue=cDic;
+               if(this.behaTree.debug&&this.behaTree.allStep){
+                   console.log("找到宝石: dic"+cDic,this.char.charData.id ,gemD.position);
+              }
                this.dicCharList.push(gemD);
-            }
+          // }
         }
         if(this.getTarget()){
           this.isMoving=true;
@@ -577,6 +598,9 @@ export  class MoveToGemAct  extends CharActionBeha
         }
         if(this.char.charData.currentActionLabel==Stand.name){
           //移动到了
+          if(this.behaTree.debug&&this.behaTree.allStep){
+          }
+          console.log(this.char.charData.id,"找宝石>>> 移动 完毕: "+this.char.charData.id);
           this.lastResultType=ResultType.Success;
           return ResultType.Success;
         }
@@ -611,6 +635,7 @@ export  class MoveToGemAct  extends CharActionBeha
         if(this.dicCharList.length==1){
           //设置移动目标点;
           this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_MoveToPos,this.dicCharList[0].position);
+          console.log(this.char.charData.id,"找到宝石 开始移动: "+this.dicCharList[0].position);
          // this.char.setTarget(this.dicCharList[0]);
           return true;
         }
@@ -619,9 +644,11 @@ export  class MoveToGemAct  extends CharActionBeha
           //小宝石 太多  只找随机。 
           let pos:cc.Vec2=this.dicCharList[Core.Random.GetRandomMax(this.dicCharList.length-1)].position;
           this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_MoveToPos,pos);
+          console.log(this.char.charData.id,"找小宝石 开始移动: "+pos);
         }else{
           this.dicCharList.sort(this.CompareMinFunc);
           this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_MoveToPos,this.dicCharList[0].position);
+          console.log(this.char.charData.id,"找大宝石 开始移动: "+this.dicCharList[0].position);
         }
         //设置移动目标点;
       //  this.char.setTarget(this.dicCharList[0]);
@@ -682,7 +709,10 @@ export  class RandomMoveAct  extends CharActionBeha
          let pos:cc.Vec2=cc.Vec2.ZERO;
          pos.x = (this.char.charData.position.x+rdic * Math.cos(angle * Math.PI / 180))>>0 ;
          pos.y = (this.char.charData.position.y+rdic * Math.sin(angle * Math.PI / 180))>>0 ;
-
+        
+         if(this.behaTree.debug){
+          console.log("随机移动 : "+this.char.charData.id ,pos);
+        }
          this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_MoveToPos,pos);
          this.isMoving=true;    
          this.lastResultType=ResultType.Running;
@@ -691,11 +721,15 @@ export  class RandomMoveAct  extends CharActionBeha
       if(this.isMoving){
         //检测移动到没
         if(this.char.charData.currentActionLabel==Run.name){
+          console.log("随机移动 >>>  中: "+this.char.charData.id,this.char.charData.position);
           this.lastResultType=ResultType.Running;
           return ResultType.Running;
         }
         if(this.char.charData.currentActionLabel==Stand.name){
           //移动到了
+          if(this.behaTree.debug){
+           console.log("随机移动 >>>  完毕: "+this.char.charData.id,this.char.charData.position);
+          }
           this.lastResultType=ResultType.Success;
           return ResultType.Success;
         }

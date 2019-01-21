@@ -11,7 +11,9 @@ export  class CharConditionBeha  extends ConditionBeha
   public initData(){
     this.char=null;
     let charD:CharData= this.behaTree.getData<CharData>();
-    this.char=CharManager.Get().getCharById(charD.characterId);
+    if(charD){
+        this.char=CharManager.Get().getCharById(charD.characterId);
+    }
     super.initData();
   }
    /**

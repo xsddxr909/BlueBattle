@@ -109,10 +109,10 @@ export  class WaitFrameAct  extends ActionBeha
         if(this.startFrame==-1){
             this.startFrame=Core.FrameSync.currRenderFrameId;
         }
-        if(this.behaTree.debug&&this.behaTree.allStep){
-            console.log("FrameSync "+Core.FrameSync.currRenderFrameId);
-        }
         if(Core.FrameSync.currRenderFrameId-this.startFrame>=this.overFrame){
+             if(this.behaTree.debug&&this.behaTree.allStep){
+                 console.log("等待 完成 WaitFrameAct: "+this.overFrame,Core.FrameSync.currRenderFrameId);
+             }
             this.lastResultType=ResultType.Success;
             return ResultType.Success;
         }else{

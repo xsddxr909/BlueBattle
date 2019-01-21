@@ -60,7 +60,7 @@ export class Action extends RecycleAble  implements IUpdate
      * 初始化数据; 创建显示对象;
      */
     public init(skillpart:SkillPart){
-      this.skillPart=  skillpart;
+      this.skillPart =  skillpart;
     }
     
     //更新;
@@ -84,16 +84,16 @@ export class Action extends RecycleAble  implements IUpdate
         return 'Action-'+this.id;
     }
   
-    public Begin(frame:number=0):void{
+    public Begin(frame:number=0,param:any=null):void{
 
      //   this. cancelPriorityLimit = -1;
         //帧计数归0
         frame = frame == -1 ? 0 : frame;
-        this.GotoFrame(frame);
+        this.GotoFrame(frame,param);
 
     }
 
-     public GotoFrame(frame:number=0):void{
+     public GotoFrame(frame:number=0,param:any=null):void{
          this.currentFrame = frame;
 
      }

@@ -72,6 +72,7 @@ export module ENUMS
      * 取消优先级 高的可以断底的 技能 技能取消用;
      */
     export enum CancelPriority{
+        //什么动作都不能切换;
         CantDoAnyAction=-1,
         Stand_Move=0,
         //roll attack

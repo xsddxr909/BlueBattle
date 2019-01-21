@@ -10,7 +10,7 @@ export class BehaTree extends NodeCombiner {
     //jason Url 行为树地址;
     public debug:boolean=false;
     //每个步骤打印;
-    public allStep:boolean=true;
+    public allStep:boolean=false;
 
     private url: string;
     private inited: boolean = false;
@@ -103,6 +103,9 @@ export class BehaTree extends NodeCombiner {
             }
         }
         nodeList=[];
+        if(this.data==null){
+            return;
+        }
         this.initData();
         this.inited = true;
     }
@@ -117,11 +120,13 @@ export class BehaTree extends NodeCombiner {
         //我想要知道目前走到哪一步。
         if(this.debug){
             this.strStep = this.lastNodeStep.toString();
-            console.log("树执行 id: " + this.id + " res:"+this.lastResultType);
+            if(this.allStep){
+                console.log("树执行 id: " + this.id + " res:"+this.lastResultType);
+            }
         }
         if (this.lastResultType == ResultType.Success||this.lastResultType == ResultType.Fail)
         {
-            if(this.debug){
+            if(this.debug&&this.allStep){
                 console.log("树执行>>>>>完毕 id: " + this.id + " res:"+this.lastResultType);
             }
             this.reset();

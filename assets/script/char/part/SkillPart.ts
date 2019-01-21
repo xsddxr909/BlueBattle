@@ -19,6 +19,7 @@ export class SkillPart extends RecycleAble
     public currentAction:Action;
     //遥杆 或者 目标 要去的方向;
     public targetDir:cc.Vec2;
+    public targetPos:cc.Vec2;
     //受击 与攻击表现；
     public  hitdata:t_s_hitData;
     //当前动作类型 1普通攻击 2技能 0其他
@@ -50,7 +51,7 @@ export class SkillPart extends RecycleAble
     getSkillList(): SkillList {
       return this.skillList;
     }
-    public doActionSkillByLabel(actionLabel: any,frame:number=0,chkCencelLV:boolean=true): void {
+    public doActionSkillByLabel(actionLabel: any,frame:number=0,chkCencelLV:boolean=true,param:any=null): void {
         if(this.currentAction!=null&&this.currentAction.poolname==actionLabel.name){
            return;
         }
@@ -67,7 +68,7 @@ export class SkillPart extends RecycleAble
         }
         this.currentAction=tempAction;
         this.currentAction.init(this);
-        this.currentAction.Begin(frame);
+        this.currentAction.Begin(frame,param);
         this.char.charData.currentActionType=this.currentAction.actionType;
         this.char.charData.currentActionLabel=this.currentAction.poolname;
     }

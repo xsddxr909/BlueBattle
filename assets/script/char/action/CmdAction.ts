@@ -24,7 +24,7 @@ export class CmdAction extends Action
     }
   
 
-     public GotoFrame(frame:number=0):void{
+     public GotoFrame(frame:number=0,param:any=null):void{
          this.currentFrame = frame;
          
      }

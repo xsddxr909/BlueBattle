@@ -34,6 +34,12 @@ export default class FrameSync extends RecycleAble {
     private MIN_FRAME_SPEED:number=1;
     private MAX_FRAME_SPEED:number=16;
 
+    //单机统计dt
+    private aloneDt:number;
+
+    private _didRecFrame = false;
+    private _laseRecTime = 0;
+
     /**
      * 录像回播 用 eg:10倍速度  没帧 模拟更新10次 每次输入 1次关键帧;
      */
@@ -74,12 +80,13 @@ export default class FrameSync extends RecycleAble {
         this._updateFun = updateFun;
         this._currRenderFrameId=0;
         this._clientDeltaTime=1/this._clientFrameDelta;
-        this.delta1000= this._clientDeltaTime*1000 >>0;
+        this._clientDeltaTime=(this._clientDeltaTime*1000 >>0)/1000;
+        this.delta1000= this._clientDeltaTime*1000 ;
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>!!!!!!!",this._clientDeltaTime,this.delta1000);
         Core.FrameSync=this;
+        this.aloneDt=0;
     }
 
-    private _didRecFrame = false;
-    private _laseRecTime = 0;
     //解析包
     _parseReceiveFrameList() {
         // const delta = cc.sys.now() - this._laseRecTime;
@@ -107,7 +114,7 @@ export default class FrameSync extends RecycleAble {
     }
 
 
-    private aloneDt:number;
+   
     //逐帧更新 
     update(dt:number) {
         if (this.clientStartFrameTime==0) return;
@@ -153,17 +160,11 @@ export default class FrameSync extends RecycleAble {
     }
     _playAloneUpdate(dt:number){
         if(this.isPlayAlone){
-            if(this._endRenderFrameId==0){
-                //每次发2帧过来;
-                this._endRenderFrameId=2;
-                this.aloneDt=0;
-            }else{
-                this.aloneDt+=(dt*1000>>0);
-            //    cc.log('this.aloneDt --- ',this.aloneDt);
-                while(this.aloneDt>this._serverFrameDelta){
-                    this.aloneDt-=this._serverFrameDelta;
-                    this._endRenderFrameId+=2;
-                }
+            this.aloneDt+=(dt*1000>>0);
+        //    cc.log('this.aloneDt --- ',this.aloneDt);
+            while(this.aloneDt>=this._serverFrameDelta){
+                this.aloneDt-=this._serverFrameDelta;
+                this._endRenderFrameId+=2;
             }
         }
     }

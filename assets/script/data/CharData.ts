@@ -26,11 +26,6 @@ export class CharData extends PosData implements IObbBox
     public aiUrl: string="behavior/char/charAi.json";
     public autoStartAi:boolean=true;
     public aiState:ENUMS.AIstate=ENUMS.AIstate.Idle;
-     //ai查找间隔 (单位)秒
-    public findTime:number=1; 
-     //ai查找间隔 (单位)秒
-    public touchWaitingTime:number = 0; 
-
 
    public  birthPoint:cc.Vec2;
    public  birthDir:number;
@@ -120,6 +115,8 @@ export class CharData extends PosData implements IObbBox
      public bodyBox:OBB=null;
      private weaponSize=148;
     // public attackRadius=55+148;
+    private lastPos:cc.Vec2=cc.Vec2.ZERO;
+    private lastRot:number=99999;
 
      private testBody:ColorBox; 
 
@@ -194,6 +191,11 @@ export class CharData extends PosData implements IObbBox
         this.zIndex=1;
         this.Exp=0;
         this.Level=1;
+        this.currentActionType=0;
+        this.currentActionLabel="";
+        this.aiState=ENUMS.AIstate.Idle;
+        this.lastPos=cc.Vec2.ZERO;
+        this.lastRot=99999;
     }
     
     public updateObb(){
@@ -204,7 +206,6 @@ export class CharData extends PosData implements IObbBox
      /**
       * 更新碰撞数据坐标;
       */
-    private lastPos:cc.Vec2=cc.Vec2.ZERO;
     private updateObb_Pos(){
         if(!this.lastPos.equals(this.position)){
             this.bodyBox.setCenter(this.position);
@@ -214,7 +215,6 @@ export class CharData extends PosData implements IObbBox
             this.lastPos.y=this.y;
         }
     }
-    private lastRot:number=99999;
     private updateObb_Rotate(){
         if(this.lastRot!=this.angle){
        //     console.log('setAngle~~',this.angle);

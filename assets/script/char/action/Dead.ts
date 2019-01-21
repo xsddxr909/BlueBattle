@@ -37,7 +37,7 @@ export class Dead extends Action
     }
   
      //目前游戏动画;
-     public GotoFrame(frame:number=0):void{
+     public GotoFrame(frame:number=0,param:any=null):void{
          this.currentFrame = frame;
       
         //播放死亡动画;

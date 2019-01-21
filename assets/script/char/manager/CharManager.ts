@@ -189,18 +189,23 @@ export class CharManager
                 const bear:Character= this.characterPool.getOnList()[i];
                 this.hitArrayList=this.CharQuadTree.get(this.characterPool.getOnList()[i].charData);        
                 // if(bear.charData.id==2){
-                //     console.log(" this.hitArrayList.length  "+this.hitArrayList.length);
-                // }
-                for (let x = 0; x < this.hitArrayList.length; x++) {
-                    // 使用合适的碰撞检测算法和每一个可能碰撞的物体进行碰撞检测...
+                    // }
+               //     console.log(" hitTest>>>>>> :",bear.charData.pvpId, bear.charData.bodyBox.x, bear.charData.bodyBox.x,bear.charData.bodyBox.y,"lens: "+this.hitArrayList.length);
+                    for (let x = 0; x < this.hitArrayList.length; x++) {
+                        // 使用合适的碰撞检测算法和每一个可能碰撞的物体进行碰撞检测...
                     const  hitterCharD:CharData=this.hitArrayList[x] as CharData;
+                 //   console.log(" hitTest ",hitterCharD.pvpId);
                     const  character:Character = this.characterPool.getDataById(hitterCharD.characterId);
                     if(hitterCharD.isDead||hitterCharD.id==bear.charData.id){
                         continue;
                     }
+                    bear.charData.bodyBox
                     // 武器碰到了身体;攻击命中;
                     if(hitterCharD.currentActionLabel!=BackOff.name&&hitterCharD.weaponBox!=null&&bear.charData.bodyBox!=null&&hitterCharD.weaponBox.isCollision(bear.charData.bodyBox)){
-                        console.log(hitterCharD.id+" 武器碰到了身体  "+bear.charData.id);
+                        //TODO: 每次碰撞的位置不对。
+                        console.log(hitterCharD.pvpId+" 武器碰到了身体  "+bear.charData.pvpId,hitterCharD.position,bear.charData.position,"getSeedIndex: ",Core.Random.getSeedIndex(),"frame:",Core.FrameSync.currRenderFrameId);
+                        // console.log(hitterCharD.position,bear.charData.position);
+                        // console.log("getSeedIndex: ",Core.Random.getSeedIndex(),"frame:",Core.FrameSync.currRenderFrameId);
                      //   this.CalculateHit(character,bear);
                      
                         character.onAttack();
@@ -219,7 +224,7 @@ export class CharManager
                     }
                     // 武器碰到了盾
                     if(hitterCharD.currentActionLabel!=BackOff.name&&hitterCharD.weaponBox!=null&&bear.charData.shieldBox!=null&&hitterCharD.weaponBox.isCollision(bear.charData.shieldBox)){
-                        console.log(hitterCharD.id+" 武器碰到了盾  "+bear.charData.id);
+                    //    console.log(hitterCharD.id+" 武器碰到了盾  "+bear.charData.id);
                         character.backOneMove();
                         character.getSkillPart().hitdata=ConfigXls.Get().t_s_hitData.get(1001);
                         character.getSkillPart().doActionSkillByLabel(BackOff);
@@ -228,7 +233,7 @@ export class CharManager
                      if(hitterCharD.currentActionLabel!=BackOff.name){
                          let dis:number=hitterCharD.radius-character.getDicByTarget(bear,true);
                         if(dis>=0){
-                            console.log(hitterCharD.id+" 身体相碰  "+bear.charData.id);
+                      //      console.log(hitterCharD.id+" 身体相碰  "+bear.charData.id);
                             character.backOneMove(dis);
                             character.getSkillPart().targetDir=bear.charData.position.sub(hitterCharD.position);
                  //           console.log(hitterCharD.id+" vec2ToRotate  "+MyMath.vec2ToRotate( character.getSkillPart().targetDir));

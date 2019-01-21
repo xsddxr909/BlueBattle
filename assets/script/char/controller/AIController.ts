@@ -84,9 +84,9 @@ export class AIController extends Controller
         if(this.behaTree.debug){
             console.log(this.toStrState()+ " LastStep"+this.behaTree.strStep);
         }
-        if(this.behaTree.debug&&this.char.data.inCamera){
-            this.char.view.body.getChildByName("label").getComponent(cc.Label).string=this.toStrState()+" "+this.behaTree.strStep;
-        }
+        // if(this.behaTree.debug&&this.char.data.inCamera){
+        //     this.char.view.body.getChildByName("label").getComponent(cc.Label).string=this.toStrState()+" "+this.behaTree.strStep;
+        // }
         super.Update(dt);
     }
     GetName?(): string {

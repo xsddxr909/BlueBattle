@@ -94,6 +94,8 @@ export class MovePart extends RecycleAble implements IUpdate
         //移动速度;
         this.moveSpeed(dt);
         this.pos.position.addSelf(this._moveSpeed);
+     //   console.log("_moveSpeed ",this._moveSpeed);
+    //    console.log("position ", this.pos.position);
         this.chkMove(dt);
     }
     GetName?(): string {
@@ -217,6 +219,9 @@ export class MovePart extends RecycleAble implements IUpdate
         if(this.targetData!=null){
             this._targetDirection=this.targetData.position.sub(this.pos.position);
             this._targetDirection.normalizeSelf();
+        }else if(this.targetPos!=null){
+            this._targetDirection=this.targetPos.sub(this.pos.position);
+            this._targetDirection.normalizeSelf();
         }
         if(this.ImmDir||this.pos.rotateSpeed==0){
             if(this._targetDirection!=null&& !this.pos.forwardDirection.equals(this._targetDirection)){
@@ -276,24 +281,28 @@ export class MovePart extends RecycleAble implements IUpdate
     private chkMove(dt:number){
         if (this.hasTarget)
         {
-            if (this.pos.forwardDirection.x > 0 && this.pos.x > this.targetPos.x)
-            {
-                this.pos.x = this.targetPos.x;
-            }
-            else if (this.pos.forwardDirection.x < 0 && this.pos.x < this.targetPos.x)
-            {
-                this.pos.x = this.targetPos.x;
-            }
-            if (this.pos.forwardDirection.y > 0 && this.pos.y > this.targetPos.y)
-            {
-                this.pos.y = this.targetPos.y;
-            }
-            else if (this.pos.forwardDirection.y < 0 && this.pos.y < this.targetPos.y)
-            {
-                this.pos.y = this.targetPos.y;
-            }
-            if(!this.IsFollowTarget()&&this.targetPos.equals(this.pos.position)){
-                   this.stopMove(true);
+            if(this.targetPos!=null){
+                if (this.pos.forwardDirection.x > 0 && this.pos.x > this.targetPos.x)
+                {
+                    this.pos.x = this.targetPos.x;
+                }
+                else if (this.pos.forwardDirection.x < 0 && this.pos.x < this.targetPos.x)
+                {
+                    this.pos.x = this.targetPos.x;
+                }
+                if (this.pos.forwardDirection.y > 0 && this.pos.y > this.targetPos.y)
+                {
+                    this.pos.y = this.targetPos.y;
+                }
+                else if (this.pos.forwardDirection.y < 0 && this.pos.y < this.targetPos.y)
+                {
+                    this.pos.y = this.targetPos.y;
+                }
+                console.log("chkMove",this.targetPos,this.pos.position);
+                if(this.targetPos.equals(this.pos.position)){
+                    console.log("moveCom",this.targetPos);
+                    this.stopMove(true);
+                }
             }
         }
 
