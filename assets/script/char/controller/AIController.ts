@@ -26,6 +26,10 @@ export class AIController extends Controller
        super.init(char);
     //   this.skill=char.getSkillPart();
        this.behaTree=BehaviorTreeManager.Get().creatNodeTree(char.charData.aiUrl,char.charData);
+    //    if(char.charData.pvpId==12||char.charData.pvpId==23){
+    //        this.behaTree.debug=true;
+    //        this.behaTree.allStep=true;
+    //    }
        if(!char.charData.autoStartAi){
           this.behaTree.Paused();
           this.isStartAI=false;

@@ -745,8 +745,8 @@
       "title": "RandomMove <minDic> r~<range>",
       "description": "",
       "properties": {
-        "minDic": 180,
-        "range": 400
+        "minDic": 250,
+        "range": 1200
       },
       "display": {
         "x": 984,

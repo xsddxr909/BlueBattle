@@ -137,8 +137,8 @@ export class Character extends ObjBase
 			}
         }
         if(lvUp){
-            console.log(this.charData.pvpId+" char LevelUp lv: ",this.charData.Level,this.charData.Exp);
-            console.log("getSeedIndex: ",Core.Random.getSeedIndex(),"frame:",Core.FrameSync.currRenderFrameId);
+        //    console.log(this.charData.pvpId+" char LevelUp lv: ",this.charData.Level,this.charData.Exp);
+       //     console.log("getSeedIndex: ",Core.Random.getSeedIndex(),"frame:",Core.FrameSync.currRenderFrameId);
             this.onLevelUp();
         }
     }

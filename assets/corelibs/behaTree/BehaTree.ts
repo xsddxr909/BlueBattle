@@ -121,13 +121,13 @@ export class BehaTree extends NodeCombiner {
         if(this.debug){
             this.strStep = this.lastNodeStep.toString();
             if(this.allStep){
-                console.log("树执行 id: " + this.id + " res:"+this.lastResultType);
+                console.log(this.data.pvpId+" 树执行 id: " + this.id + " res:"+this.lastResultType);
             }
         }
         if (this.lastResultType == ResultType.Success||this.lastResultType == ResultType.Fail)
         {
             if(this.debug&&this.allStep){
-                console.log("树执行>>>>>完毕 id: " + this.id + " res:"+this.lastResultType);
+                console.log(this.data.pvpId+"树执行>>>>>完毕 id: " + this.id + " res:"+this.lastResultType);
             }
             this.reset();
         }

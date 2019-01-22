@@ -203,9 +203,9 @@ export class CharManager
                     // 武器碰到了身体;攻击命中;
                     if(hitterCharD.weaponBox!=null&&bear.charData.bodyBox!=null&&hitterCharD.weaponBox.isCollision(bear.charData.bodyBox)){
                         //TODO: 每次碰撞的位置不对。
-                    //    console.log(hitterCharD.pvpId+" 武器碰到了身体  "+bear.charData.pvpId,hitterCharD.position,bear.charData.position,"getSeedIndex: ",Core.Random.getSeedIndex(),"frame:",Core.FrameSync.currRenderFrameId);
-                        // console.log(hitterCharD.position,bear.charData.position);
-                        // console.log("getSeedIndex: ",Core.Random.getSeedIndex(),"frame:",Core.FrameSync.currRenderFrameId);
+                   //     console.log(hitterCharD.pvpId+" 武器碰到了身体  "+bear.charData.pvpId,hitterCharD.position,bear.charData.position,"getSeedIndex: ",Core.Random.getSeedIndex(),"frame:",Core.FrameSync.currRenderFrameId);
+                      
+                   //     console.log("getSeedIndex: ",Core.Random.getSeedIndex(),"frame:",Core.FrameSync.currRenderFrameId);
                      //   this.CalculateHit(character,bear);
                      
                         character.onAttack();

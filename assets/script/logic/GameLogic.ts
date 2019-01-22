@@ -8,8 +8,6 @@ import { CharManager } from "../char/manager/CharManager";
 import { CharData } from "../data/CharData";
 import { ENUMS } from "../common/Enum";
 import FrameSync from "../../corelibs/FrameSync";
-import { BehaviorTreeManager } from "../../corelibs/behaTree/BehaviorTreeManager";
-import { AIController } from "../char/controller/AIController";
 import { ResStruct } from "../../corelibs/util/ResourcesMgr";
 import { ResType } from "../../corelibs/CoreDefine";
 
@@ -32,13 +30,12 @@ export default class GameLogic implements IRelease
     {
         Core.ResourcesMgr.LoadAny(ResStruct.CreateRes("behavior/char/charAi.json",ResType.AnyUrl),this.onload.bind(this));
     }
-    private onload(res:any){
+    private onload(){
         this.Init();
     }
     public Init()
     {
-        //42 呆住不动应该逻辑问题
-        Core.Random.Init(2);  //468
+        Core.Random.Init(1);  //468
         this.frameSync=Core.ObjectPoolMgr.get(FrameSync);
         this.frameSync.initialize(this.FrameSyncUpdate.bind(this));
         this.frameSync.isPlayAlone=true;

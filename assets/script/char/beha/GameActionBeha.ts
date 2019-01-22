@@ -111,7 +111,7 @@ export  class FollowTargetAct  extends CharActionBeha
         }
         if(this.char.charData.currentActionLabel==Stand.name){
           if(this.behaTree.debug){
-       //       console.log("继续跟随: "+this.char.charData.id + " tag:"+this.char.target.id);
+               console.log("继续跟随: "+this.char.charData.pvpId + " tag:"+(this.char.target as Character).charData.pvpId);
            }
            this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_FollowTarget,this.char.target);
         }
@@ -123,7 +123,9 @@ export  class FollowTargetAct  extends CharActionBeha
           this.lastResultType=ResultType.Fail;
           return ResultType.Fail;
         }
-    //      console.log("开始跟随: "+this.char.charData.id + " tag:"+this.char.target.id);
+        if(this.behaTree.debug){
+             console.log("开始跟随: "+this.char.charData.pvpId + " tag:"+(this.char.target as Character).charData.pvpId);
+          }
           this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_FollowTarget,this.char.target);
           this.isfollowing=true;
       }
@@ -131,7 +133,7 @@ export  class FollowTargetAct  extends CharActionBeha
       //判断距离；
       if(this.char.charData.getDic(this.char.target.data.position,this.char.target.data.radius,false)<=0){
           if(this.behaTree.debug){
-              console.log("跟随结束: "+this.char.charData.id + " tag:"+this.char.target.id);
+              console.log("跟随结束: "+this.char.charData.pvpId + " tag:"+(this.char.target as Character).charData.pvpId);
           }
         this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_StopMove);
         this.isfollowing=false;
@@ -250,7 +252,7 @@ export  class FinTargetAct  extends CharActionBeha
                 break;
               }
               if(this.behaTree.debug&&this.behaTree.allStep){
-                console.log("找到目标: "+this.char.charData.id + " tag:"+otherChar.charData.id);
+                console.log("找到目标: "+this.char.charData.pvpId + " target:"+otherChar.charData.pvpId);
               }
             this.dicCharList.push(otherChar);
           }
@@ -317,6 +319,9 @@ export  class FinTargetAct  extends CharActionBeha
         }
         if(this.dicCharList.length==1){
           this.char.setTarget(this.dicCharList[0]);
+          if(this.behaTree.debug&&this.behaTree.allStep){
+            console.log("选择 目标: "+this.char.charData.pvpId + " target:"+this.dicCharList[0].charData.pvpId);
+         }
           return true;
         }
         //超过1个;
@@ -325,6 +330,9 @@ export  class FinTargetAct  extends CharActionBeha
         }else{
           this.dicCharList.sort(this.CompareMinFunc);
         }
+        if(this.behaTree.debug&&this.behaTree.allStep){
+            console.log("选择 目标: "+this.char.charData.pvpId + " target:"+this.dicCharList[0].charData.pvpId);
+         }
         this.char.setTarget(this.dicCharList[0]);
         return true;
     }
@@ -398,7 +406,7 @@ export  class FinHateTargetAct  extends CharActionBeha
                 break;
               }
               if(this.behaTree.debug&&this.behaTree.allStep){
-                console.log("找到 仇恨 目标: "+this.char.charData.id + " tag:"+otherChar.charData.id);
+                console.log("找到 仇恨 目标: "+this.char.charData.pvpId + " tag:"+otherChar.charData.pvpId);
               }
             this.dicCharList.push(otherChar);
           }
@@ -462,6 +470,9 @@ export  class FinHateTargetAct  extends CharActionBeha
           return false;
         }
         if(this.dicCharList.length==1){
+          if(this.behaTree.debug&&this.behaTree.allStep){
+            console.log("选择 仇恨 目标: "+this.char.charData.pvpId + " tag:"+this.dicCharList[0].charData.pvpId);
+          }
           this.char.setTarget(this.dicCharList[0]);
           return true;
         }
@@ -470,6 +481,9 @@ export  class FinHateTargetAct  extends CharActionBeha
           this.dicCharList.sort(this.CompareMaxFunc);
         }else{
           this.dicCharList.sort(this.CompareMinFunc);
+        }
+        if(this.behaTree.debug&&this.behaTree.allStep){
+          console.log("选择 仇恨 目标: "+this.char.charData.pvpId + " tag:"+this.dicCharList[0].charData.pvpId);
         }
         this.char.setTarget(this.dicCharList[0]);
         return true;
@@ -533,7 +547,7 @@ export  class FinTargetBackFormMeAct  extends CharActionBeha
              const angle:number= dir.angle(otherChar.charData.forwardDirection)*180/Math.PI;
              if(angle<80){
                 if(this.behaTree.debug&&this.behaTree.allStep){
-                  console.log("找到 背对我的 目标: "+this.char.charData.id + " tag:"+otherChar.charData.id);
+                  console.log("找到 背对我的 目标: "+this.char.charData.pvpId + " tag:"+otherChar.charData.pvpId);
                 }
                 this.char.setTarget(otherChar);
                 this.lastResultType=ResultType.Success;
@@ -599,7 +613,7 @@ export  class MoveToGemAct  extends CharActionBeha
           //  if(cDic<=this.dic){
                gemD.vvalue=cDic;
                if(this.behaTree.debug&&this.behaTree.allStep){
-                   console.log("找到宝石: dic"+cDic,this.char.charData.id ,gemD.position);
+                   console.log("找到宝石: dic"+cDic,this.char.charData.pvpId ,gemD.position);
               }
                this.dicCharList.push(gemD);
           // }
@@ -620,8 +634,8 @@ export  class MoveToGemAct  extends CharActionBeha
         if(this.char.charData.currentActionLabel==Stand.name){
           //移动到了
           if(this.behaTree.debug&&this.behaTree.allStep){
+             console.log(this.char.charData.id,"找宝石>>> 移动 完毕: "+this.char.charData.pvpId);
           }
-       //   console.log(this.char.charData.id,"找宝石>>> 移动 完毕: "+this.char.charData.id);
           this.lastResultType=ResultType.Success;
           return ResultType.Success;
         }

@@ -72,6 +72,8 @@ export class MovePart extends RecycleAble implements IUpdate
         this.useMovePoint=false;
         this.useWeightPower=false;
         this.ImmDir=false;
+        this._moveSpeed= cc.Vec2.ZERO;
+        this._moveRoate =cc.Vec2.ZERO;
         if(this.debug&&this.targetPosBox){
                 this.targetPosBox.recycleSelf();
                 this.targetPosBox=null;
@@ -110,8 +112,10 @@ export class MovePart extends RecycleAble implements IUpdate
         //移动速度;
         this.moveSpeed(dt);
         this.pos.position.addSelf(this._moveSpeed);
-     //   console.log("_moveSpeed ",this._moveSpeed);
-    //    console.log("position ", this.pos.position);
+        // if((this.pos as CharData).pvpId==12||(this.pos as CharData).pvpId==23){
+        //     console.log("_moveSpeed ",(this.pos as CharData).pvpId+""+this._moveSpeed);
+        //     console.log("position ", (this.pos as CharData).pvpId+""+this.pos.position);
+        // }
         this.chkMove();
     }
     GetName?(): string {
@@ -173,9 +177,9 @@ export class MovePart extends RecycleAble implements IUpdate
         }
     }
     stopMove(needEvent:boolean=false){
-        // if((this.pos as CharData).pvpId==14){
-        //     console.error("Move_End");
-        // }
+        //  if((this.pos as CharData).pvpId==12||(this.pos as CharData).pvpId==23){
+        //      console.log("Move_End",(this.pos as CharData).pvpId);
+        //  }
         this.reset();
         if(needEvent){
             this.obj.dispatchEvent(GameEventID.CharEvent.MOVE_END);
