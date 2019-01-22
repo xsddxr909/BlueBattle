@@ -356,7 +356,7 @@ export class MovePart extends RecycleAble implements IUpdate
         super.onGet();
     }
     /**
-     *释放 时候;
+     *释放 时候; 因为只回收主体 所以 回收后需要重置的变量 在init 方法里面写;
      **/ 
     onRecycle(): void {
       this._moveSpeed= cc.Vec2.ZERO;
