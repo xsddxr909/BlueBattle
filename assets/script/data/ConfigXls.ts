@@ -321,45 +321,15 @@ this.t_s_heroLevelup.set(9,t_s_heroLevelup.Creat(9,310,300,1.16));
 
 this.t_s_heroLevelup.set(10,t_s_heroLevelup.Creat(10,900,360,1.18)); 
 
-this.t_s_heroLevelup.set(11,t_s_heroLevelup.Creat(11,1090,212,1.2)); 
+this.t_s_heroLevelup.set(11,t_s_heroLevelup.Creat(11,1090,400,1.2)); 
 
-this.t_s_heroLevelup.set(12,t_s_heroLevelup.Creat(12,1170,218,1.22)); 
+this.t_s_heroLevelup.set(12,t_s_heroLevelup.Creat(12,1170,430,1.22)); 
 
-this.t_s_heroLevelup.set(13,t_s_heroLevelup.Creat(13,1480,224,1.24)); 
+this.t_s_heroLevelup.set(13,t_s_heroLevelup.Creat(13,1480,460,1.24)); 
 
-this.t_s_heroLevelup.set(14,t_s_heroLevelup.Creat(14,1620,230,1.26)); 
+this.t_s_heroLevelup.set(14,t_s_heroLevelup.Creat(14,1620,480,1.26)); 
 
-this.t_s_heroLevelup.set(15,t_s_heroLevelup.Creat(15,2050,236,1.28)); 
-
-this.t_s_heroLevelup.set(16,t_s_heroLevelup.Creat(16,2220,242,1.3)); 
-
-this.t_s_heroLevelup.set(17,t_s_heroLevelup.Creat(17,2510,248,1.32)); 
-
-this.t_s_heroLevelup.set(18,t_s_heroLevelup.Creat(18,2720,254,1.34)); 
-
-this.t_s_heroLevelup.set(19,t_s_heroLevelup.Creat(19,3390,260,1.36)); 
-
-this.t_s_heroLevelup.set(20,t_s_heroLevelup.Creat(20,3660,266,1.38)); 
-
-this.t_s_heroLevelup.set(21,t_s_heroLevelup.Creat(21,4600,272,1.4)); 
-
-this.t_s_heroLevelup.set(22,t_s_heroLevelup.Creat(22,5020,278,1.42)); 
-
-this.t_s_heroLevelup.set(23,t_s_heroLevelup.Creat(23,5520,284,1.44)); 
-
-this.t_s_heroLevelup.set(24,t_s_heroLevelup.Creat(24,6000,290,1.46)); 
-
-this.t_s_heroLevelup.set(25,t_s_heroLevelup.Creat(25,7190,296,1.48)); 
-
-this.t_s_heroLevelup.set(26,t_s_heroLevelup.Creat(26,7780,302,1.5)); 
-
-this.t_s_heroLevelup.set(27,t_s_heroLevelup.Creat(27,8460,308,1.52)); 
-
-this.t_s_heroLevelup.set(28,t_s_heroLevelup.Creat(28,9140,314,1.54)); 
-
-this.t_s_heroLevelup.set(29,t_s_heroLevelup.Creat(29,10810,320,1.56)); 
-
-this.t_s_heroLevelup.set(30,t_s_heroLevelup.Creat(30,11700,326,1.58)); 
+this.t_s_heroLevelup.set(15,t_s_heroLevelup.Creat(15,2050,500,1.28)); 
 
 //t_s_hitData 
 this.t_s_hitData.set(1001,t_s_hitData.Creat(1001,3,'backoff',false,1,false,false,1500,-2500,true,0,0,0,'',2,false,'',-1,0,false,0,0,0,1001,1001,true)); 

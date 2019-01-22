@@ -199,11 +199,11 @@ export class CharManager
                     if(hitterCharD.isDead||hitterCharD.id==bear.charData.id){
                         continue;
                     }
-                    bear.charData.bodyBox
+                  //  bear.charData.bodyBox
                     // 武器碰到了身体;攻击命中;
-                    if(hitterCharD.currentActionLabel!=BackOff.name&&hitterCharD.weaponBox!=null&&bear.charData.bodyBox!=null&&hitterCharD.weaponBox.isCollision(bear.charData.bodyBox)){
+                    if(hitterCharD.weaponBox!=null&&bear.charData.bodyBox!=null&&hitterCharD.weaponBox.isCollision(bear.charData.bodyBox)){
                         //TODO: 每次碰撞的位置不对。
-                        console.log(hitterCharD.pvpId+" 武器碰到了身体  "+bear.charData.pvpId,hitterCharD.position,bear.charData.position,"getSeedIndex: ",Core.Random.getSeedIndex(),"frame:",Core.FrameSync.currRenderFrameId);
+                    //    console.log(hitterCharD.pvpId+" 武器碰到了身体  "+bear.charData.pvpId,hitterCharD.position,bear.charData.position,"getSeedIndex: ",Core.Random.getSeedIndex(),"frame:",Core.FrameSync.currRenderFrameId);
                         // console.log(hitterCharD.position,bear.charData.position);
                         // console.log("getSeedIndex: ",Core.Random.getSeedIndex(),"frame:",Core.FrameSync.currRenderFrameId);
                      //   this.CalculateHit(character,bear);
@@ -216,7 +216,9 @@ export class CharManager
                         character.checkUpgrade(bear.charData.getDeadExp());
                         
                         //死亡换 杀你的人的视角。
-                        if(bear.charData.inCamera&&CameraCtrl.Instance.isFocusTarget(bear.view.node)){
+                        if(bear.charData.inCamera && bear.view!=null && CameraCtrl.Instance.isFocusTarget(bear.view.node)){
+                            character.charData.inCamera=true;
+                            character.inView();
                             CameraCtrl.Instance.changeTarget(character.view.node,0.5);
                         }
                         

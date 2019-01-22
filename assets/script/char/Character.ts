@@ -1,4 +1,4 @@
-import { CharData } from "../data/CharData";
+import * as CharData from "../data/CharData";
 import { MovePart } from "./part/MovePart";
 import { SkillPart } from "./part/SkillPart";
 import { Controller } from "./controller/Controller";
@@ -10,7 +10,6 @@ import MapManager from "../map/MapManager";
 import { ConfigXls, t_s_heroLevelup } from "../data/ConfigXls";
 import { ViewPart } from "./part/ViewPart";
 import CameraCtrl from "../logic/CameraCtrl";
-import { AIController } from "./controller/AIController";
 
 /**
  * 角色对象 ;
@@ -20,7 +19,7 @@ export class Character extends ObjBase
 {
     //目前战斗没有状态机; 很少状态 不需要用状态机;
     //charData;
-    public charData:CharData;
+    public charData:CharData.CharData;
     //控制器;
     public ctrl:Controller;
     protected skill:SkillPart;
@@ -34,7 +33,7 @@ export class Character extends ObjBase
      * 初始化数据; 创建显示对象;
      */
     public init(charD:PosData){
-        this.charData=charD as CharData; 
+        this.charData=charD as CharData.CharData; 
         this.charData.characterId=this.id;
         this.skill.init(this);
         //创建Ctrl;
@@ -42,11 +41,13 @@ export class Character extends ObjBase
         this.ctrl.init(this);
         super.init(this.charData);
         MapManager.Get().getResMap().enterResScreen(this.charData);
+        this.onLevelUp();
       //  CharManager.Get().CharQuadTree.put(this.charData);
         if(this.charData.myPlayer){
             this.charData.inCamera=true;
-            super.Update(0);
+            this.inView();
         }
+        this.charData.updateObb();
     }
     //更新; 重写;
     Update(dt: number): void {
@@ -59,17 +60,7 @@ export class Character extends ObjBase
         }
         this.move.Update(dt);
         if(this.data.inCamera){
-            if(this.view==null){
-                this.view=Core.ObjectPoolMgr.get(ViewPart);
-                this.view.init(this.data.bodyUrl,this.data.id,this.data.zIndex);
-                //初始化长度; size()
-                this.checkView();
-            }
-            if(this.view.body){
-                this.view.body.getChildByName("label").getComponent(cc.Label).string=(this.data.x>>0)+","+(this.data.y>>0);
-            }
-            this.view.getNode().position= this.data.position;
-            this.view.body.angle=this.data.angle;
+            this.inView();
         }else{
             if(this.view!=null){
                 this.view.recycleSelf();
@@ -81,8 +72,21 @@ export class Character extends ObjBase
         this.updateScreen();
       //  CharManager.Get().CharQuadTree.update(this.charData);
     }
+    public inView():void{
+       if(this.view==null){
+            this.view=Core.ObjectPoolMgr.get(ViewPart);
+            this.view.init(this.data.bodyUrl,this.data.id,this.data.zIndex);
+            //初始化长度; size()
+            this.checkView();
+        }
+        // if(this.view.body){
+        //     this.view.body.getChildByName("label").getComponent(cc.Label).string=(this.data.x>>0)+","+(this.data.y>>0);
+        // }
+        this.view.getNode().position= this.data.position;
+        this.view.body.angle=this.data.angle;
+    }
     GetName?(): string {
-        return 'Character'+this.id;
+        return 'Character: '+this.charData.pvpId;
     }
     
     
@@ -133,7 +137,8 @@ export class Character extends ObjBase
 			}
         }
         if(lvUp){
-            console.log(this.charData.characterId+" char LevelUp lv: ",this.charData.Level,this.charData.Exp);
+            console.log(this.charData.pvpId+" char LevelUp lv: ",this.charData.Level,this.charData.Exp);
+            console.log("getSeedIndex: ",Core.Random.getSeedIndex(),"frame:",Core.FrameSync.currRenderFrameId);
             this.onLevelUp();
         }
     }

@@ -38,7 +38,7 @@ export default class GameLogic implements IRelease
     public Init()
     {
         //42 呆住不动应该逻辑问题
-        Core.Random.Init(1);  //468
+        Core.Random.Init(2);  //468
         this.frameSync=Core.ObjectPoolMgr.get(FrameSync);
         this.frameSync.initialize(this.FrameSyncUpdate.bind(this));
         this.frameSync.isPlayAlone=true;
@@ -76,7 +76,7 @@ export default class GameLogic implements IRelease
         charD.position=CharManager.Get().getBrothPoint(charD.radius);
         this.char=CharManager.Get().getNewChar();
         this.char.init(charD);
-    //  (this.char.ctrl as AIController).setDebug(true);
+   //   (this.char.ctrl as AIController).setDebug(true);
         CameraCtrl.Instance.changeTarget(this.char.view.node);
 
         //碰撞测试;
@@ -94,7 +94,7 @@ export default class GameLogic implements IRelease
             charD.position=CharManager.Get().getBrothPoint(charD.radius);
             let charOther:Character=CharManager.Get().getNewChar();
             charOther.init(charD);
-        //    (charOther.ctrl as AIController).setDebug(true);
+    //        (charOther.ctrl as AIController).setDebug(true);
             //碰撞测试;
     //        charOther.charData.ShowHitBox(true);
         }
@@ -118,7 +118,7 @@ export default class GameLogic implements IRelease
      //   console.log("do FrameSyncUpdate");
         CharManager.Get().update(dt);
         MapManager.Get().UpdateTask(dt);
-   //     console.log("getSeedIndex: ",Core.Random.getSeedIndex(),"frame:",Core.FrameSync.currRenderFrameId);
+     //   console.log("getSeedIndex: ",Core.Random.getSeedIndex(),"frame:",Core.FrameSync.currRenderFrameId);
     }
     
 

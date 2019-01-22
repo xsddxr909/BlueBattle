@@ -81,12 +81,17 @@ export class AIController extends Controller
                this.behaTree.Update(dt);
             }
         }
-        if(this.behaTree.debug){
-            console.log(this.toStrState()+ " LastStep"+this.behaTree.strStep);
-        }
-        // if(this.behaTree.debug&&this.char.data.inCamera){
-        //     this.char.view.body.getChildByName("label").getComponent(cc.Label).string=this.toStrState()+" "+this.behaTree.strStep;
+        // if(this.behaTree.debug){
+        //     console.log(this.toStrState()+ " LastStep"+this.behaTree.strStep);
         // }
+         if(this.behaTree.debug&&this.char.data.inCamera&&this.char.view!=null){
+             this.char.view.body.getChildByName("label").getComponent(cc.Label).string="id "+this.char.charData.pvpId+this.toStrState()+" "+this.behaTree.strStep;
+             if(this.char.hasTarget()){
+                this.char.view.body.getChildByName("label").getComponent(cc.Label).string+=" target:"+this.char.target.data.isDead;
+                this.char.view.body.getChildByName("label").getComponent(cc.Label).string+=" action:"+this.char.charData.currentActionLabel;
+                this.char.view.body.getChildByName("label").getComponent(cc.Label).string+=" move:"+this.char.getMovePart().IsMove();
+             }
+         }
         super.Update(dt);
     }
     GetName?(): string {

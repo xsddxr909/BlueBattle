@@ -50,6 +50,9 @@ export class Controller extends RecycleAble implements IController
             case ENUMS.ControllerCmd.Char_FollowTarget:
             if(param!=null){
                 let obj:ObjBase= param;
+                if(obj.data.isDead){
+                    return;
+                }
                 this.char.target=obj;
                // if(this.char.charData.currentActionLabel!=Run.name){
                //     console.log("ControllerCmd: MoveAction  ");

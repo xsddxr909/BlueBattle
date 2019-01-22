@@ -61,10 +61,10 @@ export class ObjBase extends EventRecycleAble implements IUpdate
     }
 
     hasTarget():boolean{
-       if(this.target==null||this.target.data==null||this.target.data.isDead){
-           this.target=null;
+        if(!this.target||!this.target.data||this.target.data.isDead){
+            this.target=null;
            return false;
-       }
+        }
        return true;
     }
 

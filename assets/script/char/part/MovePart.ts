@@ -6,6 +6,7 @@ import { MyMath } from "../../../corelibs/util/MyMath";
 import { GameEventID } from "../../common/GameEventID";
 import { ObjBase } from "../ObjBase";
 import { ColorBox, ColorBoxManager } from "../../../corelibs/obb/ColorBoxManager";
+import { CharData } from "../../data/CharData";
 
 /**
  * 移动部件; 目前只做了个2D平面移动部件 以后要做2.5D 再写个Z轴咯
@@ -97,6 +98,14 @@ export class MovePart extends RecycleAble implements IUpdate
     Update(dt: number): void {
         if (this.paush)return;
         if(!this.m_bMoving)return;
+        //跟随对象检测;
+        if(this.targetData!=null){
+            if(this.targetData.isDead){
+                console.log("跟随完毕  ");
+                this.stopMove(true);
+                return;
+            }
+        }
         this.changeDir(dt);
         //移动速度;
         this.moveSpeed(dt);
@@ -164,6 +173,9 @@ export class MovePart extends RecycleAble implements IUpdate
         }
     }
     stopMove(needEvent:boolean=false){
+        // if((this.pos as CharData).pvpId==14){
+        //     console.error("Move_End");
+        // }
         this.reset();
         if(needEvent){
             this.obj.dispatchEvent(GameEventID.CharEvent.MOVE_END);

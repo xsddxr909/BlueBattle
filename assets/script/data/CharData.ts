@@ -183,7 +183,9 @@ export class CharData extends PosData implements IObbBox
     public initData(){
         super.initData();
         this.myPlayer=false;
-        this.scale=cc.Vec2.ONE;
+        this.isHideBody  = false;
+        this.isSwoon  = false;
+        this.isLink = false;
         this.weaponSize=148;
         this.Skills=[];
         this.shieldBox.init(cc.Vec2.ZERO,120,30,0,7,73);
@@ -197,6 +199,7 @@ export class CharData extends PosData implements IObbBox
         this.aiState=ENUMS.AIstate.Idle;
         this.lastPos=cc.Vec2.ZERO;
         this.lastRot=99999;
+        this.scaleSize=1;
     }
     
     public updateObb(){
@@ -248,9 +251,6 @@ export class CharData extends PosData implements IObbBox
     public get radius():number{
         return this._radius;
     }
-    public get scaleSize():number{
-        return this.scale.x;
-    }
     
     public get scaleX():number{
         return this.scale.x;
@@ -279,6 +279,9 @@ export class CharData extends PosData implements IObbBox
         this.shieldBox.setScale(value,value);
         this.width=this.getAttackRadius()*2;
         this.height=this.getAttackRadius()*2;
+    }
+    public get scaleSize():number{
+        return this.scale.x;
     }
 
     public ShowHitBox(b:boolean){

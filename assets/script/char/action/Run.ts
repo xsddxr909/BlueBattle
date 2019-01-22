@@ -25,12 +25,6 @@ export class Run extends Action
     //更新;
     Update(dt: number): void {
         super.Update(dt);
-        if(this.move.IsFollowTarget()){
-            if(!this.move.chkFollowTarget()){
-                this.skillPart.doActionSkillByLabel(Stand,0,false);
-                return;
-            }
-        }
     }
   
     GetName?(): string {
@@ -45,6 +39,7 @@ export class Run extends Action
              switch(part){
                  case ENUMS.ControllerCmd.Char_FollowTarget:
                     this.move.followMyTarget();
+                    this.skillPart.char.BindEvent(GameEventID.CharEvent.MOVE_END,this.onMoveToPosEnd,this);
                  break;
                  case  ENUMS.ControllerCmd.Char_MoveToPos:
                      this.move.startMoveTo(this.skillPart.targetPos);

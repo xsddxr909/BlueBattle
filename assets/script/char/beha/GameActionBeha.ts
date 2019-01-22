@@ -92,6 +92,7 @@ export  class SetStateAct  extends CharActionBeha
 /// </summary>
 export  class FollowTargetAct  extends CharActionBeha
 {
+     private isfollowing:boolean=false;
      constructor()
     {
       super();
@@ -99,26 +100,41 @@ export  class FollowTargetAct  extends CharActionBeha
     public Execute():ResultType
     {
       this.lastNode();
-      if(this.char==null||!this.char.hasTarget()){
-        this.char.charData.aiState=ENUMS.AIstate.Warning;
-        if(this.char.getMovePart().IsFollowTarget()){
-          this.char.getMovePart().stopMove();
+      if(this.isfollowing){
+        if(!this.char.hasTarget()){
+       //     console.log("目标死亡: ");
+            this.char.charData.aiState=ENUMS.AIstate.Warning;
+            this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_StopMove);
+            this.isfollowing=false;
+            this.lastResultType=ResultType.Fail;
+            return ResultType.Fail;
         }
-        this.lastResultType=ResultType.Fail;
-        return ResultType.Fail;
-      }
-      if(!this.char.getMovePart().IsFollowTarget()){
-         if(this.behaTree.debug){
-             console.log("开始跟随: "+this.char.charData.id + " tag:"+this.char.target.id);
-          }
+        if(this.char.charData.currentActionLabel==Stand.name){
+          if(this.behaTree.debug){
+       //       console.log("继续跟随: "+this.char.charData.id + " tag:"+this.char.target.id);
+           }
+           this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_FollowTarget,this.char.target);
+        }
+      }else{
+        if(!this.char.hasTarget()){
+      //    console.log("没有目标跟随: ");
+          this.char.charData.aiState=ENUMS.AIstate.Warning;
+          this.isfollowing=false;
+          this.lastResultType=ResultType.Fail;
+          return ResultType.Fail;
+        }
+    //      console.log("开始跟随: "+this.char.charData.id + " tag:"+this.char.target.id);
           this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_FollowTarget,this.char.target);
+          this.isfollowing=true;
       }
+
       //判断距离；
-      if(this.char.getDicByTarget(this.char.target,false)-this.char.charData.radius<=3){
-        if(this.behaTree.debug){
-          console.log("跟随结束: "+this.char.charData.id + " tag:"+this.char.target.id);
-        }
-        this.char.getMovePart().stopMove();
+      if(this.char.charData.getDic(this.char.target.data.position,this.char.target.data.radius,false)<=0){
+          if(this.behaTree.debug){
+              console.log("跟随结束: "+this.char.charData.id + " tag:"+this.char.target.id);
+          }
+        this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_StopMove);
+        this.isfollowing=false;
         this.lastResultType=ResultType.Success;
         return ResultType.Success;
       }
@@ -126,7 +142,12 @@ export  class FollowTargetAct  extends CharActionBeha
       return ResultType.Running;
     }
     public reset(){
+      this.isfollowing=false;
         super.reset();
+    }
+    public initData(){
+      this.isfollowing=false;
+      super.initData();
     }
     public initProperties(behaData:BehaData):void{
  //     this.con_State=behaData.properties['state'];

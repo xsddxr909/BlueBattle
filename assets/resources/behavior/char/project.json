@@ -245,7 +245,7 @@
           "title": "行为 <power>",
           "description": "",
           "properties": {
-            "power": "15,10,8,3"
+            "power": "20,10,8,3"
           },
           "display": {
             "x": 672,
@@ -280,8 +280,8 @@
             "state": 2
           },
           "display": {
-            "x": 1056,
-            "y": -684
+            "x": 1080,
+            "y": -720
           }
         },
         "2cc08864-f8fc-4090-815e-68bcd01c3a8a": {
@@ -750,8 +750,8 @@
           "title": "RandomMove <minDic> r~<range>",
           "description": "",
           "properties": {
-            "minDic": 80,
-            "range": 150
+            "minDic": 180,
+            "range": 400
           },
           "display": {
             "x": 984,
@@ -765,7 +765,7 @@
           "description": "type 1 小宝石\n         2 大宝石",
           "properties": {
             "type": 2,
-            "dic": 400
+            "dic": 500
           },
           "display": {
             "x": 1128,
@@ -779,7 +779,7 @@
           "description": "type 1 小宝石\n         2 大宝石",
           "properties": {
             "type": 1,
-            "dic": 300
+            "dic": 600
           },
           "display": {
             "x": 1128,
@@ -814,8 +814,8 @@
         }
       },
       "display": {
-        "camera_x": 282.5,
-        "camera_y": 652.5,
+        "camera_x": 209.4980506085442,
+        "camera_y": 663.5080952761027,
         "camera_z": 0.75,
         "x": -444,
         "y": 108
