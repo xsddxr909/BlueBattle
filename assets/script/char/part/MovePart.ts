@@ -72,8 +72,6 @@ export class MovePart extends RecycleAble implements IUpdate
         this.useMovePoint=false;
         this.useWeightPower=false;
         this.ImmDir=false;
-        this._moveSpeed= cc.Vec2.ZERO;
-        this._moveRoate =cc.Vec2.ZERO;
         if(this.debug&&this.targetPosBox){
                 this.targetPosBox.recycleSelf();
                 this.targetPosBox=null;
@@ -87,6 +85,8 @@ export class MovePart extends RecycleAble implements IUpdate
         this.paush = false;
         this.pos=pos;
         this.obj=obj;
+        this._moveSpeed= cc.Vec2.ZERO;
+        this._moveRoate =cc.Vec2.ZERO;
         if(this.pos.faceToRotation){
             this.pos.forwardDirection= MyMath.RotateToVec2(this.pos.angle);
      //       console.log("this.pos.forwardDirection ",this.pos.forwardDirection,this.pos.angle);
@@ -359,6 +359,8 @@ export class MovePart extends RecycleAble implements IUpdate
      *释放 时候;
      **/ 
     onRecycle(): void {
+      this._moveSpeed= cc.Vec2.ZERO;
+      this._moveRoate =cc.Vec2.ZERO;
       this.reset();
       this.pos=null;
       this.obj=null;
