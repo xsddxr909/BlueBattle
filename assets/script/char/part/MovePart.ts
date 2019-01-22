@@ -1,10 +1,11 @@
 import { RecycleAble } from "../../../corelibs/util/Pool";
 import Core from "../../../corelibs/Core";
 import { IUpdate } from "../../../corelibs/interface/IUpdate";
-import { PosData, MoveParam } from "../../data/PosData";
+import { PosData } from "../../data/PosData";
 import { MyMath } from "../../../corelibs/util/MyMath";
 import { GameEventID } from "../../common/GameEventID";
 import { ObjBase } from "../ObjBase";
+import { ColorBox, ColorBoxManager } from "../../../corelibs/obb/ColorBoxManager";
 
 /**
  * 移动部件; 目前只做了个2D平面移动部件 以后要做2.5D 再写个Z轴咯
@@ -44,6 +45,8 @@ export class MovePart extends RecycleAble implements IUpdate
      /**单次运动数据***************************************************************************************************
      */
 
+    public debug:boolean=true;
+    private targetPosBox:ColorBox=null;
 
     //暂停
     public paush:boolean = false;
@@ -68,6 +71,10 @@ export class MovePart extends RecycleAble implements IUpdate
         this.useMovePoint=false;
         this.useWeightPower=false;
         this.ImmDir=false;
+        if(this.debug&&this.targetPosBox){
+                this.targetPosBox.recycleSelf();
+                this.targetPosBox=null;
+        }
     }
     /**
      * 初始化数据; 创建显示对象;
@@ -96,7 +103,7 @@ export class MovePart extends RecycleAble implements IUpdate
         this.pos.position.addSelf(this._moveSpeed);
      //   console.log("_moveSpeed ",this._moveSpeed);
     //    console.log("position ", this.pos.position);
-        this.chkMove(dt);
+        this.chkMove();
     }
     GetName?(): string {
         return 'MovePart'+this.id;
@@ -149,6 +156,12 @@ export class MovePart extends RecycleAble implements IUpdate
         this.moveStartTime = 0;
         this.initSpeed();
         this.m_bMoving=true;
+        if(this.debug){
+            if( this.targetPosBox){
+                this.targetPosBox.recycleSelf();
+            }
+            this.targetPosBox= ColorBoxManager.Get().showColorPos(targetPos,cc.Color.RED,50);
+        }
     }
     stopMove(needEvent:boolean=false){
         this.reset();
@@ -224,20 +237,20 @@ export class MovePart extends RecycleAble implements IUpdate
             this._targetDirection.normalizeSelf();
         }
         if(this.ImmDir||this.pos.rotateSpeed==0){
-            if(this._targetDirection!=null&& !this.pos.forwardDirection.equals(this._targetDirection)){
+            if(!this.pos.forwardDirection.equals(this._targetDirection)){
                 this.pos.forwardDirection = this._targetDirection;
                 //旋转;
                 if(this.pos.faceToRotation){
                     this.pos.angle= MyMath.vec2ToRotate(this.pos.forwardDirection);
                 }
-                this._targetDirection=null;
+    //            this._targetDirection=null;
             }
         }else if(this._targetDirection && !this.pos.forwardDirection.equals(this._targetDirection)){
             this._moveRoate =this._targetDirection.sub(this.pos.forwardDirection);
             if(this._moveRoate.mag()<0.01){
                 //最新方向;
                 this.pos.forwardDirection = this._targetDirection;
-                this._targetDirection=null;
+        //        this._targetDirection=null;
         //        console.log("rotation End");
             }else{
                    this._moveRoate = this._targetDirection.mul(this.pos.rotateSpeed * dt);
@@ -278,30 +291,40 @@ export class MovePart extends RecycleAble implements IUpdate
        // console.log("this._moveSpeed",this._moveSpeed);
     }
 
-    private chkMove(dt:number){
+    private chkMove(){
         if (this.hasTarget)
         {
-            if(this.targetPos!=null){
-                if (this.pos.forwardDirection.x > 0 && this.pos.x > this.targetPos.x)
-                {
-                    this.pos.x = this.targetPos.x;
-                }
-                else if (this.pos.forwardDirection.x < 0 && this.pos.x < this.targetPos.x)
-                {
-                    this.pos.x = this.targetPos.x;
-                }
-                if (this.pos.forwardDirection.y > 0 && this.pos.y > this.targetPos.y)
-                {
-                    this.pos.y = this.targetPos.y;
-                }
-                else if (this.pos.forwardDirection.y < 0 && this.pos.y < this.targetPos.y)
-                {
-                    this.pos.y = this.targetPos.y;
-                }
-                console.log("chkMove",this.targetPos,this.pos.position);
-                if(this.targetPos.equals(this.pos.position)){
-                    console.log("moveCom",this.targetPos);
-                    this.stopMove(true);
+            if(this.targetPos){
+                //    console.log("chkMove",this.targetPos,this.pos.position);
+                if(this.pos.rotateSpeed==0){
+                    if(this._targetDirection){                    
+                        if (this._targetDirection.x > 0 && this.pos.x > this.targetPos.x)
+                        {
+                            this.pos.x = this.targetPos.x;
+                        }
+                        else if (this._targetDirection.x < 0 && this.pos.x < this.targetPos.x)
+                        {
+                            this.pos.x = this.targetPos.x;
+                        }
+                        if (this._targetDirection.y > 0 && this.pos.y > this.targetPos.y)
+                        {
+                            this.pos.y = this.targetPos.y;
+                        }
+                        else if (this._targetDirection.y < 0 && this.pos.y < this.targetPos.y)
+                        {
+                            this.pos.y = this.targetPos.y;
+                        }
+                        if(this.targetPos.equals(this.pos.position)){
+                            console.log("moveCom",this.targetPos);
+                            this.stopMove(true);
+                        }
+                    }
+                }else{
+                    //有转角速度就判断半径是否碰到了 碰到了就到目标点了 不能精确移动到位置上因为；
+                    if(this.pos.getDic(this.targetPos,0,false)<=0){
+                        console.log("moveCom",this.targetPos);
+                        this.stopMove(true);
+                    }
                 }
             }
         }

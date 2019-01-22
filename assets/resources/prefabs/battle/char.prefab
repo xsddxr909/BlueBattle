@@ -703,8 +703,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 30,
-      "height": 15
+      "width": 41.12,
+      "height": 20
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -750,8 +750,8 @@
     "_useOriginalSize": false,
     "_string": "(0,0)",
     "_N$string": "(0,0)",
-    "_fontSize": 15,
-    "_lineHeight": 15,
+    "_fontSize": 20,
+    "_lineHeight": 20,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,

@@ -204,7 +204,7 @@
           "title": "Dodge  4",
           "description": "Idle = 0,\nFollow = 1,\nWarning = 2,\nAttack = 3,\nDodge = 4,",
           "properties": {
-            "state": 3
+            "state": 4
           },
           "display": {
             "x": 300,
@@ -245,7 +245,7 @@
           "title": "行为 <power>",
           "description": "",
           "properties": {
-            "power": "15,15,8,3"
+            "power": "15,10,8,3"
           },
           "display": {
             "x": 672,
@@ -293,8 +293,8 @@
             "power": "7,3"
           },
           "display": {
-            "x": 876,
-            "y": -648
+            "x": 840,
+            "y": -636
           },
           "children": [
             "f13c1986-a174-460a-bc53-caf730407237",
@@ -499,7 +499,7 @@
             "power": "5,2,3"
           },
           "display": {
-            "x": 876,
+            "x": 864,
             "y": 864
           },
           "children": [
@@ -750,8 +750,8 @@
           "title": "RandomMove <minDic> r~<range>",
           "description": "",
           "properties": {
-            "minDic": 20,
-            "range": 60
+            "minDic": 80,
+            "range": 150
           },
           "display": {
             "x": 984,
@@ -765,7 +765,7 @@
           "description": "type 1 小宝石\n         2 大宝石",
           "properties": {
             "type": 2,
-            "dic": 500
+            "dic": 400
           },
           "display": {
             "x": 1128,
@@ -779,7 +779,7 @@
           "description": "type 1 小宝石\n         2 大宝石",
           "properties": {
             "type": 1,
-            "dic": 500
+            "dic": 300
           },
           "display": {
             "x": 1128,
@@ -814,8 +814,8 @@
         }
       },
       "display": {
-        "camera_x": 381.5,
-        "camera_y": 720.5,
+        "camera_x": 282.5,
+        "camera_y": 652.5,
         "camera_z": 0.75,
         "x": -444,
         "y": 108

@@ -46,7 +46,7 @@ export class OBB extends RecycleAble implements IObbBox{
     * @param width 
     * @param height 
     */  
-    public init(bornCenter:cc.Vec2, width:number, height:number,rotation:number,offsetX:number=0,offsetY:number=0){
+    public init(bornCenter:cc.Vec2, width:number, height:number,rotation:number,offsetX:number=0,offsetY:number=0):OBB{
         this._width  = width;  
         this._height = height;  
       //  this.extents=[this.width / 2, this.height / 2];
@@ -57,6 +57,7 @@ export class OBB extends RecycleAble implements IObbBox{
         this.setOffset(offsetX,offsetY);
         this.setRotation(rotation);  
         this.setCenter(bornCenter);  
+        return this;
     }
       
       

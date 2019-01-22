@@ -2,7 +2,7 @@ import { RecycleAble, ListDataPool } from "../util/Pool";
 import Core from "../Core";
 import { ResStruct } from "../util/ResourcesMgr";
 import { ResType } from "../CoreDefine";
-import { IQuadRect } from "../util/QuadTree";
+import { OBB } from "./Obb";
 
 /**
  * 碰撞数据显示管理器
@@ -34,23 +34,36 @@ export class ColorBoxManager
         this.boxList=new ListDataPool<ColorBox>(()=>new ColorBox());
         this.inited=true;  
     }
-    public showColorBox(target:IObbBox, color:cc.Color=cc.Color.GREEN,noRot:boolean=false,opacity:number=100):ColorBox{
+    /**
+     * 显示原点；
+     */
+    public showColorPos(pos:cc.Vec2, color:cc.Color=cc.Color.GREEN,opacity:number=100,width:number=15,height:number=15):ColorBox{
+        let box: ColorBox =  this.boxList.get();
+        box.noRot=true;
+        box.opacity=opacity;
+        box.ShowOpenTest(true,Core.ObjectPoolMgr.get(OBB).init(pos,width,height,0),color,true);
+        return box; 
+    }
+    /**
+     * 显示碰撞盒；
+     */
+    public showColorBox(target:IObbBox&RecycleAble, color:cc.Color=cc.Color.GREEN,noRot:boolean=false,opacity:number=100,autoReleaseTarget:boolean=false):ColorBox{
        let box: ColorBox =  this.boxList.get();
        box.noRot=noRot;
        box.opacity=opacity;
-       box.ShowOpenTest(true,target,color);
+       box.ShowOpenTest(true,target,color,autoReleaseTarget);
        return box;
     }
     public  update(dt:number){
         for (let i = 0, len:number=this.boxList.getOnList().length; i < len; i++) {
-            this.boxList.getOnList()[i].Update(dt);
+            this.boxList.getOnList()[i].Update();
         }
     }
  
     /**
      * 需要打印查看内存数据 
      */
-    public static logUpdate(label:cc.Label){
+    public static logUpdate(){
         if(ColorBoxManager.debug){
      //     label.string+=CharManager.Get().actionPool.toString();
         }
@@ -62,20 +75,23 @@ export class ColorBox extends RecycleAble{
     private isShowOpenTest:boolean=false;
     private testBody:cc.Node; 
     private color:cc.Color;
-    private target:IObbBox;
+    private target:IObbBox&RecycleAble;
+    private releaseTarget:boolean=false;
+    //不旋转;
     public noRot:boolean=false;
     public opacity:number=100;
     /**
      * 打开碰撞测试
      * @param b 
      */
-    ShowOpenTest(b:boolean , target:IObbBox=null, color:cc.Color=cc.Color.GREEN){
+    ShowOpenTest(b:boolean , target:IObbBox&RecycleAble=null, color:cc.Color=cc.Color.GREEN,autoReleaseTarget:boolean=false){
         if(b){
           if(this.isShowOpenTest){
               return;
           }
           if(target!=null){
             this.target=target;
+            this.releaseTarget=autoReleaseTarget;
           }
           this.color=color;
           this.isShowOpenTest=true;
@@ -108,7 +124,7 @@ export class ColorBox extends RecycleAble{
          //临时测试用
          cc.find('Canvas/Test').addChild(this.testBody);
     }
-    Update(dt:number){
+    Update(){
         if(!this.isShowOpenTest){
             return;
         }
@@ -133,6 +149,11 @@ export class ColorBox extends RecycleAble{
         if(this.isShowOpenTest){
             this.ShowOpenTest(false);
         }
+        if(this.releaseTarget&&this.target!=null){
+            this.target.recycleSelf();
+        }
+        this.releaseTarget=false;
+        this.target=null;
         super.onRecycle();
     }  
     /**
@@ -143,6 +164,11 @@ export class ColorBox extends RecycleAble{
             this.testBody.destroy();
             this.testBody=null;
         }
+        if(this.releaseTarget&&this.target!=null){
+            this.target.recycleSelf();
+        }
+        this.releaseTarget=false;
+        this.target=null;
         this.noRot=false;
         this.isShowOpenTest=false;
         super.Release();

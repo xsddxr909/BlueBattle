@@ -65,6 +65,9 @@ export class Character extends ObjBase
                 //初始化长度; size()
                 this.checkView();
             }
+            if(this.view.body){
+                this.view.body.getChildByName("label").getComponent(cc.Label).string=(this.data.x>>0)+","+(this.data.y>>0);
+            }
             this.view.getNode().position= this.data.position;
             this.view.body.angle=this.data.angle;
         }else{

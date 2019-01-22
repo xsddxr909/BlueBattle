@@ -81,6 +81,7 @@ export class Run extends Action
      *释放 时候;
      **/ 
     onRecycle(): void {
+      this.skillPart.char.UnbindEvent(GameEventID.CharEvent.MOVE_END,this.onMoveToPosEnd,this);
       this.move=null;
       super.onRecycle();
     }  

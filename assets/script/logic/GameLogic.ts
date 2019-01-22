@@ -37,7 +37,8 @@ export default class GameLogic implements IRelease
     }
     public Init()
     {
-        Core.Random.Init(321);  //468
+        //42 呆住不动应该逻辑问题
+        Core.Random.Init(1);  //468
         this.frameSync=Core.ObjectPoolMgr.get(FrameSync);
         this.frameSync.initialize(this.FrameSyncUpdate.bind(this));
         this.frameSync.isPlayAlone=true;
@@ -70,25 +71,25 @@ export default class GameLogic implements IRelease
         charD.angle=90;
         charD.radius=55;
         charD.ctrlType=ENUMS.CtrlType.AiCtrl;
-     //   charD.autoStartAi=true;
+        charD.autoStartAi=true;
         charD.pvpId=1;
         charD.position=CharManager.Get().getBrothPoint(charD.radius);
         this.char=CharManager.Get().getNewChar();
         this.char.init(charD);
-      //  (this.char.ctrl as AIController).setDebug(true);
+    //  (this.char.ctrl as AIController).setDebug(true);
         CameraCtrl.Instance.changeTarget(this.char.view.node);
 
         //碰撞测试;
    //     this.char.charData.ShowHitBox(true);
     }
     creatOther(){
-        for (let index = 0; index < 10; index++) {
+        for (let index = 0; index < 1; index++) {
             let charD:CharData=CharManager.Get().charDataPool.get();
             charD.initData();
             charD.radius=55;
             charD.angle=360*Core.Random.GetRandom();
             charD.ctrlType=ENUMS.CtrlType.AiCtrl;
-       //     charD.autoStartAi=false;
+            charD.autoStartAi=false;
             charD.pvpId=index+2;
             charD.position=CharManager.Get().getBrothPoint(charD.radius);
             let charOther:Character=CharManager.Get().getNewChar();

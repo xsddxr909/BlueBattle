@@ -574,7 +574,7 @@ export  class MoveToGemAct  extends CharActionBeha
                continue;
             }
             const cDic=gemD.getDic(this.char.charData.position,this.char.charData.radius,true);
-            console.log(this.char.charData.id,"找宝石 距离: "+gemD.itemType,"dic",cDic,"pos",gemD.position);
+       //     console.log(this.char.charData.id,"找宝石 距离: "+gemD.itemType,"dic",cDic,"pos",gemD.position);
           //  if(cDic<=this.dic){
                gemD.vvalue=cDic;
                if(this.behaTree.debug&&this.behaTree.allStep){
@@ -600,7 +600,7 @@ export  class MoveToGemAct  extends CharActionBeha
           //移动到了
           if(this.behaTree.debug&&this.behaTree.allStep){
           }
-          console.log(this.char.charData.id,"找宝石>>> 移动 完毕: "+this.char.charData.id);
+       //   console.log(this.char.charData.id,"找宝石>>> 移动 完毕: "+this.char.charData.id);
           this.lastResultType=ResultType.Success;
           return ResultType.Success;
         }
@@ -635,7 +635,7 @@ export  class MoveToGemAct  extends CharActionBeha
         if(this.dicCharList.length==1){
           //设置移动目标点;
           this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_MoveToPos,this.dicCharList[0].position);
-          console.log(this.char.charData.id,"找到宝石 开始移动: "+this.dicCharList[0].position);
+        //  console.log(this.char.charData.id,"找到宝石 开始移动: "+this.dicCharList[0].position);
          // this.char.setTarget(this.dicCharList[0]);
           return true;
         }
@@ -644,11 +644,11 @@ export  class MoveToGemAct  extends CharActionBeha
           //小宝石 太多  只找随机。 
           let pos:cc.Vec2=this.dicCharList[Core.Random.GetRandomMax(this.dicCharList.length-1)].position;
           this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_MoveToPos,pos);
-          console.log(this.char.charData.id,"找小宝石 开始移动: "+pos);
+      //    console.log(this.char.charData.id,"找小宝石 开始移动: "+pos);
         }else{
           this.dicCharList.sort(this.CompareMinFunc);
           this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_MoveToPos,this.dicCharList[0].position);
-          console.log(this.char.charData.id,"找大宝石 开始移动: "+this.dicCharList[0].position);
+     //     console.log(this.char.charData.id,"找大宝石 开始移动: "+this.dicCharList[0].position);
         }
         //设置移动目标点;
       //  this.char.setTarget(this.dicCharList[0]);
@@ -710,8 +710,9 @@ export  class RandomMoveAct  extends CharActionBeha
          pos.x = (this.char.charData.position.x+rdic * Math.cos(angle * Math.PI / 180))>>0 ;
          pos.y = (this.char.charData.position.y+rdic * Math.sin(angle * Math.PI / 180))>>0 ;
         
+         console.log("随机移动 : "+this.char.charData.id ,"Dic： "+rdic,pos);
          if(this.behaTree.debug){
-          console.log("随机移动 : "+this.char.charData.id ,pos);
+           
         }
          this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_MoveToPos,pos);
          this.isMoving=true;    
@@ -721,7 +722,9 @@ export  class RandomMoveAct  extends CharActionBeha
       if(this.isMoving){
         //检测移动到没
         if(this.char.charData.currentActionLabel==Run.name){
-          console.log("随机移动 >>>  中: "+this.char.charData.id,this.char.charData.position);
+         // if(this.behaTree.debug){
+        //  console.log("随机移动 >>>  中: "+this.char.charData.id,this.char.charData.position);
+         // }
           this.lastResultType=ResultType.Running;
           return ResultType.Running;
         }
