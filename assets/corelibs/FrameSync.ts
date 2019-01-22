@@ -82,7 +82,7 @@ export default class FrameSync extends RecycleAble {
         this._clientDeltaTime=1/this._clientFrameDelta;
         this._clientDeltaTime=(this._clientDeltaTime*1000 >>0)/1000;
         this.delta1000= this._clientDeltaTime*1000 ;
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>!!!!!!!",this._clientDeltaTime,this.delta1000);
+      //  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>!!!!!!!",this._clientDeltaTime,this.delta1000);
         Core.FrameSync=this;
         this.aloneDt=0;
         this._endRenderFrameId=0;

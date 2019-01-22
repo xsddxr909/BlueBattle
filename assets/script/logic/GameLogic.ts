@@ -83,13 +83,13 @@ export default class GameLogic implements IRelease
    //     this.char.charData.ShowHitBox(true);
     }
     creatOther(){
-        for (let index = 0; index < 1; index++) {
+        for (let index = 0; index < 30; index++) {
             let charD:CharData=CharManager.Get().charDataPool.get();
             charD.initData();
             charD.radius=55;
             charD.angle=360*Core.Random.GetRandom();
             charD.ctrlType=ENUMS.CtrlType.AiCtrl;
-            charD.autoStartAi=false;
+            charD.autoStartAi=true;
             charD.pvpId=index+2;
             charD.position=CharManager.Get().getBrothPoint(charD.radius);
             let charOther:Character=CharManager.Get().getNewChar();

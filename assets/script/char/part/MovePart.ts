@@ -315,14 +315,14 @@ export class MovePart extends RecycleAble implements IUpdate
                             this.pos.y = this.targetPos.y;
                         }
                         if(this.targetPos.equals(this.pos.position)){
-                            console.log("moveCom",this.targetPos);
+                 //           console.log("moveCom",this.targetPos);
                             this.stopMove(true);
                         }
                     }
                 }else{
                     //有转角速度就判断半径是否碰到了 碰到了就到目标点了 不能精确移动到位置上因为；
                     if(this.pos.getDic(this.targetPos,0,false)<=0){
-                        console.log("moveCom",this.targetPos);
+               //         console.log("moveCom",this.targetPos);
                         this.stopMove(true);
                     }
                 }

@@ -136,6 +136,15 @@ export default class CameraCtrl  implements IUpdate
     getBoundingBox():cc.Rect{
          return this._rectView;
     }
+    isFocusTarget(node:cc.Node):boolean{
+        if(!this._target){
+            return false;
+        }
+        if(this._target==node){
+            return true;
+        }
+        return false;
+    }
 
     /***
      * 更新; 如果需要 就override

@@ -43,13 +43,13 @@ export class Dead extends Action
         //播放死亡动画;
         if(!this.char.data.isDead){
     //        this.char.charData.isDead=true;
-
+    
             this.char.dispatchEvent(GameEventID.CharEvent.ON_DEAD);
         }
         //TODO: 创建钻石;
 
         //移除
-        if(this.char.charData.myPlayer){
+        if(this.char.charData.myPlayer&& CameraCtrl.Instance.isFocusTarget(this.char.view.node)){
             CameraCtrl.Instance.changeTarget(null);
         }
         CharManager.Get().removeObj(this.char);

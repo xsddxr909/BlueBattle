@@ -214,11 +214,17 @@ export class CharManager
                         character.getSkillPart().hitdata=ConfigXls.Get().t_s_hitData.get(1003);
                         character.getSkillPart().doActionSkillByLabel(BackOff);
                         character.checkUpgrade(bear.charData.getDeadExp());
-
+                        
+                        //死亡换 杀你的人的视角。
+                        if(bear.charData.inCamera&&CameraCtrl.Instance.isFocusTarget(bear.view.node)){
+                            CameraCtrl.Instance.changeTarget(character.view.node,0.5);
+                        }
+                        
                         bear.onBeaten();
                         bear.getSkillPart().targetDir=hitterCharD.position.sub(bear.charData.position);
                         bear.getSkillPart().hitdata=ConfigXls.Get().t_s_hitData.get(1003);
                         bear.getSkillPart().doActionSkillByLabel(Dead);
+
                         continue;
                          //播放特效;
                     }

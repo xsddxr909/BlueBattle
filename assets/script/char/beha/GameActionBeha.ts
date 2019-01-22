@@ -710,7 +710,7 @@ export  class RandomMoveAct  extends CharActionBeha
          pos.x = (this.char.charData.position.x+rdic * Math.cos(angle * Math.PI / 180))>>0 ;
          pos.y = (this.char.charData.position.y+rdic * Math.sin(angle * Math.PI / 180))>>0 ;
         
-         console.log("随机移动 : "+this.char.charData.id ,"Dic： "+rdic,pos);
+       //  console.log("随机移动 : "+this.char.charData.id ,"Dic： "+rdic,pos);
          if(this.behaTree.debug){
            
         }
@@ -731,7 +731,7 @@ export  class RandomMoveAct  extends CharActionBeha
         if(this.char.charData.currentActionLabel==Stand.name){
           //移动到了
           if(this.behaTree.debug){
-           console.log("随机移动 >>>  完毕: "+this.char.charData.id,this.char.charData.position);
+              console.log("随机移动 >>>  完毕: "+this.char.charData.id,this.char.charData.position);
           }
           this.lastResultType=ResultType.Success;
           return ResultType.Success;

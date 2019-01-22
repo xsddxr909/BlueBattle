@@ -148,7 +148,7 @@ export class Character extends ObjBase
             this.view.body.scale=this.charData.scaleSize;
             //剑尖有透明区域 需要去掉；
             this.view.body.getChildByName("weapon").width=this.charData.WeaponSize/0.82;
-            if(this.charData.myPlayer){
+            if(CameraCtrl.Instance.isFocusTarget(this.view.node)){
                 CameraCtrl.Instance.cameraZoom(148/this.charData.WeaponSize,0.3);
             }
         }

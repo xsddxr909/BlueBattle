@@ -182,6 +182,7 @@ export class CharData extends PosData implements IObbBox
      */
     public initData(){
         super.initData();
+        this.myPlayer=false;
         this.scale=cc.Vec2.ONE;
         this.weaponSize=148;
         this.Skills=[];
