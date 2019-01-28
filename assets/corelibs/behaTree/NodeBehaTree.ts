@@ -11,6 +11,7 @@ export class BehaData{
     public description:string;
     public properties:any;
     public children:Array<string>;
+    public child:string;
 }
 
 /**
@@ -468,18 +469,18 @@ export class IfElseNode extends NodeCombiner
         }
         let node:NodeBase=null;
         if (this.m_activeChildIndex== 0) {
-                node = this.nodeChildList[0];
+            node = this.nodeChildList[0];
 
-			if (conditionResult == ResultType.Defult) {
+		//	if (conditionResult == ResultType.Defult) {
                 // condition has not been checked
-                if(this.behaTree.debug&&this.behaTree.allStep){
-                    console.log("  ifelse 执行:"+node.poolname+" idx:"+this.m_activeChildIndex);
-                }
-                conditionResult = node.Execute();
-                if(this.behaTree.debug&&this.behaTree.allStep){
-                    console.log("Res>>  ifelse:"+node.poolname+" res:"+conditionResult+" idx:"+this.m_activeChildIndex);
-                }
-			}
+            if(this.behaTree.debug&&this.behaTree.allStep){
+                console.log("  ifelse 执行:"+node.poolname+" idx:"+this.m_activeChildIndex);
+            }
+            conditionResult = node.Execute();
+            if(this.behaTree.debug&&this.behaTree.allStep){
+                console.log("Res>>  ifelse:"+node.poolname+" res:"+conditionResult+" idx:"+this.m_activeChildIndex);
+            }
+		//	}
             if (conditionResult == ResultType.Success) {
 				// if
                 this.m_activeChildIndex = 1;
@@ -505,7 +506,6 @@ export class IfElseNode extends NodeCombiner
             this.lastResultType=conditionResult;
             return conditionResult;
         }
-
         this.lastResultType=ResultType.Running;
         return ResultType.Running;
     }

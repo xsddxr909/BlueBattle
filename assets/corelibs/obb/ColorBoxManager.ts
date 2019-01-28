@@ -3,6 +3,7 @@ import Core from "../Core";
 import { ResStruct } from "../util/ResourcesMgr";
 import { ResType } from "../CoreDefine";
 import { OBB } from "./Obb";
+import { IQuadRect } from "../util/QuadTree";
 
 /**
  * 碰撞数据显示管理器
@@ -47,7 +48,7 @@ export class ColorBoxManager
     /**
      * 显示碰撞盒；
      */
-    public showColorBox(target:IObbBox&RecycleAble, color:cc.Color=cc.Color.GREEN,noRot:boolean=false,opacity:number=100,autoReleaseTarget:boolean=false):ColorBox{
+    public showColorBox(target:IObbBox, color:cc.Color=cc.Color.GREEN,noRot:boolean=false,opacity:number=100,autoReleaseTarget:boolean=false):ColorBox{
        let box: ColorBox =  this.boxList.get();
        box.noRot=noRot;
        box.opacity=opacity;
@@ -75,7 +76,7 @@ export class ColorBox extends RecycleAble{
     private isShowOpenTest:boolean=false;
     private testBody:cc.Node; 
     private color:cc.Color;
-    private target:IObbBox&RecycleAble;
+    private target:IObbBox;
     private releaseTarget:boolean=false;
     //不旋转;
     public noRot:boolean=false;
@@ -84,7 +85,7 @@ export class ColorBox extends RecycleAble{
      * 打开碰撞测试
      * @param b 
      */
-    ShowOpenTest(b:boolean , target:IObbBox&RecycleAble=null, color:cc.Color=cc.Color.GREEN,autoReleaseTarget:boolean=false){
+    ShowOpenTest(b:boolean , target:IObbBox=null, color:cc.Color=cc.Color.GREEN,autoReleaseTarget:boolean=false){
         if(b){
           if(this.isShowOpenTest){
               return;
@@ -117,9 +118,9 @@ export class ColorBox extends RecycleAble{
         if(!this.noRot){
             this.testBody.angle=this.target.angle;
         }
+        this.testBody.scaleX=this.target.scaleX;
+        this.testBody.scaleY=this.target.scaleY;
          this.testBody.color=this.color;
-         this.testBody.scaleX=this.target.scaleX;
-         this.testBody.scaleY=this.target.scaleY;
          this.testBody.opacity=100;
          //临时测试用
          cc.find('Canvas/Test').addChild(this.testBody);
@@ -150,7 +151,7 @@ export class ColorBox extends RecycleAble{
             this.ShowOpenTest(false);
         }
         if(this.releaseTarget&&this.target!=null){
-            this.target.recycleSelf();
+            (this.target as any).recycleSelf();
         }
         this.releaseTarget=false;
         this.target=null;
@@ -165,7 +166,7 @@ export class ColorBox extends RecycleAble{
             this.testBody=null;
         }
         if(this.releaseTarget&&this.target!=null){
-            this.target.recycleSelf();
+            (this.target as any).recycleSelf();
         }
         this.releaseTarget=false;
         this.target=null;

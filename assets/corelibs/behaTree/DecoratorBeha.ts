@@ -42,10 +42,12 @@ export class NotDec extends NodeCombiner
         super.onRecycle();
     }  
 }
-//循环节点; -1为无限循环 总是返回运行;否则循环执行子节点指定的次数然后返回成功，在指定次数之前则返回 运行中。 只有一个节点;
+//循环节点; -1为无限循环 总是返回运行;否则循环执行子节点指定的次数然后返回成功，在指定次数之前则返回 运行中。 只有一个节点; 
 export class LoopDec extends NodeCombiner
 {
     private maxLoop:number=-1;
+    //是否失败时候返回失败。
+    private failReturn:boolean=false;
     private nowCount:number=0;
     constructor()
     {
@@ -65,22 +67,35 @@ export class LoopDec extends NodeCombiner
             this.lastResultType=ResultType.Running;
             return ResultType.Running;
         }else {
-            this.nowCount++;
             if(this.nowCount>=this.maxLoop){
+                console.log("Loop>>>>>Finish");
                 this.lastResultType=ResultType.Success;
                 return ResultType.Success;
             }  
-            this.nodeChildList[0].Execute();
+            let resType:ResultType=this.nodeChildList[0].Execute();
+            if(resType==ResultType.Success||resType==ResultType.Fail){
+                this.nowCount++;
+                console.log("res:"+resType,this.nodeChildList[0].toString(),"Loop>>>>>>>>>>>>>>>>>>>",this.nowCount );
+                if(this.failReturn && resType==ResultType.Fail){
+                    console.log("Fail",this.nodeChildList[0].toString(),"Loop>>>>>>>>>>>>>>>>>>>",this.nowCount );
+                    this.lastResultType=ResultType.Fail;
+                    return ResultType.Fail;
+                }
+                this.nodeChildList[0].reset();
+                if(this.nowCount>=this.maxLoop){
+                    console.log("Loop>>>>>Finish");
+                    this.lastResultType=ResultType.Success;
+                    return ResultType.Success;
+                }  
+            }
+            console.log("LoopIng>>>>>",this.nowCount);
             this.lastResultType=ResultType.Running;
             return ResultType.Running;
         }
     }
     public initProperties(behaData:BehaData):void{
-        this.SetMaxLoop(behaData.properties['maxLoop']);
-    }
-    public SetMaxLoop(loopTime:number):void
-    {
-        this.maxLoop = loopTime;
+        this.maxLoop =behaData.properties['maxLoop'];
+        this.failReturn =behaData.properties['failReturn']==1?true:false;
     }
     public reset(){
         this.nowCount=0;

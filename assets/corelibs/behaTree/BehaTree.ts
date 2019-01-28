@@ -79,7 +79,12 @@ export class BehaTree extends NodeCombiner {
             }
             const  nodes:NodeBase=Core.ObjectPoolMgr.get(BehaviorTreeManager.Get().classMapping.get(b.name));
             nodes.md5Id=b.id;
-            nodes.childStr=b.children;
+            if(b.children){
+                nodes.childStr=b.children;
+            }else if(b.child!=null){
+                nodes.childStr=[b.child];
+            }
+
             nodes.behaTree=this;
             nodes.initProperties(b);
             if(b.id==rootStr){

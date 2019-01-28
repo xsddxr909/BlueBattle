@@ -240,14 +240,14 @@
       "title": "行为 <power>",
       "description": "",
       "properties": {
-        "power": "20,10,8,3"
+        "power": "20,10,15,3"
       },
       "display": {
-        "x": 672,
-        "y": -288
+        "x": 696,
+        "y": -276
       },
       "children": [
-        "979ed31a-2d94-42a9-8492-e3101d88fb9b",
+        "ccf9aebb-7962-40d4-8b37-cc474ef5354f",
         "8b30aa00-2db4-4e44-8fcd-878926234702",
         "42cc729b-b77d-4947-8565-d84f5e2072d2",
         "a45d877f-8224-40fb-984b-94a92e88000a"
@@ -262,8 +262,8 @@
         "state": 2
       },
       "display": {
-        "x": 948,
-        "y": -312
+        "x": 1008,
+        "y": -324
       }
     },
     "f13c1986-a174-460a-bc53-caf730407237": {
@@ -318,7 +318,7 @@
         "info": "idle不做事"
       },
       "display": {
-        "x": 960,
+        "x": 1032,
         "y": -192
       }
     },
@@ -493,7 +493,7 @@
       "title": "行为 <power>",
       "description": "",
       "properties": {
-        "power": "5,2,3"
+        "power": "8,1,5"
       },
       "display": {
         "x": 864,
@@ -537,7 +537,7 @@
       "title": "WaitFrame <frameCount>",
       "description": "",
       "properties": {
-        "frameCount": 6
+        "frameCount": 15
       },
       "display": {
         "x": 852,
@@ -551,8 +551,8 @@
       "description": "多个选择节点中选择一个",
       "properties": {},
       "display": {
-        "x": 912,
-        "y": -408
+        "x": 1152,
+        "y": -468
       },
       "children": [
         "575eb561-554a-40ed-827e-aedd1ed207a9",
@@ -611,7 +611,7 @@
       "title": "camp <Camp> CloseMe<=<dic>",
       "description": "camp 0 友方\ncamp 1 敌方",
       "properties": {
-        "dic": 250,
+        "dic": 350,
         "Camp": 1
       },
       "display": {
@@ -751,7 +751,7 @@
         "range": 1200
       },
       "display": {
-        "x": 984,
+        "x": 1104,
         "y": -252
       }
     },
@@ -762,11 +762,11 @@
       "description": "type 1 小宝石\n         2 大宝石",
       "properties": {
         "type": 2,
-        "dic": 500
+        "dic": 350
       },
       "display": {
-        "x": 1128,
-        "y": -456
+        "x": 1356,
+        "y": -540
       }
     },
     "0454430e-70dc-41bf-83c7-ade0f8f70057": {
@@ -776,11 +776,11 @@
       "description": "type 1 小宝石\n         2 大宝石",
       "properties": {
         "type": 1,
-        "dic": 600
+        "dic": 500
       },
       "display": {
-        "x": 1128,
-        "y": -396
+        "x": 1380,
+        "y": -456
       }
     },
     "90e9605f-bc67-4787-87da-c80885e028f7": {
@@ -808,11 +808,26 @@
         "x": 852,
         "y": 240
       }
+    },
+    "ccf9aebb-7962-40d4-8b37-cc474ef5354f": {
+      "id": "ccf9aebb-7962-40d4-8b37-cc474ef5354f",
+      "name": "Loops",
+      "title": "Loop <maxLoop> FailR <failReturn>",
+      "description": "",
+      "properties": {
+        "maxLoop": 8,
+        "failReturn": 1
+      },
+      "display": {
+        "x": 936,
+        "y": -408
+      },
+      "child": "979ed31a-2d94-42a9-8492-e3101d88fb9b"
     }
   },
   "display": {
-    "camera_x": 236.49768771283777,
-    "camera_y": 216.51026679693382,
+    "camera_x": 152.49896431475497,
+    "camera_y": -134.48877308276593,
     "camera_z": 0.75,
     "x": -444,
     "y": 108

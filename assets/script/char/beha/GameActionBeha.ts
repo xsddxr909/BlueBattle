@@ -8,6 +8,8 @@ import { GemData } from "../../data/GemData";
 import Core from "../../../corelibs/Core";
 import { Run } from "../action/Run";
 import { Stand } from "../action/Stand";
+import { ColorBox, ColorBoxManager } from "../../../corelibs/obb/ColorBoxManager";
+import { ConfigData } from "../../ConfigData";
 
 export  class CharActionBeha  extends ActionBeha
 {
@@ -599,6 +601,10 @@ export  class MoveToGemAct  extends CharActionBeha
     private rect:cc.Rect;
     private dicCharList:Array<GemData>;
     private isMoving:boolean;
+   
+    //显示范围;
+    public debug:boolean=false;
+    private targetPosBox:ColorBox=null;
      constructor()
     {
       super();
@@ -608,7 +614,15 @@ export  class MoveToGemAct  extends CharActionBeha
       this.lastNode();
       if(!this.isMoving){
         this.dicCharList=[];    
-        this.rect=cc.rect(this.char.charData.x,this.char.charData.y,this.char.charData.radius+this.dic,this.char.charData.radius+this.dic);
+        let dic2=(this.char.charData.radius+this.dic);
+        if(this.debug){
+          if( this.targetPosBox){
+              this.targetPosBox.recycleSelf();
+          }
+          this.targetPosBox= ColorBoxManager.Get().showColorPos(this.char.charData.position,cc.Color.CYAN,30,dic2*2,dic2*2);
+        }
+        this.rect=cc.rect(this.char.charData.x-dic2,this.char.charData.y-dic2,dic2*2,dic2*2);
+        this.inMap();
         let gemlist:GemData[] = CharManager.Get().GemQuadTree.get(this.rect);
         for (let index = 0; index < gemlist.length; index++) {
            const gemD:GemData = gemlist[index];
@@ -619,7 +633,7 @@ export  class MoveToGemAct  extends CharActionBeha
                continue;
             }
             const cDic=gemD.getDic(this.char.charData.position,this.char.charData.radius,true);
-       //     console.log(this.char.charData.id,"找宝石 距离: "+gemD.itemType,"dic",cDic,"pos",gemD.position);
+        //    console.log(this.char.charData.id,"找宝石 距离: "+gemD.itemType,"dic",cDic,"pos",gemD.position);
           //  if(cDic<=this.dic){
                gemD.vvalue=cDic;
                if(this.behaTree.debug&&this.behaTree.allStep){
@@ -630,12 +644,14 @@ export  class MoveToGemAct  extends CharActionBeha
         }
         if(this.getTarget()){
           this.isMoving=true;
+          this.lastResultType=ResultType.Running;
+          return ResultType.Running;
         }else{
+    //      console.log(this.char.charData.pvpId,"找不到宝石 移动 完毕");
           this.lastResultType=ResultType.Fail;
           return ResultType.Fail;
         }
-      }
-      if(this.isMoving){
+      }else{
         //检测移动到没
         if(this.char.charData.currentActionLabel==Run.name){
           this.lastResultType=ResultType.Running;
@@ -644,15 +660,28 @@ export  class MoveToGemAct  extends CharActionBeha
         if(this.char.charData.currentActionLabel==Stand.name){
           //移动到了
           if(this.behaTree.debug&&this.behaTree.allStep){
-             console.log(this.char.charData.id,"找宝石>>> 移动 完毕: "+this.char.charData.pvpId);
+             console.log(this.char.charData.pvpId,"找宝石>>> 移动 完毕");
           }
           this.lastResultType=ResultType.Success;
           return ResultType.Success;
         }
       }
-      this.lastResultType=ResultType.Fail;
-      return ResultType.Fail;
     }
+    private inMap(){
+      if( this.rect.x<= 0){
+          this.rect.x=0;
+      }
+      if(this.rect.x>= ConfigData.gameMapSize.width){
+        this.rect.x=ConfigData.gameMapSize.width;
+      }
+      if( this.rect.y<= 0){
+        this.rect.y=0;
+        }
+        if(this.rect.y>= ConfigData.gameMapSize.height){
+          this.rect.y=ConfigData.gameMapSize.height;
+        }
+    }
+
      //数值越小越前...
     private CompareMinFunc(a:GemData, b:GemData):number
     {
@@ -680,20 +709,22 @@ export  class MoveToGemAct  extends CharActionBeha
         if(this.dicCharList.length==1){
           //设置移动目标点;
           this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_MoveToPos,this.dicCharList[0].position);
-        //  console.log(this.char.charData.id,"找到宝石 开始移动: "+this.dicCharList[0].position);
+          console.log(this.char.charData.id,"找到宝石 开始移动: "+this.dicCharList[0].position);
          // this.char.setTarget(this.dicCharList[0]);
           return true;
         }
         //超过1个;
         if(this.finType==1){
           //小宝石 太多  只找随机。 
-          let pos:cc.Vec2=this.dicCharList[Core.Random.GetRandomMax(this.dicCharList.length-1)].position;
-          this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_MoveToPos,pos);
-      //    console.log(this.char.charData.id,"找小宝石 开始移动: "+pos);
+         // let pos:cc.Vec2=this.dicCharList[Core.Random.GetRandomMax(this.dicCharList.length-1)].position;
+         //找最近的。
+         this.dicCharList.sort(this.CompareMinFunc);
+          this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_MoveToPos,this.dicCharList[0].position);
+          console.log(this.char.charData.id,"找小宝石 开始移动: "+this.dicCharList[0].position);
         }else{
           this.dicCharList.sort(this.CompareMinFunc);
           this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_MoveToPos,this.dicCharList[0].position);
-     //     console.log(this.char.charData.id,"找大宝石 开始移动: "+this.dicCharList[0].position);
+          console.log(this.char.charData.id,"找大宝石 开始移动: "+this.dicCharList[0].position);
         }
         //设置移动目标点;
       //  this.char.setTarget(this.dicCharList[0]);
@@ -701,11 +732,19 @@ export  class MoveToGemAct  extends CharActionBeha
     }
     public reset(){
         this.isMoving=false;
+        if( this.targetPosBox){
+          this.targetPosBox.recycleSelf();
+          this.targetPosBox=null;
+        }
         super.reset();
     }
     public initData(){
       this.dicCharList=null;
       this.isMoving=false;
+      if( this.targetPosBox){
+        this.targetPosBox.recycleSelf();
+        this.targetPosBox=null;
+      }
       super.initData();
     }
     public initProperties(behaData:BehaData):void{
@@ -721,6 +760,10 @@ export  class MoveToGemAct  extends CharActionBeha
         this.dic=0;
         this.dicCharList=null;
         this.rect=null;
+        if( this.targetPosBox){
+          this.targetPosBox.recycleSelf();
+          this.targetPosBox=null;
+        }
         super.onRecycle();
     }  
     toString():string{
@@ -754,8 +797,8 @@ export  class RandomMoveAct  extends CharActionBeha
          let pos:cc.Vec2=cc.Vec2.ZERO;
          pos.x = (this.char.charData.position.x+rdic * Math.cos(angle * Math.PI / 180))>>0 ;
          pos.y = (this.char.charData.position.y+rdic * Math.sin(angle * Math.PI / 180))>>0 ;
-        
-       //  console.log("随机移动 : "+this.char.charData.id ,"Dic： "+rdic,pos);
+        this.inMap(pos);
+         console.log("随机移动 : "+this.char.charData.id ,"Dic： "+rdic,pos);
          if(this.behaTree.debug){
            
         }
@@ -785,7 +828,21 @@ export  class RandomMoveAct  extends CharActionBeha
       this.lastResultType=ResultType.Fail;
       return ResultType.Fail;
     }
-   
+    private inMap(pos:cc.Vec2){
+      if( pos.x<= 0){
+        pos.x=0;
+      }
+      if(pos.x>= ConfigData.gameMapSize.width){
+        pos.x=ConfigData.gameMapSize.width;
+      }
+      if( pos.y<= 0){
+        pos.y=0;
+        }
+        if(pos.y>= ConfigData.gameMapSize.height){
+          pos.y=ConfigData.gameMapSize.height;
+        }
+    }
+
     public reset(){
         this.isMoving=false;
         super.reset();

@@ -273,7 +273,7 @@ export class MovePart extends RecycleAble implements IUpdate
                     this.targetLastAngle=this.targetData.angle
                 }
                 this._targetDirection=this.targetData.position.add(this.targetVetOf).sub(this.pos.position);
-                console.log(this.targetData.position,this.targetVetOf);
+         //       console.log(this.targetData.position,this.targetVetOf);
                 this._targetDirection.normalizeSelf();
             }
 
