@@ -196,7 +196,7 @@ export  class SomeOneCloseMeCondition extends CharConditionBeha
           }
           const cDic=otherChar.charData.getDic(this.char.charData.position,this.char.charData.radius);
           if(cDic<=this.dic){
-                console.log("someOneCloseMe");
+          //      console.log("someOneCloseMe");
                 this.lastResultType=ResultType.Success;
                 return ResultType.Success;
           }

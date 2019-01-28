@@ -154,8 +154,9 @@ export class Character extends ObjBase
             //剑尖有透明区域 需要去掉；
             this.view.body.getChildByName("weapon").width=this.charData.WeaponSize/0.82;
             if(CameraCtrl.Instance.isFocusTarget(this.view.node)){
-                CameraCtrl.Instance.cameraZoom(1/this.charData.scaleSize,0.3);
-           //     CameraCtrl.Instance.cameraZoom(148/this.charData.WeaponSize,0.3);
+            //    CameraCtrl.Instance.cameraZoom(1/this.charData.scaleSize,0.3);
+               //要看的武器杀人 所以要成缩放比例。
+                CameraCtrl.Instance.cameraZoom(148/(this.charData.WeaponSize*this.charData.scaleSize),0.3);
             }
         }
     }

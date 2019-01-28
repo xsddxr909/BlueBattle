@@ -77,7 +77,7 @@ export class LoopDec extends NodeCombiner
                 this.nowCount++;
         //        console.log("res:"+resType,this.nodeChildList[0].toString(),"Loop>>>>>>>>>>>>>>>>>>>",this.nowCount );
                 if(this.failReturn && resType==ResultType.Fail){
-                    console.log("Fail",this.nodeChildList[0].toString(),"Loop>>>>>>>>>>>>>>>>>>>",this.nowCount );
+         //           console.log("Fail",this.nodeChildList[0].toString(),"Loop>>>>>>>>>>>>>>>>>>>",this.nowCount );
                     this.lastResultType=ResultType.Fail;
                     return ResultType.Fail;
                 }

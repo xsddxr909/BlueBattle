@@ -714,7 +714,7 @@ export  class MoveToGemAct  extends CharActionBeha
         if(this.dicCharList.length==1){
           //设置移动目标点;
           this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_MoveToPos,this.dicCharList[0].position);
-          console.log(this.char.charData.id,"找到宝石 开始移动: "+this.dicCharList[0].position);
+      //    console.log(this.char.charData.id,"找到宝石 开始移动: "+this.dicCharList[0].position);
          // this.char.setTarget(this.dicCharList[0]);
           return true;
         }
@@ -725,11 +725,11 @@ export  class MoveToGemAct  extends CharActionBeha
          //找最近的。
          this.dicCharList.sort(this.CompareMinFunc);
           this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_MoveToPos,this.dicCharList[0].position);
-          console.log(this.char.charData.id,"找小宝石 开始移动: "+this.dicCharList[0].position);
+    //      console.log(this.char.charData.id,"找小宝石 开始移动: "+this.dicCharList[0].position);
         }else{
           this.dicCharList.sort(this.CompareMinFunc);
           this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_MoveToPos,this.dicCharList[0].position);
-          console.log(this.char.charData.id,"找大宝石 开始移动: "+this.dicCharList[0].position);
+    //      console.log(this.char.charData.id,"找大宝石 开始移动: "+this.dicCharList[0].position);
         }
         //设置移动目标点;
       //  this.char.setTarget(this.dicCharList[0]);
@@ -803,7 +803,7 @@ export  class RandomMoveAct  extends CharActionBeha
          pos.x = (this.char.charData.position.x+rdic * Math.cos(angle * Math.PI / 180))>>0 ;
          pos.y = (this.char.charData.position.y+rdic * Math.sin(angle * Math.PI / 180))>>0 ;
         this.inMap(pos);
-         console.log("随机移动 : "+this.char.charData.id ,"Dic： "+rdic,pos);
+    //     console.log("随机移动 : "+this.char.charData.id ,"Dic： "+rdic,pos);
          if(this.behaTree.debug){
            
         }
