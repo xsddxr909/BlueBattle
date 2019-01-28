@@ -40,7 +40,7 @@ export class Run extends Action
                  case ENUMS.ControllerCmd.Char_FollowTarget:
                     this.move.followMyTarget();
                     if(this.skillPart.targetOffset){
-                        this.move.targetOffset=new cc.Vec2(0,-this.skillPart.char.charData.radius/2);
+                        this.move.targetOffset=new cc.Vec2(0,-this.skillPart.char.charData.radius);
                     }
                     this.skillPart.char.BindEvent(GameEventID.CharEvent.MOVE_END,this.onMoveToPosEnd,this);
                  break;

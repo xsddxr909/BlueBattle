@@ -301,35 +301,35 @@ this.t_s_char.set(201001,t_s_char.Creat(201001,201001,201001,201001,'女骑士',
 this.t_s_charAction.set(1001,t_s_charAction.Creat(1001,'warrior','Stand','Run','BackOff','AtkShield','Dead','InGame')); 
 
 //t_s_heroLevelup 
-this.t_s_heroLevelup.set(1,t_s_heroLevelup.Creat(1,30,152,1)); 
+this.t_s_heroLevelup.set(1,t_s_heroLevelup.Creat(1,30,148,1)); 
 
-this.t_s_heroLevelup.set(2,t_s_heroLevelup.Creat(2,30,158,1.02)); 
+this.t_s_heroLevelup.set(2,t_s_heroLevelup.Creat(2,30,154,1.03)); 
 
-this.t_s_heroLevelup.set(3,t_s_heroLevelup.Creat(3,30,164,1.04)); 
+this.t_s_heroLevelup.set(3,t_s_heroLevelup.Creat(3,30,160,1.06)); 
 
-this.t_s_heroLevelup.set(4,t_s_heroLevelup.Creat(4,30,178,1.06)); 
+this.t_s_heroLevelup.set(4,t_s_heroLevelup.Creat(4,30,166,1.09)); 
 
-this.t_s_heroLevelup.set(5,t_s_heroLevelup.Creat(5,60,190,1.08)); 
+this.t_s_heroLevelup.set(5,t_s_heroLevelup.Creat(5,60,172,1.12)); 
 
-this.t_s_heroLevelup.set(6,t_s_heroLevelup.Creat(6,60,210,1.1)); 
+this.t_s_heroLevelup.set(6,t_s_heroLevelup.Creat(6,60,178,1.15)); 
 
-this.t_s_heroLevelup.set(7,t_s_heroLevelup.Creat(7,60,230,1.12)); 
+this.t_s_heroLevelup.set(7,t_s_heroLevelup.Creat(7,60,184,1.18)); 
 
-this.t_s_heroLevelup.set(8,t_s_heroLevelup.Creat(8,240,260,1.14)); 
+this.t_s_heroLevelup.set(8,t_s_heroLevelup.Creat(8,240,190,1.21)); 
 
-this.t_s_heroLevelup.set(9,t_s_heroLevelup.Creat(9,310,300,1.16)); 
+this.t_s_heroLevelup.set(9,t_s_heroLevelup.Creat(9,310,196,1.24)); 
 
-this.t_s_heroLevelup.set(10,t_s_heroLevelup.Creat(10,900,360,1.18)); 
+this.t_s_heroLevelup.set(10,t_s_heroLevelup.Creat(10,900,202,1.27)); 
 
-this.t_s_heroLevelup.set(11,t_s_heroLevelup.Creat(11,1090,400,1.2)); 
+this.t_s_heroLevelup.set(11,t_s_heroLevelup.Creat(11,1090,208,1.3)); 
 
-this.t_s_heroLevelup.set(12,t_s_heroLevelup.Creat(12,1170,430,1.22)); 
+this.t_s_heroLevelup.set(12,t_s_heroLevelup.Creat(12,1170,214,1.33)); 
 
-this.t_s_heroLevelup.set(13,t_s_heroLevelup.Creat(13,1480,460,1.24)); 
+this.t_s_heroLevelup.set(13,t_s_heroLevelup.Creat(13,1480,220,1.36)); 
 
-this.t_s_heroLevelup.set(14,t_s_heroLevelup.Creat(14,1620,480,1.26)); 
+this.t_s_heroLevelup.set(14,t_s_heroLevelup.Creat(14,1620,226,1.39)); 
 
-this.t_s_heroLevelup.set(15,t_s_heroLevelup.Creat(15,2050,500,1.28)); 
+this.t_s_heroLevelup.set(15,t_s_heroLevelup.Creat(15,2050,232,1.42)); 
 
 //t_s_hitData 
 this.t_s_hitData.set(1001,t_s_hitData.Creat(1001,3,'backoff',false,1,false,false,1500,-2500,true,0,0,0,'',2,false,'',-1,0,false,0,0,0,1001,1001,true)); 

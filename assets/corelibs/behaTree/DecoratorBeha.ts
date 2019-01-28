@@ -68,14 +68,14 @@ export class LoopDec extends NodeCombiner
             return ResultType.Running;
         }else {
             if(this.nowCount>=this.maxLoop){
-                console.log("Loop>>>>>Finish");
+        //        console.log("Loop>>>>>Finish");
                 this.lastResultType=ResultType.Success;
                 return ResultType.Success;
             }  
             let resType:ResultType=this.nodeChildList[0].Execute();
             if(resType==ResultType.Success||resType==ResultType.Fail){
                 this.nowCount++;
-                console.log("res:"+resType,this.nodeChildList[0].toString(),"Loop>>>>>>>>>>>>>>>>>>>",this.nowCount );
+        //        console.log("res:"+resType,this.nodeChildList[0].toString(),"Loop>>>>>>>>>>>>>>>>>>>",this.nowCount );
                 if(this.failReturn && resType==ResultType.Fail){
                     console.log("Fail",this.nodeChildList[0].toString(),"Loop>>>>>>>>>>>>>>>>>>>",this.nowCount );
                     this.lastResultType=ResultType.Fail;
@@ -83,12 +83,12 @@ export class LoopDec extends NodeCombiner
                 }
                 this.nodeChildList[0].reset();
                 if(this.nowCount>=this.maxLoop){
-                    console.log("Loop>>>>>Finish");
+         //           console.log("Loop>>>>>Finish");
                     this.lastResultType=ResultType.Success;
                     return ResultType.Success;
                 }  
             }
-            console.log("LoopIng>>>>>",this.nowCount);
+       //     console.log("LoopIng>>>>>",this.nowCount);
             this.lastResultType=ResultType.Running;
             return ResultType.Running;
         }

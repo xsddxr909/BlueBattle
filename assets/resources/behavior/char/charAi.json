@@ -172,12 +172,12 @@
       "description": "只有两个节点,判断,执行",
       "properties": {},
       "display": {
-        "x": 120,
-        "y": 984
+        "x": 132,
+        "y": 996
       },
       "children": [
         "b8e78d0b-c7d9-40a3-8df9-113e83f4f8d4",
-        "d9d4014d-7b65-49c9-92eb-edff2c594781"
+        "98fdf6b1-d85a-490d-982f-d9cfe4586438"
       ]
     },
     "d9d4014d-7b65-49c9-92eb-edff2c594781": {
@@ -189,8 +189,8 @@
         "state": 2
       },
       "display": {
-        "x": 336,
-        "y": 1044
+        "x": 888,
+        "y": 1272
       }
     },
     "3478bb00-4970-4d65-8e74-268a9b35bf68": {
@@ -346,8 +346,8 @@
         "state": 0
       },
       "display": {
-        "x": 852,
-        "y": -36
+        "x": 876,
+        "y": -60
       }
     },
     "6f25cb45-2e02-4a54-821c-443fc9efa3d8": {
@@ -364,7 +364,7 @@
       },
       "children": [
         "24e72f76-6178-4a54-b47b-a9b680d3caec",
-        "65590da4-41e8-4f62-808b-e0fdde3560c1"
+        "70d5c8ff-7e38-4342-b06a-1b931a1fa55a"
       ]
     },
     "65590da4-41e8-4f62-808b-e0fdde3560c1": {
@@ -376,8 +376,8 @@
         "state": 2
       },
       "display": {
-        "x": 864,
-        "y": 36
+        "x": 912,
+        "y": 60
       }
     },
     "be931fbb-3615-4463-ac2a-978905521886": {
@@ -401,9 +401,10 @@
       "id": "82e26d02-f203-405b-80cf-ddb303f24241",
       "name": "FollowTarget",
       "title": "FollowTarget",
-      "description": "offset 跟随偏移 敌方无敌、死亡返回失败",
+      "description": "offset 跟随偏移\natkCloseDic >0 包括攻击范围。",
       "properties": {
-        "followOffset": 1
+        "followOffset": 0,
+        "atkCloseDic": 100
       },
       "display": {
         "x": 804,
@@ -823,11 +824,178 @@
         "y": -408
       },
       "child": "979ed31a-2d94-42a9-8492-e3101d88fb9b"
+    },
+    "d6a2abdb-f7d2-473a-b088-82b97c5372b3": {
+      "id": "d6a2abdb-f7d2-473a-b088-82b97c5372b3",
+      "name": "FollowTarget",
+      "title": "AttackTarget",
+      "description": "offset 跟随偏移\natkCloseDic >0 包括攻击范围。",
+      "properties": {
+        "followOffset": 1,
+        "atkCloseDic": 0
+      },
+      "display": {
+        "x": 888,
+        "y": 1176
+      }
+    },
+    "834d8763-5251-458b-8342-c3cf9de8129f": {
+      "id": "834d8763-5251-458b-8342-c3cf9de8129f",
+      "name": "Sequence",
+      "title": "->顺",
+      "description": "顺序节点,从上到下 顺序执行",
+      "properties": {},
+      "display": {
+        "x": 672,
+        "y": 1212
+      },
+      "children": [
+        "d6a2abdb-f7d2-473a-b088-82b97c5372b3",
+        "d9d4014d-7b65-49c9-92eb-edff2c594781"
+      ]
+    },
+    "08ebf8e5-0ea3-4498-8090-545f8010fd9b": {
+      "id": "08ebf8e5-0ea3-4498-8090-545f8010fd9b",
+      "name": "IfElse",
+      "title": "IfElse",
+      "description": "条件判断，3节点（条件，成功，失败）",
+      "properties": {},
+      "display": {
+        "x": 432,
+        "y": 984
+      },
+      "children": [
+        "40dace9e-dd60-4fd6-9769-17c370bb01eb",
+        "e40de013-e458-47f6-9451-32c9df9d6fb8"
+      ]
+    },
+    "e7d80129-0d47-4c22-911c-6e14d86eb72d": {
+      "id": "e7d80129-0d47-4c22-911c-6e14d86eb72d",
+      "name": "SetState",
+      "title": "state Idle 0",
+      "description": "return Fail",
+      "properties": {
+        "state": 0
+      },
+      "display": {
+        "x": 732,
+        "y": 1008
+      }
+    },
+    "e40de013-e458-47f6-9451-32c9df9d6fb8": {
+      "id": "e40de013-e458-47f6-9451-32c9df9d6fb8",
+      "name": "WeightRandom",
+      "title": "行为 <power>",
+      "description": "",
+      "properties": {
+        "power": "5,5"
+      },
+      "display": {
+        "x": 552,
+        "y": 1044
+      },
+      "children": [
+        "e7d80129-0d47-4c22-911c-6e14d86eb72d",
+        "3a2ff5cd-dbaf-4c4a-998e-f1025e5e51aa"
+      ]
+    },
+    "b5adc7bf-f7c3-487a-9599-2bbae19279fa": {
+      "id": "b5adc7bf-f7c3-487a-9599-2bbae19279fa",
+      "name": "SetState",
+      "title": "state Warning  2",
+      "description": "return Fail",
+      "properties": {
+        "state": 2
+      },
+      "display": {
+        "x": 864,
+        "y": 1116
+      }
+    },
+    "98fdf6b1-d85a-490d-982f-d9cfe4586438": {
+      "id": "98fdf6b1-d85a-490d-982f-d9cfe4586438",
+      "name": "Paralle",
+      "title": "->并",
+      "description": "并行，多个同时进行",
+      "properties": {},
+      "display": {
+        "x": 312,
+        "y": 1092
+      },
+      "children": [
+        "08ebf8e5-0ea3-4498-8090-545f8010fd9b",
+        "834d8763-5251-458b-8342-c3cf9de8129f"
+      ]
+    },
+    "40dace9e-dd60-4fd6-9769-17c370bb01eb": {
+      "id": "40dace9e-dd60-4fd6-9769-17c370bb01eb",
+      "name": "WaitFrame",
+      "title": "WaitFrame <frameCount>",
+      "description": "",
+      "properties": {
+        "frameCount": 110
+      },
+      "display": {
+        "x": 600,
+        "y": 924
+      }
+    },
+    "e6e3d278-6eee-4c9a-83d2-a791cab8f662": {
+      "id": "e6e3d278-6eee-4c9a-83d2-a791cab8f662",
+      "name": "DelTarget",
+      "title": "DelTarget",
+      "description": "",
+      "properties": {},
+      "display": {
+        "x": 924,
+        "y": 0
+      }
+    },
+    "70d5c8ff-7e38-4342-b06a-1b931a1fa55a": {
+      "id": "70d5c8ff-7e38-4342-b06a-1b931a1fa55a",
+      "name": "Sequence",
+      "title": "->顺",
+      "description": "顺序节点,从上到下 顺序执行",
+      "properties": {},
+      "display": {
+        "x": 756,
+        "y": 12
+      },
+      "children": [
+        "e6e3d278-6eee-4c9a-83d2-a791cab8f662",
+        "65590da4-41e8-4f62-808b-e0fdde3560c1"
+      ]
+    },
+    "3a2ff5cd-dbaf-4c4a-998e-f1025e5e51aa": {
+      "id": "3a2ff5cd-dbaf-4c4a-998e-f1025e5e51aa",
+      "name": "Sequence",
+      "title": "->顺",
+      "description": "顺序节点,从上到下 顺序执行",
+      "properties": {},
+      "display": {
+        "x": 696,
+        "y": 1068
+      },
+      "children": [
+        "02c00d0c-b33e-4f03-886d-6cde159c6868",
+        "b5adc7bf-f7c3-487a-9599-2bbae19279fa"
+      ]
+    },
+    "02c00d0c-b33e-4f03-886d-6cde159c6868": {
+      "id": "02c00d0c-b33e-4f03-886d-6cde159c6868",
+      "name": "DelTarget",
+      "title": "DelTarget",
+      "description": "",
+      "properties": {},
+      "display": {
+        "x": 864,
+        "y": 1056
+      }
     }
   },
   "display": {
-    "camera_x": 152.49896431475497,
-    "camera_y": -134.48877308276593,
+    "camera_x": 386.5002335497552,
+    "camera_y": -335.4912421178376,
     "camera_z": 0.75,
     "x": -444,
     "y": 108
@@ -960,12 +1128,22 @@
     {
       "version": "0.3.0",
       "scope": "node",
+      "name": "DelTarget",
+      "category": "action",
+      "title": null,
+      "description": null,
+      "properties": {}
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
       "name": "FollowTarget",
       "category": "action",
       "title": null,
-      "description": "offset 跟随偏移",
+      "description": "offset 跟随偏移\natkCloseDic >0 包括攻击范围。",
       "properties": {
-        "followOffset": 0
+        "followOffset": 0,
+        "atkCloseDic": 0
       }
     }
   ]

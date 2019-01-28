@@ -10,6 +10,7 @@ import { ENUMS } from "../common/Enum";
 import FrameSync from "../../corelibs/FrameSync";
 import { ResStruct } from "../../corelibs/util/ResourcesMgr";
 import { ResType } from "../../corelibs/CoreDefine";
+import { AIController } from "../char/controller/AIController";
 
 
 
@@ -73,7 +74,7 @@ export default class GameLogic implements IRelease
         charD.position=CharManager.Get().getBrothPoint(charD.radius);
         this.char=CharManager.Get().getNewChar();
         this.char.init(charD);
-   //   (this.char.ctrl as AIController).setDebug(true);
+     // (this.char.ctrl as AIController).setDebug(true);
         CameraCtrl.Instance.changeTarget(this.char.view.node);
 
         //碰撞测试;

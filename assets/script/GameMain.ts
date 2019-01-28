@@ -14,7 +14,7 @@ import { CharManager } from "./char/manager/CharManager";
 import MapManager from "./map/MapManager";
 import UIBackToLogin from "./UI/UIBackToLogin";
 import { BehaviorTreeManager } from "../corelibs/behaTree/BehaviorTreeManager";
-import { UseSkillAct, SetStateAct, FollowTargetAct, FinTargetAct, FinHateTargetAct, FinTargetBackFormMeAct, MoveToGemAct, RandomMoveAct } from "./char/beha/GameActionBeha";
+import { UseSkillAct, SetStateAct, FollowTargetAct, FinTargetAct, FinHateTargetAct, FinTargetBackFormMeAct, MoveToGemAct, RandomMoveAct, DelTargetAct } from "./char/beha/GameActionBeha";
 import {  AiStateCondition, HasTargetCondition, SomeOneCloseMeCondition, ChkActionCondition } from "./char/beha/GameConditionBeha";
 
 /**
@@ -86,6 +86,7 @@ export default class GameMain extends cc.Component
         BehaviorTreeManager.Get().Register("FinTargetBackFormMe",FinTargetBackFormMeAct);
         BehaviorTreeManager.Get().Register("MoveToGem",MoveToGemAct);
         BehaviorTreeManager.Get().Register("RandomMove",RandomMoveAct);
+        BehaviorTreeManager.Get().Register("DelTarget",DelTargetAct);
     }
     /**
      * 加载动画

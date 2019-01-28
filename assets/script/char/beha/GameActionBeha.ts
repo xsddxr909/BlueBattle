@@ -96,6 +96,8 @@ export  class FollowTargetAct  extends CharActionBeha
 {
      private followOffset:boolean=false;
      private isfollowing:boolean=false;
+
+     private atkCloseDic:number=0;
      constructor()
     {
       super();
@@ -132,9 +134,10 @@ export  class FollowTargetAct  extends CharActionBeha
           this.follow();
           this.isfollowing=true;
       }
+      let atkDic: boolean=this.atkCloseDic==0?false:true;
 
       //判断距离；
-      if(this.char.charData.getDic(this.char.target.data.position,this.char.target.data.radius,false)<=0){
+      if(this.char.charData.getDic(this.char.target.data.position,this.char.target.data.radius,atkDic)<= this.atkCloseDic){
           if(this.behaTree.debug){
               console.log("跟随结束: "+this.char.charData.pvpId + " tag:"+(this.char.target as Character).charData.pvpId);
           }
@@ -164,11 +167,13 @@ export  class FollowTargetAct  extends CharActionBeha
     }
     public initProperties(behaData:BehaData):void{
        this.followOffset=behaData.properties['followOffset'] == 1?true:false;
+       this.atkCloseDic=behaData.properties['atkCloseDic'];
    }
     /**
      *释放 时候;
     **/ 
     onRecycle(): void {
+        this.atkCloseDic=0;
         this.followOffset=false;
         super.onRecycle();
     }
@@ -863,4 +868,41 @@ export  class RandomMoveAct  extends CharActionBeha
         this.isMoving=false;
         super.onRecycle();
     }  
+}
+/// <summary>
+///  删除目标
+/// </summary>
+export  class DelTargetAct  extends CharActionBeha
+{
+     private con_State:number=0;
+     constructor()
+    {
+      super();
+    }
+    public Execute():ResultType
+    {
+      this.lastNode();
+      this.char.setTarget(null);
+      this.lastResultType=ResultType.Success;
+      return ResultType.Success;
+    }
+    public initData(){
+        super.initData();
+    }
+    public reset(){
+        super.reset();
+    }
+    public initProperties(behaData:BehaData):void{
+
+    }
+    /**
+     *释放 时候;
+    **/ 
+    onRecycle(): void {
+        super.onRecycle();
+    }  
+    toString():string{
+      let str:string="treeId:"+this.behaTree.id+" "+this.poolname+" res: "+this.lastResultType;
+      return str;
+    } 
 }
