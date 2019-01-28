@@ -39,6 +39,9 @@ export class Run extends Action
              switch(part){
                  case ENUMS.ControllerCmd.Char_FollowTarget:
                     this.move.followMyTarget();
+                    if(this.skillPart.targetOffset){
+                        this.move.targetOffset=new cc.Vec2(0,-this.skillPart.char.charData.radius/2);
+                    }
                     this.skillPart.char.BindEvent(GameEventID.CharEvent.MOVE_END,this.onMoveToPosEnd,this);
                  break;
                  case  ENUMS.ControllerCmd.Char_MoveToPos:

@@ -43,6 +43,11 @@ export class MovePart extends RecycleAble implements IUpdate
     public ImmDir:boolean=false;
     //是否跟随目标;
     public targetData:PosData;
+     //跟随目标偏移;
+     public targetOffset:cc.Vec2=cc.Vec2.ZERO;
+     private targetLastAngle:number;
+     private targetVetOf:cc.Vec2=cc.Vec2.ZERO;
+
      /**单次运动数据***************************************************************************************************
      */
 
@@ -55,7 +60,6 @@ export class MovePart extends RecycleAble implements IUpdate
     constructor()
     {
         super();
-
     }
 
     reset(){
@@ -71,6 +75,11 @@ export class MovePart extends RecycleAble implements IUpdate
         this.ZeroSpeedStop=false;
         this.useMovePoint=false;
         this.useWeightPower=false;
+
+        this.targetOffset=cc.Vec2.ZERO;
+        this.targetLastAngle=9999;
+        this.targetVetOf=cc.Vec2.ZERO;
+
         this.ImmDir=false;
         if(this.debug&&this.targetPosBox){
                 this.targetPosBox.recycleSelf();
@@ -87,6 +96,11 @@ export class MovePart extends RecycleAble implements IUpdate
         this.obj=obj;
         this._moveSpeed= cc.Vec2.ZERO;
         this._moveRoate =cc.Vec2.ZERO;
+
+        this.targetOffset=cc.Vec2.ZERO;
+        this.targetLastAngle=9999;
+        this.targetVetOf=cc.Vec2.ZERO;
+
         if(this.pos.faceToRotation){
             this.pos.forwardDirection= MyMath.RotateToVec2(this.pos.angle);
      //       console.log("this.pos.forwardDirection ",this.pos.forwardDirection,this.pos.angle);
@@ -246,8 +260,23 @@ export class MovePart extends RecycleAble implements IUpdate
       */
     private changeDir(dt:number):void{
         if(this.targetData!=null){
-            this._targetDirection=this.targetData.position.sub(this.pos.position);
-            this._targetDirection.normalizeSelf();
+            if(this.targetOffset.equals(cc.Vec2.ZERO)){
+                this._targetDirection=this.targetData.position.sub(this.pos.position);
+                this._targetDirection.normalizeSelf();
+            }else{
+                if(this.targetLastAngle!=this.targetData.angle){
+                    let _anlgel:number=this.targetData.angle*Math.PI/180;
+                    let axisXx:number = Math.cos(_anlgel);  
+                    let axisXy:number = Math.sin(_anlgel);  
+                    this.targetVetOf.x= this.targetOffset.x*axisXx-this.targetOffset.y*axisXy;
+                    this.targetVetOf.y= this.targetOffset.x*axisXy+this.targetOffset.y*axisXx;
+                    this.targetLastAngle=this.targetData.angle
+                }
+                this._targetDirection=this.targetData.position.add(this.targetVetOf).sub(this.pos.position);
+                console.log(this.targetData.position,this.targetVetOf);
+                this._targetDirection.normalizeSelf();
+            }
+
         }else if(this.targetPos!=null){
             this._targetDirection=this.targetPos.sub(this.pos.position);
             this._targetDirection.normalizeSelf();

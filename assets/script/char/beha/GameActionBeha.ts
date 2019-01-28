@@ -92,6 +92,7 @@ export  class SetStateAct  extends CharActionBeha
 /// </summary>
 export  class FollowTargetAct  extends CharActionBeha
 {
+     private followOffset:boolean=false;
      private isfollowing:boolean=false;
      constructor()
     {
@@ -110,10 +111,10 @@ export  class FollowTargetAct  extends CharActionBeha
             return ResultType.Fail;
         }
         if(this.char.charData.currentActionLabel==Stand.name){
-          if(this.behaTree.debug){
+           if(this.behaTree.debug){
                console.log("继续跟随: "+this.char.charData.pvpId + " tag:"+(this.char.target as Character).charData.pvpId);
            }
-           this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_FollowTarget,this.char.target);
+           this.follow();
         }
       }else{
         if(!this.char.hasTarget()){
@@ -125,8 +126,8 @@ export  class FollowTargetAct  extends CharActionBeha
         }
         if(this.behaTree.debug){
              console.log("开始跟随: "+this.char.charData.pvpId + " tag:"+(this.char.target as Character).charData.pvpId);
-          }
-          this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_FollowTarget,this.char.target);
+        }
+          this.follow();
           this.isfollowing=true;
       }
 
@@ -143,6 +144,14 @@ export  class FollowTargetAct  extends CharActionBeha
       this.lastResultType=ResultType.Running;
       return ResultType.Running;
     }
+    private follow(){
+      if(this.followOffset){
+         this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_FollowTargetOffset,this.char.target);
+   //      console.log("offset跟随: ");
+      }else{
+         this.char.ctrl.OnMessage(ENUMS.ControllerCmd.Char_FollowTarget,this.char.target);
+      }
+    }
     public reset(){
       this.isfollowing=false;
         super.reset();
@@ -152,12 +161,13 @@ export  class FollowTargetAct  extends CharActionBeha
       super.initData();
     }
     public initProperties(behaData:BehaData):void{
- //     this.con_State=behaData.properties['state'];
+       this.followOffset=behaData.properties['followOffset'] == 1?true:false;
    }
     /**
      *释放 时候;
     **/ 
     onRecycle(): void {
+        this.followOffset=false;
         super.onRecycle();
     }
     toString():string{

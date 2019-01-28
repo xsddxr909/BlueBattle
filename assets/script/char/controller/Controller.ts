@@ -54,6 +54,21 @@ export class Controller extends RecycleAble implements IController
                     return;
                 }
                 this.char.target=obj;
+                this.char.getSkillPart().targetOffset=false;
+               // if(this.char.charData.currentActionLabel!=Run.name){
+               //     console.log("ControllerCmd: MoveAction  ");
+                     this.char.getSkillPart().doActionSkillByLabel(Run,0,true,ENUMS.ControllerCmd.Char_FollowTarget);
+             //   }
+            }
+            break;
+            case ENUMS.ControllerCmd.Char_FollowTargetOffset:
+            if(param!=null){
+                let obj:ObjBase= param;
+                if(obj.data.isDead){
+                    return;
+                }
+                this.char.target=obj;
+                this.char.getSkillPart().targetOffset=true;
                // if(this.char.charData.currentActionLabel!=Run.name){
                //     console.log("ControllerCmd: MoveAction  ");
                      this.char.getSkillPart().doActionSkillByLabel(Run,0,true,ENUMS.ControllerCmd.Char_FollowTarget);

@@ -20,6 +20,8 @@ export class SkillPart extends RecycleAble
     //遥杆 或者 目标 要去的方向;
     public targetDir:cc.Vec2;
     public targetPos:cc.Vec2;
+    //这个游戏专做 为了让武器靠近目标中心。带上靠右偏移量;
+    public targetOffset:boolean;
     //受击 与攻击表现；
     public  hitdata:t_s_hitData;
     //当前动作类型 1普通攻击 2技能 0其他
@@ -35,6 +37,7 @@ export class SkillPart extends RecycleAble
      */
     public init(char:Character){
         this.char=char;
+        this.targetOffset=false;
         this.skillList.init(this);
     }
     //更新;
@@ -141,6 +144,7 @@ export class SkillPart extends RecycleAble
       this.char=null;
       this.hitdata=null;
       this.skillList.reSet();
+      this.targetOffset=false;
       this.clearAction();
       super.onRecycle();
     }  
@@ -152,6 +156,7 @@ export class SkillPart extends RecycleAble
         this.hitdata=null;
         this.skillList.Release();
         this.skillList=null;
+        this.targetOffset=false;
         this.clearAction();
         super.Release();
     }

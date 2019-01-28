@@ -62,8 +62,8 @@
         "state": 3
       },
       "display": {
-        "x": 816,
-        "y": 420
+        "x": 804,
+        "y": 408
       }
     },
     "17afd65e-ae8d-4608-8bba-76f9ffcfb9f9": {
@@ -263,7 +263,7 @@
       },
       "display": {
         "x": 948,
-        "y": -300
+        "y": -312
       }
     },
     "f13c1986-a174-460a-bc53-caf730407237": {
@@ -276,7 +276,7 @@
       },
       "display": {
         "x": 1080,
-        "y": -720
+        "y": -696
       }
     },
     "2cc08864-f8fc-4090-815e-68bcd01c3a8a": {
@@ -288,8 +288,8 @@
         "power": "7,3"
       },
       "display": {
-        "x": 840,
-        "y": -636
+        "x": 828,
+        "y": -648
       },
       "children": [
         "f13c1986-a174-460a-bc53-caf730407237",
@@ -305,7 +305,7 @@
         "info": "靠近不做事"
       },
       "display": {
-        "x": 1056,
+        "x": 1080,
         "y": -612
       }
     },
@@ -319,7 +319,7 @@
       },
       "display": {
         "x": 960,
-        "y": -168
+        "y": -192
       }
     },
     "f06fd8ec-983b-45b4-a989-afeeb844ae32": {
@@ -401,10 +401,12 @@
       "id": "82e26d02-f203-405b-80cf-ddb303f24241",
       "name": "FollowTarget",
       "title": "FollowTarget",
-      "description": "如果目标死亡，消失，无敌，切warnning",
-      "properties": {},
+      "description": "offset 跟随偏移 敌方无敌、死亡返回失败",
+      "properties": {
+        "followOffset": 1
+      },
       "display": {
-        "x": 816,
+        "x": 804,
         "y": 324
       }
     },
@@ -427,12 +429,12 @@
       "title": "FinTarget <<dic> T<type>",
       "description": "type 0 最近\n        1 等级最弱\n        2 等级最强",
       "properties": {
-        "dic": 800,
+        "dic": 1200,
         "type": 0
       },
       "display": {
-        "x": 1152,
-        "y": 420
+        "x": 1164,
+        "y": 408
       }
     },
     "713c633a-8384-49cd-abcd-772b57b7f9d9": {
@@ -522,7 +524,7 @@
       "title": "WaitFrame <frameCount>",
       "description": "",
       "properties": {
-        "frameCount": 15
+        "frameCount": 6
       },
       "display": {
         "x": 1068,
@@ -535,11 +537,11 @@
       "title": "WaitFrame <frameCount>",
       "description": "",
       "properties": {
-        "frameCount": 15
+        "frameCount": 6
       },
       "display": {
-        "x": 888,
-        "y": -516
+        "x": 852,
+        "y": -528
       }
     },
     "979ed31a-2d94-42a9-8492-e3101d88fb9b": {
@@ -613,7 +615,7 @@
         "Camp": 1
       },
       "display": {
-        "x": 840,
+        "x": 876,
         "y": -768
       }
     },
@@ -676,11 +678,11 @@
       "title": "FinTarget <<dic> T<type>",
       "description": "type 0 最近\n        1 等级最弱\n        2 等级最强",
       "properties": {
-        "dic": 800,
+        "dic": 1200,
         "type": 1
       },
       "display": {
-        "x": 1176,
+        "x": 1188,
         "y": 540
       }
     },
@@ -690,7 +692,7 @@
       "title": "FinTarget <<dic> T<type>",
       "description": "type 0 最近\n        1 等级最弱\n        2 等级最强",
       "properties": {
-        "dic": 1000,
+        "dic": 1400,
         "type": 2
       },
       "display": {
@@ -704,7 +706,7 @@
       "title": "FinHateTarget <dic> Top<top>",
       "description": "Top 0 默认最近仇家\n        1 最高仇家",
       "properties": {
-        "dic": 1200,
+        "dic": 1800,
         "top": 0
       },
       "display": {
@@ -722,8 +724,8 @@
         "top": 1
       },
       "display": {
-        "x": 1224,
-        "y": 720
+        "x": 1236,
+        "y": 732
       }
     },
     "962d4c81-c2c3-4b6a-a2b7-8e89cdd6a1d5": {
@@ -732,10 +734,10 @@
       "title": "BackFormMe <dic>",
       "description": "找范围内 屁股朝向我的人（盾方向在对面的（查找盾距离比中心点距离远>5）?",
       "properties": {
-        "dic": 400
+        "dic": 600
       },
       "display": {
-        "x": 1188,
+        "x": 1176,
         "y": 480
       }
     },
@@ -750,7 +752,7 @@
       },
       "display": {
         "x": 984,
-        "y": -228
+        "y": -252
       }
     },
     "575eb561-554a-40ed-827e-aedd1ed207a9": {
@@ -809,8 +811,8 @@
     }
   },
   "display": {
-    "camera_x": 209.4980506085442,
-    "camera_y": 663.5080952761027,
+    "camera_x": 236.49768771283777,
+    "camera_y": 216.51026679693382,
     "camera_z": 0.75,
     "x": -444,
     "y": 108
@@ -826,15 +828,6 @@
       "properties": {
         "state": 0
       }
-    },
-    {
-      "version": "0.3.0",
-      "scope": "node",
-      "name": "FollowTarget",
-      "category": "action",
-      "title": null,
-      "description": null,
-      "properties": {}
     },
     {
       "version": "0.3.0",
@@ -947,6 +940,17 @@
       "properties": {
         "minDic": 20,
         "range": 80
+      }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "node",
+      "name": "FollowTarget",
+      "category": "action",
+      "title": null,
+      "description": "offset 跟随偏移",
+      "properties": {
+        "followOffset": 0
       }
     }
   ]

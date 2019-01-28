@@ -97,8 +97,8 @@ export class OBB extends RecycleAble implements IObbBox{
         this.axisX.x = Math.cos(this._anlgel);  
         this.axisX.y = Math.sin(this._anlgel);  
           
-        this.axisY.x = -Math.sin(this._anlgel);  
-        this.axisY.y = Math.cos(this._anlgel);  
+        this.axisY.x = - this.axisX.y;  
+        this.axisY.y = this.axisX.x;  
         
         if(this.offsetRotation){
             this.RoffsetX= (this.offsetX*this.axisX.x-this.offsetY*this.axisX.y)*this.scaleX;

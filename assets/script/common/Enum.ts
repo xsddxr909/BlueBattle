@@ -58,6 +58,8 @@ export module ENUMS
          Continue_AI=6,
          Char_FollowTarget=7,
          Char_MoveToPos=8,
+        //本游戏，特殊做，跟随带偏移
+        Char_FollowTargetOffset=9,
      }
        //控制类型...
     export enum CtrlType

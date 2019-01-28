@@ -35,7 +35,7 @@ export default class GameLogic implements IRelease
     }
     public Init()
     {
-        Core.Random.Init(1);  //468
+        Core.Random.Init(2);  //468
         this.frameSync=Core.ObjectPoolMgr.get(FrameSync);
         this.frameSync.initialize(this.FrameSyncUpdate.bind(this));
         this.frameSync.isPlayAlone=true;
