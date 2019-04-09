@@ -27,7 +27,7 @@ export class BackOff extends Action
         super.Update(dt);
     //    console.log("Update"+this.GetName());
         if(!this.move.IsMove()){
-                this.skillPart.doActionSkillByLabel(Stand,0,false);
+                this.skillPart.doActionSkillByLabel("Stand",0,false);
         }
     }
   
@@ -67,7 +67,9 @@ export class BackOff extends Action
      *释放 时候;
      **/ 
     onRecycle(): void {
-      this.skillPart.char.data.faceToRotation=true;
+        if( this.skillPart!=null){
+            this.skillPart.char.data.faceToRotation=true;
+        }
       this.move=null;
       super.onRecycle();
     }  

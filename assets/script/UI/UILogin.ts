@@ -21,8 +21,12 @@ export default class UILogin extends BaseUI
     {
         super.Init();
        // this.UINode.position =  Core.UIRoot.Canvas.position;
+       this.UINode.getChildByName('bg').width =Core.UIRoot.Canvas.width;
+       this.UINode.getChildByName('bg').height =Core.UIRoot.Canvas.height;
+       
         // 按钮点击
         this.m_nbtnLogin = this.UINode.getChildByName('login_Btn');
+        this.m_nbtnLogin.x=Core.UIRoot.Canvas.width/2;
     }
     
     //开始游戏

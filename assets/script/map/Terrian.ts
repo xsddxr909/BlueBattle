@@ -1,13 +1,12 @@
 import IRelease from "../../corelibs/interface/IRelease";
 import TerrainTexCtrl from "./TerrainTexCtrl";
 import WallCtrl from "./WallCtrl";
-import {  Pool, DataPool } from "../../corelibs/util/Pool";
+import { DataPool } from "../../corelibs/util/Pool";
 import Core from "../../corelibs/Core";
 import { ConfigData } from "../ConfigData";
 import QuadTree, { IQuadRect } from "../../corelibs/util/QuadTree";
 import GroundCtrl from "./GroundCtrl";
 import CameraCtrl from "../logic/CameraCtrl";
-import MapManager from "./MapManager";
 
 /**
  * 地图

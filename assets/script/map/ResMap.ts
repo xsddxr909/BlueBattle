@@ -99,9 +99,9 @@ export class ResMap extends RecycleAble
 	 */
 	public  getResScreenXZ(x:number, z:number):ResScreen {
 		if (x < 0 || z < 0 || x > ConfigData.gameMapSize.width || z > ConfigData.gameMapSize.height) {
-			if (x != -1 && z != -1) {
-				console.error("resScreen不存在, x:[" + x + "], y:[" + z + "]");
-			}
+			// if (x != -1 && z != -1) {
+			// 	console.error("resScreen不存在, x:[" + x + "], y:[" + z + "]");
+			// }
 			return null;
 		}
 		if (this.resScreens == null) {
@@ -121,7 +121,7 @@ export class ResMap extends RecycleAble
     public getResScreenByIdx(xIndex:number, zIndex:number):ResScreen {
         let resScreen:ResScreen = this.resScreens[xIndex][zIndex];
         if (resScreen == null) {
-            resScreen = Core.ObjectPoolMgr.get(ResScreen);
+            resScreen = Core.ObjectPoolMgr.get(ResScreen,"ResScreen");
             resScreen.init(this, xIndex, zIndex);
             this.resScreens[xIndex][zIndex] = resScreen;
         }

@@ -10,7 +10,7 @@ export class Stand extends Action
     {
         super();
         this.defultPriority=ENUMS.CancelPriority.Stand_Move;
-    //    this.actionLabel="Stand";
+        this.name="Stand";
     }
 
     //更新;

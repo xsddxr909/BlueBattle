@@ -27,7 +27,7 @@ export class Character extends ObjBase
     constructor()
     {
         super();
-        this.skill=Core.ObjectPoolMgr.get(SkillPart);
+        this.skill=Core.ObjectPoolMgr.get(SkillPart,"SkillPart");
     }
     /**
      * 初始化数据; 创建显示对象;
@@ -74,7 +74,7 @@ export class Character extends ObjBase
     }
     public inView():void{
        if(this.view==null){
-            this.view=Core.ObjectPoolMgr.get(ViewPart);
+            this.view=Core.ObjectPoolMgr.get(ViewPart,"ViewPart");
             this.view.init(this.data.bodyUrl,this.data.id,this.data.zIndex);
             //初始化长度; size()
             this.checkView();

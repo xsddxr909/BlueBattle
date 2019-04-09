@@ -14,6 +14,7 @@ import { AIController } from "../char/controller/AIController";
 
 
 
+
 export default class GameLogic implements IRelease
 {
     //临时;
@@ -29,15 +30,15 @@ export default class GameLogic implements IRelease
  
     constructor()
     {
-        Core.ResourcesMgr.LoadAny(ResStruct.CreateRes("behavior/char/charAi.json",ResType.AnyUrl),this.onload.bind(this));
-    }
-    private onload(){
+  //      Core.ResourcesMgr.LoadRes(ResStruct.CreateRes("behavior/char/charAi.json",ResType.JsonAsset),this.onload.bind(this));
         this.Init();
     }
+    // private onload(){
+    // }
     public Init()
     {
         Core.Random.Init(2);  //468
-        this.frameSync=Core.ObjectPoolMgr.get(FrameSync);
+        this.frameSync=Core.ObjectPoolMgr.get(FrameSync,"FrameSync");
         this.frameSync.initialize(this.FrameSyncUpdate.bind(this));
         this.frameSync.isPlayAlone=true;
         this.frameSync.FrameSpeed=1;
@@ -68,8 +69,8 @@ export default class GameLogic implements IRelease
         charD.myPlayer=true;
         charD.angle=90;
         charD.radius=55;
-        charD.ctrlType=ENUMS.CtrlType.AiCtrl;
-        charD.autoStartAi=true;
+        charD.ctrlType=ENUMS.CtrlType.JoyCtrl;
+        charD.autoStartAi=false;
         charD.pvpId=1;
         charD.position=CharManager.Get().getBrothPoint(charD.radius);
         this.char=CharManager.Get().getNewChar();
@@ -78,10 +79,10 @@ export default class GameLogic implements IRelease
         CameraCtrl.Instance.changeTarget(this.char.view.node);
 
         //碰撞测试;
-   //     this.char.charData.ShowHitBox(true);
+    //    this.char.charData.ShowHitBox(true);
     }
     creatOther(){
-        for (let index = 0; index < 30; index++) {
+        for (let index = 0; index < 20; index++) {
             let charD:CharData=CharManager.Get().charDataPool.get();
             charD.initData();
             charD.radius=55;
@@ -94,7 +95,7 @@ export default class GameLogic implements IRelease
             charOther.init(charD);
     //        (charOther.ctrl as AIController).setDebug(true);
             //碰撞测试;
-    //        charOther.charData.ShowHitBox(true);
+       //     charOther.charData.ShowHitBox(true);
         }
     }
 

@@ -50,7 +50,7 @@ export default class MapManager
     reset(): void
     {
         this.terrian.init();
-        this.resMap=Core.ObjectPoolMgr.get(ResMap);
+        this.resMap=Core.ObjectPoolMgr.get(ResMap,"ResMap");
         this.resMap.init(this.m_stCharNode);
     }
     public recycleAll():void{

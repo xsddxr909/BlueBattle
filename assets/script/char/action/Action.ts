@@ -9,6 +9,7 @@ import {  RecycleAble } from "../../../corelibs/util/Pool";
  */
 export class Action extends RecycleAble  implements IUpdate
 {
+    public name:string;
     //动作在SkillActionPool 中 存储的名称.. nan1@Skill_01 之类.
     public modelName:string;
     //当前使用技能对象;

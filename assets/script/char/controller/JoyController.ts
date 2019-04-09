@@ -59,7 +59,7 @@ export class JoyController extends Controller
   //          console.log("change Type currentActionType===============>");
         }
         if(this.char.charData.currentActionType==0 && (this._lastAngle == 99999 || Math.abs(angle-this._lastAngle) > 5)){
-  //                 console.log("onJoystickMove: 大于5° " +dir);
+      //            console.log("onJoystickMove: 大于5° " +dir);
             this._lastAngle=angle;
             //派发事件 帧同步;
             

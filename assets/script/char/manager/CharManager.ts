@@ -58,13 +58,12 @@ export class CharManager
         if(this.inited)return;
         
         
-        this.charDataPool= new DataPool<CharData>(() => new CharData());
-        this.charDataPool.name="charDataPool";
-        this.characterPool= new ListDataPool<Character>(() => new Character());
-        this.characterPool.name="characterPool";
+        this.charDataPool= new DataPool<CharData>(() => new CharData(),"CharData");
 
-        this.gemPool= new ListDataPool<Gem>(() => new Gem());
-        this.gemPool.name="gemPool";
+        this.characterPool= new ListDataPool<Character>(() => new Character(),"Character");
+
+        this.gemPool= new ListDataPool<Gem>(() => new Gem(),"Gem");
+
 
         this.removeList=new Array<ObjBase>();
       
@@ -212,7 +211,7 @@ export class CharManager
                         character.backOneMove();
                         character.getSkillPart().targetDir=bear.charData.position.sub(hitterCharD.position);
                         character.getSkillPart().hitdata=ConfigXls.Get().t_s_hitData.get(1003);
-                        character.getSkillPart().doActionSkillByLabel(BackOff);
+                        character.getSkillPart().doActionSkillByLabel("BackOff");
                         character.checkUpgrade(bear.charData.getDeadExp());
                         
                         //死亡换 杀你的人的视角。
@@ -225,20 +224,20 @@ export class CharManager
                         bear.onBeaten();
                         bear.getSkillPart().targetDir=hitterCharD.position.sub(bear.charData.position);
                         bear.getSkillPart().hitdata=ConfigXls.Get().t_s_hitData.get(1003);
-                        bear.getSkillPart().doActionSkillByLabel(Dead);
+                        bear.getSkillPart().doActionSkillByLabel("Dead");
 
                         continue;
                          //播放特效;
                     }
                     // 武器碰到了盾
-                    if(hitterCharD.currentActionLabel!=BackOff.name&&hitterCharD.weaponBox!=null&&bear.charData.shieldBox!=null&&hitterCharD.weaponBox.isCollision(bear.charData.shieldBox)){
+                    if(hitterCharD.currentActionLabel!="BackOff"&&hitterCharD.weaponBox!=null&&bear.charData.shieldBox!=null&&hitterCharD.weaponBox.isCollision(bear.charData.shieldBox)){
                     //    console.log(hitterCharD.id+" 武器碰到了盾  "+bear.charData.id);
                         character.backOneMove();
                         character.getSkillPart().hitdata=ConfigXls.Get().t_s_hitData.get(1001);
-                        character.getSkillPart().doActionSkillByLabel(BackOff);
+                        character.getSkillPart().doActionSkillByLabel("BackOff");
                     }
                     // //身体相碰; 算半径碰撞;
-                     if(hitterCharD.currentActionLabel!=BackOff.name){
+                     if(hitterCharD.currentActionLabel!="BackOff"){
                          let dis:number=hitterCharD.radius-character.getDicByTarget(bear,true);
                         if(dis>=0){
                       //      console.log(hitterCharD.id+" 身体相碰  "+bear.charData.id);
@@ -246,11 +245,11 @@ export class CharManager
                             character.getSkillPart().targetDir=bear.charData.position.sub(hitterCharD.position);
                  //           console.log(hitterCharD.id+" vec2ToRotate  "+MyMath.vec2ToRotate( character.getSkillPart().targetDir));
                             character.getSkillPart().hitdata=ConfigXls.Get().t_s_hitData.get(1002);
-                            character.getSkillPart().doActionSkillByLabel(BackOff);
+                            character.getSkillPart().doActionSkillByLabel("BackOff");
 
                             bear.getSkillPart().targetDir=hitterCharD.position.sub(bear.charData.position);
                             bear.getSkillPart().hitdata=ConfigXls.Get().t_s_hitData.get(1002);
-                            bear.getSkillPart().doActionSkillByLabel(BackOff);
+                            bear.getSkillPart().doActionSkillByLabel("BackOff");
                         }
                      }
                 }

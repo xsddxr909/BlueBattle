@@ -7,7 +7,8 @@ export enum ResType
     Prefab = 2,
     AudioClip = 3,
     TextAsset = 4,
-    AnyUrl =5,
+    JsonAsset =5,
+    AnyUrl =6,
 }
 
 

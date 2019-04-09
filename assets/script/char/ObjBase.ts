@@ -24,7 +24,7 @@ export class ObjBase extends EventRecycleAble implements IUpdate
     constructor()
     {
         super();
-        this.move=Core.ObjectPoolMgr.get(MovePart);
+        this.move=Core.ObjectPoolMgr.get(MovePart,"MovePart");
     }
     /**
      * 初始化数据; 创建显示对象;
@@ -39,7 +39,7 @@ export class ObjBase extends EventRecycleAble implements IUpdate
         this.move.Update(dt);
         if(this.data.inCamera){
             if(this.view==null){
-                this.view=Core.ObjectPoolMgr.get(ViewPart);
+                this.view=Core.ObjectPoolMgr.get(ViewPart,"ViewPart");
                 this.view.init(this.data.bodyUrl,this.data.id,this.data.zIndex);
             }
             this.view.getNode().position= this.data.position;

@@ -126,11 +126,11 @@ export class CharData extends PosData implements IObbBox
      constructor()
      {
        super();
-       this.shieldBox=Core.ObjectPoolMgr.get(OBB);
+       this.shieldBox=Core.ObjectPoolMgr.get(OBB,"OBB");
        this.shieldBox.offsetRotation=true;
-       this.weaponBox=Core.ObjectPoolMgr.get(OBB);
+       this.weaponBox=Core.ObjectPoolMgr.get(OBB,"OBB");
        this.weaponBox.offsetRotation=true;
-       this.bodyBox=Core.ObjectPoolMgr.get(OBB);
+       this.bodyBox=Core.ObjectPoolMgr.get(OBB,"OBB");
        this.bodyBox.offsetRotation=true;
      }
 

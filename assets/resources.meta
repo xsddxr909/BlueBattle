@@ -1,5 +1,7 @@
 {
   "ver": "1.0.1",
   "uuid": "a3e26972-1b93-487f-b903-30f8ecab75ab",
+  "isSubpackage": false,
+  "subpackageName": "resources",
   "subMetas": {}
 }

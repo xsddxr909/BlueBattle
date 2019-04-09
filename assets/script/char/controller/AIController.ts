@@ -74,12 +74,12 @@ export class AIController extends Controller
         if(this.isStartAI&&this.behaTree!=null){
             //规避 不能执行AI思考状态; 因为没有受击状态 所以临时这里写。
             if(this.behaTree.isPause()){
-                if(this.char.charData.currentActionLabel!=BackOff.name&&this.char.charData.currentActionLabel!=Dead.name){
+                if(this.char.charData.currentActionLabel!="BackOff"&&this.char.charData.currentActionLabel!="Dead"){
                     this.behaTree.Continue();
                     this.behaTree.Update(dt);
                 }
             }else{
-               if(this.char.charData.currentActionLabel==BackOff.name||this.char.charData.currentActionLabel==Dead.name){
+               if(this.char.charData.currentActionLabel=="BackOff"||this.char.charData.currentActionLabel=="Dead"){
                    this.behaTree.Paused();
                }
                this.behaTree.Update(dt);

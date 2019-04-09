@@ -17,11 +17,12 @@ export interface IPool{
     recycle(item:IRecycleAble ); 
 }
 export class Pool< T extends IRecycleAble> implements IPool{
-    public name:string;
+    public poolName:string;
     protected _list:Array<T>;
     private creator:() => T = null;
-    constructor(creator:(() => T)) {
+    constructor(creator:(() => T),poolName:string) {
         this.creator = creator;
+        this.poolName=poolName;
         this._list=new Array<T>();
     }
     //回收一个对象;
@@ -35,7 +36,7 @@ export class Pool< T extends IRecycleAble> implements IPool{
             item = this._createItem();
         }
         item.pool=this;
-        item.poolname=this.name;
+        item.poolname=this.poolName;
         item.isRecycled = false;
         item.onGet();
         return item;
@@ -63,7 +64,7 @@ export class Pool< T extends IRecycleAble> implements IPool{
        listTemp=null;
     }
     getName(){
-        return this.name;
+        return this.poolName;
     }
 }
 
@@ -137,8 +138,8 @@ export class DataPool< T extends IRecycleAble> extends Pool<T>{
     {
         return ++this.m_iNewID;
     }
-    constructor(creator:(() => T)) {
-        super(creator);
+    constructor(creator:(() => T),poolName:string) {
+        super(creator,poolName);
         this.dataMap =new Map<number,T>();
     }
     get():T  {
@@ -194,8 +195,8 @@ export class DataPool< T extends IRecycleAble> extends Pool<T>{
 export class ListDataPool< T extends IRecycleAble> extends DataPool<T>{
     //包括在缓存中回收中的对象 和 现有使用中的对象 有时候需要用到被回收后的数据..
     private onList:Array<T>;
-    constructor(creator:(() => T)) {
-        super(creator);
+    constructor(creator:(() => T),poolName:string) {
+        super(creator,poolName);
         this.onList=new Array<T>();
     }
     get():T  {
@@ -271,16 +272,17 @@ export class MultiplePool implements IPool{
         }
         return this.map.get(classname).length;
     }
-    public get<T extends RecycleAble>(classFactory: new () => T):T  {
-        if(!this.map.has(classFactory.name)){
-             this.map.set(classFactory.name,new Array<RecycleAble>());
+    public get<T extends RecycleAble>(classFactory: new () => T,poolname:string):T  {
+        if(!this.map.has(poolname)){
+             this.map.set(poolname,new Array<RecycleAble>());
         }
-        let array: Array<RecycleAble>=this.map.get(classFactory.name);
+        let array: Array<RecycleAble>=this.map.get(poolname);
         let item:T = array.pop() as T;
+     //   console.log("Pool get",poolname);
         if(!item) {
             item = new classFactory();
             item.pool=this;
-            item.poolname=classFactory.name;
+            item.poolname=poolname;
             item.isRecycled = false;
             item.id=this.CreateID;
         }
@@ -296,7 +298,6 @@ export class MultiplePool implements IPool{
             this.map.set(classname,new Array<RecycleAble>());
             array.forEach(element => {
                if(element!=null){
-                   element.Release();
                }
            });
            array.length=0;

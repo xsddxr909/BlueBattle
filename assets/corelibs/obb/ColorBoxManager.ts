@@ -32,7 +32,7 @@ export class ColorBoxManager
     public  init():void
     {
         if(this.inited)return;
-        this.boxList=new ListDataPool<ColorBox>(()=>new ColorBox());
+        this.boxList=new ListDataPool<ColorBox>(()=>new ColorBox(),"ColorBox");
         this.inited=true;  
     }
     /**
@@ -42,7 +42,7 @@ export class ColorBoxManager
         let box: ColorBox =  this.boxList.get();
         box.noRot=true;
         box.opacity=opacity;
-        box.ShowOpenTest(true,Core.ObjectPoolMgr.get(OBB).init(pos,width,height,0),color,true);
+        box.ShowOpenTest(true,Core.ObjectPoolMgr.get(OBB,"OBB").init(pos,width,height,0),color,true);
         return box; 
     }
     /**

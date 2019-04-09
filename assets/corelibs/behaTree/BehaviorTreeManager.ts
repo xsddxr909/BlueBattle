@@ -93,7 +93,7 @@ export class BehaviorTreeManager
 
     public creatNodeTree(url:string,data:any=null):BehaTree{
            //下载一个ai json;
-       let behaTree:BehaTree = Core.ObjectPoolMgr.get(BehaTree);
+       let behaTree:BehaTree = Core.ObjectPoolMgr.get(BehaTree,"BehaTree");
        //this.nodeList.get();
        behaTree.init(url,data);
        return behaTree;

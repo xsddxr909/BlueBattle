@@ -7,6 +7,7 @@ import { Action } from "../action/Action";
 import { Run } from "../action/Run";
 import Core from "../../../corelibs/Core";
 import { t_s_hitData } from "../../data/ConfigXls";
+import { ActionManager } from "../action/ActionManager";
 
 /**
  * 技能部件;
@@ -54,11 +55,12 @@ export class SkillPart extends RecycleAble
     getSkillList(): SkillList {
       return this.skillList;
     }
-    public doActionSkillByLabel(actionLabel: any,frame:number=0,chkCencelLV:boolean=true,param:any=null): void {
-        if(this.currentAction!=null&&this.currentAction.poolname==actionLabel.name){
+    public doActionSkillByLabel(actionLabel: string,frame:number=0,chkCencelLV:boolean=true,param:any=null): void {
+        
+        if(this.currentAction!=null&&this.currentAction.poolname==actionLabel){
            return;
         }
-        let tempAction:Action=Core.ObjectPoolMgr.get(actionLabel);
+        let tempAction:Action=Core.ObjectPoolMgr.get(ActionManager.Get().classMapping.get(actionLabel),actionLabel);
         if(chkCencelLV&&!this.chkCancelLvActionSkill(actionLabel,tempAction)){
             tempAction.recycleSelf();
             tempAction=null;
@@ -75,7 +77,7 @@ export class SkillPart extends RecycleAble
         this.char.charData.currentActionType=this.currentAction.actionType;
         this.char.charData.currentActionLabel=this.currentAction.poolname;
     }
-    public chkCancelLvActionSkill(actionLabel: any,linkAction?:Action):boolean{
+    public chkCancelLvActionSkill(actionLabel: string,linkAction?:Action):boolean{
         if(this.currentAction==null){
             return true;
         }
@@ -91,13 +93,13 @@ export class SkillPart extends RecycleAble
      //    console.log("currentAction.cancelPriorityLimit  ",this.currentAction.cancelPriorityLimit,this.currentAction.actionLabel);
          if (this.currentAction.cancelPriorityLimit >= 0)
          {
-             if (actionLabel != Run &&this.skillList.chkSkillisCding(actionLabel.name))
+             if (actionLabel != "Run" &&this.skillList.chkSkillisCding(actionLabel))
              {
                  return false;
              }
              let needrecycle:boolean=false;
              if(linkAction == null){
-                linkAction=Core.ObjectPoolMgr.get(actionLabel);
+                linkAction=Core.ObjectPoolMgr.get(ActionManager.Get().classMapping.get(actionLabel),actionLabel);
                 needrecycle=true;
              } 
        //      console.log("linkAction.cancelPriorityLimit  ",linkAction.cancelPriorityLimit,linkAction.actionLabel);

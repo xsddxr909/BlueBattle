@@ -50,14 +50,14 @@ export class ResScreen extends RecycleAble
     enterScreen(data: PosData): any {
         let idx:number=-1;
         switch(data.poolname){
-            case CharData.name:
+            case "CharData":
              idx =this.charList.indexOf(data);
              if(idx<0){
                 this.charList.push(data);
                 data.screenId=this.screenId;
              }
             break;
-            case GemData.name:
+            case "GemData":
              idx =this.gemList.indexOf(data);
              if(idx<0){
                 this.gemList.push(data);
@@ -69,14 +69,14 @@ export class ResScreen extends RecycleAble
     leaveScreen(data: PosData): any {
         let idx:number=-1;
         switch(data.poolname){
-            case CharData.name:
+            case "CharData":
              idx =this.charList.indexOf(data);
              if(idx>=0){
                 this.charList.splice(idx,1);
                 data.screenId=-1;
              }
             break;
-            case GemData.name:
+            case "GemData":
              idx =this.gemList.indexOf(data);
              if(idx>=0){
                 this.gemList.splice(idx,1);
@@ -93,9 +93,9 @@ export class ResScreen extends RecycleAble
         if( this.leftTime>ConfigData.gemReflushTime){
             //刷新；
             this.addGemCount=ConfigData.map_max_Gem-this.gemList.length;
-      //      console.log("UpdateTask addGemCount",this.addGemCount);
+      //      console.log("UpdateTask addGemCount",this.addGemCount,ConfigData.map_max_Gem,this.gemList.length);
             if(this.addGemCount>=1){
-     //           console.log("UpdateTask creatGem");
+         //       console.log("UpdateTask creatGem");
                 this.creatGem();
                 this.gemReflushTime+=ConfigData.gemReOneflushTime;
             }else if( this.addGemCount<=0){
@@ -104,7 +104,7 @@ export class ResScreen extends RecycleAble
         }
     }
     private creatGem(){
-        let gemD:GemData=Core.ObjectPoolMgr.get(GemData);
+        let gemD:GemData=Core.ObjectPoolMgr.get(GemData,"GemData");
         //  console.log("gemD position",gemD.position);
         gemD.initData();
         if(Core.Random.GetRandom()>0.9){
@@ -129,10 +129,10 @@ export class ResScreen extends RecycleAble
     public inHere(pos:PosData):boolean{
         let idx:number=-1;
         switch(pos.poolname){
-            case CharData.name:
+            case "CharData":
              idx =this.charList.indexOf(pos);
             break;
-            case GemData.name:
+            case "GemData":
              idx =this.gemList.indexOf(pos);
             break;
         }

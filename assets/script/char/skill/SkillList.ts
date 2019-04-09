@@ -36,14 +36,14 @@ export class SkillList extends EventDispatcher implements IUpdate
         this.reSet();
         if(this.skillpart.char.charData.Skills.length>0){
             for (let i = 0; i < this.skillpart.char.charData.Skills.length; i++) {
-                const skill:Skill=Core.ObjectPoolMgr.get(Skill);
+                const skill:Skill=Core.ObjectPoolMgr.get(Skill,"Skill");
                 skill.init(this.skillpart);
                 skill.initData(this.skillpart.char.charData.Skills[i]);
                 this.skillList.push(skill);
                 this.skillDic.set(skill.SkillData().ActionLabel,skill);
             }
         }else{
-            let skill:Skill=Core.ObjectPoolMgr.get(Skill);
+            let skill:Skill=Core.ObjectPoolMgr.get(Skill,"Skill");
             skill.init(this.skillpart);
             skill.initData(this.skillTestId);
             this.skillList.push(skill);

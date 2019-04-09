@@ -60,7 +60,7 @@ export class Run extends Action
          }
      }
      private onMoveToPosEnd(data?: any){
-        this.skillPart.doActionSkillByLabel(Stand,0,false);
+        this.skillPart.doActionSkillByLabel("Stand",0,false);
      }
      /**
       * 切换动作 处理逻辑;
@@ -79,7 +79,9 @@ export class Run extends Action
      *释放 时候;
      **/ 
     onRecycle(): void {
-      this.skillPart.char.UnbindEvent(GameEventID.CharEvent.MOVE_END,this.onMoveToPosEnd,this);
+        if(this.skillPart!=null){
+            this.skillPart.char.UnbindEvent(GameEventID.CharEvent.MOVE_END,this.onMoveToPosEnd,this);
+        }
       this.move=null;
       super.onRecycle();
     }  

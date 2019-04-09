@@ -29,6 +29,8 @@ export default class GameScene extends Scene
        Core.ResourcesMgr.AddLoadResByScene(ResStruct.CreateRes("prefabs/battle/char",ResType.Prefab,true),SceneEnum.GameScene);
        Core.ResourcesMgr.AddLoadResByScene(ResStruct.CreateRes("prefabs/battle/baoshi",ResType.Prefab,true),SceneEnum.GameScene);
        Core.ResourcesMgr.AddLoadResByScene(ResStruct.CreateRes("prefabs/battle/baoshi2",ResType.Prefab,true),SceneEnum.GameScene);
+       //ai
+       Core.ResourcesMgr.AddLoadResByScene(ResStruct.CreateRes("behavior/char/charAi.json",ResType.JsonAsset,false),SceneEnum.GameScene);
     }
     /***
      * 创建UI; 创建场景;

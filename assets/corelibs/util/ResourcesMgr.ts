@@ -494,6 +494,8 @@ export default class ResourcesMgr
                 return cc.AudioClip;
             case ResType.TextAsset:
                 return cc.TextAsset;
+            case ResType.JsonAsset:
+                return cc.JsonAsset;
             default:
                 throw new Error("Error! type Not Found! type:" + type);
         }

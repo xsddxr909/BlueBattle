@@ -34,17 +34,19 @@ export class Controller extends RecycleAble implements IController
                 if(param!=null){
                     let dir= param ;
                     this.char.getSkillPart().targetDir=dir;
-                    if(this.char.charData.currentActionLabel!=Run.name){
+                    if(this.char.charData.currentActionLabel!="Run"){
                    //     console.log("ControllerCmd: MoveAction  ");
-                         this.char.getSkillPart().doActionSkillByLabel(Run);
+                         this.char.getSkillPart().doActionSkillByLabel("Run");
+                    }else{
+                        this.char.getMovePart().setTargetDir(dir);
                     }
                 }
             break;
             case ENUMS.ControllerCmd.Char_StopMove:
              //  console.log("ControllerCmd: Char_StopMove  ");
-             if(this.char.charData.currentActionLabel!=Stand.name){
+             if(this.char.charData.currentActionLabel!="Stand"){
          //       console.log("ControllerCmd: StandAction  ");
-                this.char.getSkillPart().doActionSkillByLabel(Stand);
+                this.char.getSkillPart().doActionSkillByLabel("Stand");
              }
             break;
             case ENUMS.ControllerCmd.Char_FollowTarget:
@@ -55,9 +57,9 @@ export class Controller extends RecycleAble implements IController
                 }
                 this.char.target=obj;
                 this.char.getSkillPart().targetOffset=false;
-               // if(this.char.charData.currentActionLabel!=Run.name){
+               // if(this.char.charData.currentActionLabel!="Run"){
                //     console.log("ControllerCmd: MoveAction  ");
-                     this.char.getSkillPart().doActionSkillByLabel(Run,0,true,ENUMS.ControllerCmd.Char_FollowTarget);
+                     this.char.getSkillPart().doActionSkillByLabel("Run",0,true,ENUMS.ControllerCmd.Char_FollowTarget);
              //   }
             }
             break;
@@ -71,7 +73,7 @@ export class Controller extends RecycleAble implements IController
                 this.char.getSkillPart().targetOffset=true;
                // if(this.char.charData.currentActionLabel!=Run.name){
                //     console.log("ControllerCmd: MoveAction  ");
-                     this.char.getSkillPart().doActionSkillByLabel(Run,0,true,ENUMS.ControllerCmd.Char_FollowTarget);
+                     this.char.getSkillPart().doActionSkillByLabel("Run",0,true,ENUMS.ControllerCmd.Char_FollowTarget);
              //   }
             }
             break;
@@ -82,7 +84,7 @@ export class Controller extends RecycleAble implements IController
               //  if(this.char.charData.currentActionLabel!=Run.name){
                  //     console.log("ControllerCmd: Char_MoveToPos  ",pos);
                      this.char.getSkillPart().targetPos=pos;
-                     this.char.getSkillPart().doActionSkillByLabel(Run,0,true,ENUMS.ControllerCmd.Char_MoveToPos);
+                     this.char.getSkillPart().doActionSkillByLabel("Run",0,true,ENUMS.ControllerCmd.Char_MoveToPos);
               //  }
             }
             break;

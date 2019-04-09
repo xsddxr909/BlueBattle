@@ -11,8 +11,8 @@
   "appSecret": "",
   "encryptJs": true,
   "excludeScenes": [
-    "582ddd87-9057-45dc-8a1f-40a30b89e047",
-    "7ea5afa4-9cac-4f7c-9202-c8c929319372"
+    "7ea5afa4-9cac-4f7c-9202-c8c929319372",
+    "582ddd87-9057-45dc-8a1f-40a30b89e047"
   ],
   "fb-instant-games": {},
   "includeAnySDK": false,
@@ -30,22 +30,22 @@
     "portrait": false,
     "upsideDown": false
   },
-  "packageName": "org.cocos2d.BlueBattle",
+  "packageName": "org.cocos2d.SpaceIO",
   "privateKey": "",
   "qqplay": {
     "REMOTE_SERVER_ROOT": "",
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "zip": false
   },
   "startScene": "e2f001aa-c91a-48da-a4b3-0a6bf952fdbe",
-  "title": "BlueBattle",
-  "webOrientation": "portrait",
+  "title": "SpaceIO",
+  "webOrientation": "auto",
   "wechatgame": {
     "REMOTE_SERVER_ROOT": "",
-    "appid": "wx6ac3f5090a6b99c5",
-    "isSubdomain": false,
+    "appid": "wxbaeb6f31b695f87f",
     "orientation": "landscape",
     "subContext": ""
   },
-  "xxteaKey": "0012b0c3-8c16-49",
+  "xxteaKey": "19430406-849e-4e",
   "zipCompressJs": true
 }

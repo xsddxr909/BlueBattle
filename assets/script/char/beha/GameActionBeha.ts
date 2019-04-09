@@ -114,7 +114,7 @@ export  class FollowTargetAct  extends CharActionBeha
             this.lastResultType=ResultType.Fail;
             return ResultType.Fail;
         }
-        if(this.char.charData.currentActionLabel==Stand.name){
+        if(this.char.charData.currentActionLabel=="Stand"){
            if(this.behaTree.debug){
                console.log("继续跟随: "+this.char.charData.pvpId + " tag:"+(this.char.target as Character).charData.pvpId);
            }
@@ -658,11 +658,11 @@ export  class MoveToGemAct  extends CharActionBeha
         }
       }else{
         //检测移动到没
-        if(this.char.charData.currentActionLabel==Run.name){
+        if(this.char.charData.currentActionLabel=="Run"){
           this.lastResultType=ResultType.Running;
           return ResultType.Running;
         }
-        if(this.char.charData.currentActionLabel==Stand.name){
+        if(this.char.charData.currentActionLabel=="Stand"){
           //移动到了
           if(this.behaTree.debug&&this.behaTree.allStep){
              console.log(this.char.charData.pvpId,"找宝石>>> 移动 完毕");
@@ -814,14 +814,14 @@ export  class RandomMoveAct  extends CharActionBeha
       }
       if(this.isMoving){
         //检测移动到没
-        if(this.char.charData.currentActionLabel==Run.name){
+        if(this.char.charData.currentActionLabel=="Run"){
          // if(this.behaTree.debug){
         //  console.log("随机移动 >>>  中: "+this.char.charData.id,this.char.charData.position);
          // }
           this.lastResultType=ResultType.Running;
           return ResultType.Running;
         }
-        if(this.char.charData.currentActionLabel==Stand.name){
+        if(this.char.charData.currentActionLabel=="Stand"){
           //移动到了
           if(this.behaTree.debug){
               console.log("随机移动 >>>  完毕: "+this.char.charData.id,this.char.charData.position);

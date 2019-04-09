@@ -36,7 +36,7 @@ export class BehaTree extends NodeCombiner {
             this.recycleChild();
             this.url = url;
             //加载jason 并初始化序列;
-            Core.ResourcesMgr.LoadAny(ResStruct.CreateRes(url,ResType.AnyUrl),this.onload.bind(this));
+            Core.ResourcesMgr.LoadRes(ResStruct.CreateRes(url,ResType.JsonAsset),this.onload.bind(this));
         }
         else {
             this.reset();
@@ -77,7 +77,7 @@ export class BehaTree extends NodeCombiner {
                 console.log("No >>>= BehaviorTree type: "+b.name);
                 continue;
             }
-            const  nodes:NodeBase=Core.ObjectPoolMgr.get(BehaviorTreeManager.Get().classMapping.get(b.name));
+            const  nodes:NodeBase=Core.ObjectPoolMgr.get(BehaviorTreeManager.Get().classMapping.get(b.name),b.name);
             nodes.md5Id=b.id;
             if(b.children){
                 nodes.childStr=b.children;

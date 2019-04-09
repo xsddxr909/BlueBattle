@@ -41,9 +41,9 @@ export class CtrlManager
     public getController(type:ENUMS.CtrlType):Controller{
             switch(type){
                 case ENUMS.CtrlType.JoyCtrl:
-                  return  Core.ObjectPoolMgr.get(JoyController);
+                  return  Core.ObjectPoolMgr.get(JoyController,"JoyController");
                   case ENUMS.CtrlType.AiCtrl:
-                  return  Core.ObjectPoolMgr.get(AIController);
+                  return  Core.ObjectPoolMgr.get(AIController,"AIController");
             }
     }
 
